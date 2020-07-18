@@ -1,2 +1,5 @@
 build/*
 artifacts/*
+vivado*.jou
+vivado*.log
+vivado*.str
