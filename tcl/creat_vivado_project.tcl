@@ -1141,7 +1141,7 @@ pagesize -pg 1 -db -bbox -sgen -60 0 2060 1040
   add_files -norecurse [make_wrapper -files [get_files ${design_name}.bd] -top]
   close_bd_design $design_name 
 }
-}
+
 # H128B717------------------------------------------------------------------------
 # Create IPs in HDL modules
 # H128B717------------------------------------------------------------------------
