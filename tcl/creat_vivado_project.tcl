@@ -117,10 +117,10 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 # Import local files from the original project
-set files [list \
- [file normalize "${origin_dir}/build/pl/vivado/vivado.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.vhd" ]\
-]
-set imported_files [import_files -fileset sources_1 $files]
+# set files [list \
+# [file normalize "${origin_dir}/build/pl/vivado/vivado.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.vhd" ]\
+# ]
+# set imported_files [import_files -fileset sources_1 $files]
 
 # Set 'sources_1' fileset file properties for remote files
 # None
