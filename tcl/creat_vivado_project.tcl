@@ -88,7 +88,7 @@ set orig_proj_dir "[file normalize "$origin_dir/build/pl/vivado"]"
 
 # H128B717------------------------------------------------------------------------
 # Create project
-create_project ${_xil_proj_name_} ${origin_dir}/${_xil_proj_name_} -part xczu7ev-fbvb900-1-i
+create_project ${_xil_proj_name_} ${origin_dir}/build/pl/${_xil_proj_name_} -part xczu7ev-fbvb900-1-i
 # H128B717------------------------------------------------------------------------
 
 # Set the directory path for the new project
