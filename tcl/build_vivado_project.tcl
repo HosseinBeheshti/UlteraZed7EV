@@ -23,7 +23,7 @@ launch_runs impl_1 -to_step write_bitstream -jobs $core_cnt
 wait_on_run impl_1
 #----------------------------------------------------------
 #----------------------------------------------------------
-set_property pfm_name {} [get_files -all {./${project_folder}/vivado.srcs/sources_1/bd/design_1/design_1.bd}]
+set_property pfm_name {} [get_files -all ./${project_folder}/vivado.srcs/sources_1/bd/design_1/design_1.bd]
 write_hw_platform -fixed -include_bit -force -file ./${platform_export_path}/design_1_wrapper.xsa
 exit
 
