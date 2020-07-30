@@ -5,10 +5,10 @@ cd ./build/apu
 echo "Started at" >> ./build_petalinux_project_runtime.txt
 date >> ./build_petalinux_project_runtime.txt
 # create project
-petalinux-create --type project --template zynqMP --name uz7ev
+petalinux-create --type project --template zynqMP --name ultrazed7ev
 # import hw
 cp ../pl/design_1_wrapper.xsa ./design_1_wrapper.xsa
-cd uz7ev
+cd ultrazed7ev
 # configure project
 petalinux-config --get-hw-description=../
 # warning: current version need to change configuration manually 
