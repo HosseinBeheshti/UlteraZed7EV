@@ -55,3 +55,5 @@ petalinux-build
 petalinux-package --boot --format BIN --fsbl images/linux/zynqmp_fsbl.elf --u-boot images/linux/u-boot.elf --pmufw images/linux/pmufw.elf --fpga images/linux/system.bit --force
 echo "Finished at" >> ./build_petalinux_project_runtime.txt
 date >> ./build_petalinux_project_runtime.txt
+# picocom terminal
+## sudo picocom -b 115200 -r -l /dev/ttyUSB0
