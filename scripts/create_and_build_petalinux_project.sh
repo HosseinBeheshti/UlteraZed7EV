@@ -20,6 +20,7 @@ petalinux-config --get-hw-description=../
 #                       (press Enter)
 # 2) Provide the path of sstate-cache from above
 #           Ex: /<path>/aarch64  for ZynqMP projects
+#           (Ex: /tools/Xilinx/petalinux/sstate_aarch64_2020.1/aarch64)
 # 
 # Setting download mirror
 # 3) run petalinux-config
@@ -30,6 +31,7 @@ petalinux-config --get-hw-description=../
 # 
 # 4) Provide the path of sstate-cache from above
 #       file://<path>/downloads for all projects
+#       (Ex: file:///tools/Xilinx/petalinux/downloads)
 # 
 # 5) run petalinux-config
 #        -> Yocto Settings
