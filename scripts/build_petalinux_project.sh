@@ -2,7 +2,7 @@
 shopt -s extglob
 ORG_DIR=$(pwd) 
 PROJ_NAME=ultrazed7ev
-PROJ_DIR=$ORG_DIR/build/apu/$PROJ_NAM
+PROJ_DIR=$ORG_DIR/build/apu/$PROJ_NAME
 
 echo "Started at" >> $ORG_DIR/build_petalinux_project_runtime.txt
 date >> $ORG_DIR/build_petalinux_project_runtime.txt
