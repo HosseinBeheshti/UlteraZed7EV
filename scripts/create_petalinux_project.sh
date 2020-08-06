@@ -1,13 +1,13 @@
 #!/bin/bash
 shopt -s extglob
-echo "Started at" >> ./create_petalinux_project_runtime.txt
-date >> ./create_petalinux_project_runtime.txt
 # directory settings
 ORG_DIR=$(pwd) 
 PROJ_NAME=ultrazed7ev
 PROJ_DIR=$ORG_DIR/build/apu/$PROJ_NAME
 mkdir -p ./build/apu/
 
+echo "Started at" >> $ORG_DIR/create_petalinux_project_runtime.txt
+date >> $ORG_DIR/create_petalinux_project_runtime.txt
 if [ -d "$PROJ_DIR" ]; then
      printf "Removing previous files ...\n"
      rm -rf $PROJ_DIR;
@@ -20,5 +20,5 @@ petalinux-create --type project --template zynqMP --name $PROJ_NAME
 cd $PROJ_DIR
 # get hardware description
 petalinux-config --get-hw-description=../ --silentconfig
-echo "Finished at" >> ./create_petalinux_project_runtime.txt
-date >> ./create_petalinux_project_runtime.txt
+echo "Finished at" >> $ORG_DIR/create_petalinux_project_runtime.txt
+date >> $ORG_DIR/create_petalinux_project_runtime.txt
