@@ -1,0 +1,10 @@
+/include/ "system-conf.dtsi"
+/ {
+
+};
+
+&sdhci1 {
+	status = "okay";
+	disable-wp;
+	no-1-8-v;
+};
