@@ -3,3 +3,4 @@ artifacts/*
 vivado*.jou
 vivado*.log
 vivado*.str
+*runtime.txt

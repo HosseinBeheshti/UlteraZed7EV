@@ -4053,14 +4053,14 @@ CONFIG_packagegroup-petalinux=y
 #
 # packagegroup-petalinux-display-debug 
 #
-CONFIG_packagegroup-petalinux-display-debug=y
+# CONFIG_packagegroup-petalinux-display-debug is not set
 # CONFIG_packagegroup-petalinux-display-debug-dbg is not set
 # CONFIG_packagegroup-petalinux-display-debug-dev is not set
 
 #
 # packagegroup-petalinux-gstreamer 
 #
-CONFIG_packagegroup-petalinux-gstreamer=y
+# CONFIG_packagegroup-petalinux-gstreamer is not set
 # CONFIG_packagegroup-petalinux-gstreamer-dev is not set
 # CONFIG_packagegroup-petalinux-gstreamer-dbg is not set
 
@@ -4130,14 +4130,14 @@ CONFIG_packagegroup-petalinux-openamp=y
 #
 # packagegroup-petalinux-python-modules 
 #
-CONFIG_packagegroup-petalinux-python-modules=y
+# CONFIG_packagegroup-petalinux-python-modules is not set
 # CONFIG_packagegroup-petalinux-python-modules-dbg is not set
 # CONFIG_packagegroup-petalinux-python-modules-dev is not set
 
 #
 # packagegroup-petalinux-qt 
 #
-CONFIG_packagegroup-petalinux-qt=y
+# CONFIG_packagegroup-petalinux-qt is not set
 # CONFIG_packagegroup-petalinux-qt-dev is not set
 # CONFIG_packagegroup-petalinux-qt-dbg is not set
 # CONFIG_imageclass-populate-sdk-qt5 is not set
