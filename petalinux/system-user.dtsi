@@ -4,7 +4,10 @@
 };
 
 &sdhci1 {
-	status = "okay";
 	disable-wp;
 	no-1-8-v;
+};
+
+&dwc3_0 {
+    dr_mode = "host";
 };

@@ -4053,7 +4053,7 @@ CONFIG_packagegroup-petalinux=y
 #
 # packagegroup-petalinux-display-debug 
 #
-# CONFIG_packagegroup-petalinux-display-debug is not set
+CONFIG_packagegroup-petalinux-display-debug=y
 # CONFIG_packagegroup-petalinux-display-debug-dbg is not set
 # CONFIG_packagegroup-petalinux-display-debug-dev is not set
 
@@ -4067,7 +4067,7 @@ CONFIG_packagegroup-petalinux=y
 #
 # packagegroup-petalinux-lmsensors 
 #
-# CONFIG_packagegroup-petalinux-lmsensors is not set
+CONFIG_packagegroup-petalinux-lmsensors=y
 # CONFIG_packagegroup-petalinux-lmsensors-dbg is not set
 # CONFIG_packagegroup-petalinux-lmsensors-dev is not set
 
@@ -4130,14 +4130,14 @@ CONFIG_packagegroup-petalinux-openamp=y
 #
 # packagegroup-petalinux-python-modules 
 #
-# CONFIG_packagegroup-petalinux-python-modules is not set
+CONFIG_packagegroup-petalinux-python-modules=y
 # CONFIG_packagegroup-petalinux-python-modules-dbg is not set
 # CONFIG_packagegroup-petalinux-python-modules-dev is not set
 
 #
 # packagegroup-petalinux-qt 
 #
-# CONFIG_packagegroup-petalinux-qt is not set
+CONFIG_packagegroup-petalinux-qt=y
 # CONFIG_packagegroup-petalinux-qt-dev is not set
 # CONFIG_packagegroup-petalinux-qt-dbg is not set
 # CONFIG_imageclass-populate-sdk-qt5 is not set
@@ -4145,7 +4145,7 @@ CONFIG_packagegroup-petalinux-openamp=y
 #
 # packagegroup-petalinux-qt-extended 
 #
-# CONFIG_packagegroup-petalinux-qt-extended is not set
+CONFIG_packagegroup-petalinux-qt-extended=y
 # CONFIG_packagegroup-petalinux-qt-extended-dbg is not set
 # CONFIG_packagegroup-petalinux-qt-extended-dev is not set
 
@@ -4187,7 +4187,7 @@ CONFIG_packagegroup-petalinux-v4lutils=y
 #
 # packagegroup-petalinux-x11 
 #
-# CONFIG_packagegroup-petalinux-x11 is not set
+CONFIG_packagegroup-petalinux-x11=y
 # CONFIG_packagegroup-petalinux-x11-dev is not set
 # CONFIG_packagegroup-petalinux-x11-dbg is not set
 
