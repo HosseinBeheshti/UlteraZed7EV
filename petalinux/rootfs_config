@@ -4140,7 +4140,7 @@ CONFIG_packagegroup-petalinux-python-modules=y
 CONFIG_packagegroup-petalinux-qt=y
 # CONFIG_packagegroup-petalinux-qt-dev is not set
 # CONFIG_packagegroup-petalinux-qt-dbg is not set
-# CONFIG_imageclass-populate-sdk-qt5 is not set
+CONFIG_imageclass-populate-sdk-qt5=y
 
 #
 # packagegroup-petalinux-qt-extended 
