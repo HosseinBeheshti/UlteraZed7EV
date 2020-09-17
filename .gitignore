@@ -1,6 +1,8 @@
 build/*
 artifacts/*
+**/slprj
 vivado*.jou
 vivado*.log
 vivado*.str
 *runtime.txt
+*.slxc
