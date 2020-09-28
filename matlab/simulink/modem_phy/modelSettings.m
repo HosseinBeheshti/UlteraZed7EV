@@ -1,13 +1,16 @@
 %% input transmitted image
 inputImage = imread('liftingbody.png');
-resizeImage = imresize(inputImage,[128 128]);
+resizeImage = imresize(inputImage, [128 128]);
 vectorizedImage = resizeImage(:);
-transmitImage = zeros(1,length(vectorizedImage)/8);
+transmitImage = zeros(1, length(vectorizedImage) / 8);
 shiftVector = 256.^(0:7)';
-for i=1:length(vectorizedImage)/8
-    subsetVector = vectorizedImage(8*(i-1)+1:8*(i));
-    transmitImage(i) = sum(double(subsetVector).*shiftVector);
+
+for i = 1:length(vectorizedImage) / 8
+    subsetVector = vectorizedImage(8 * (i - 1) + 1:8 * (i));
+    transmitImage(i) = sum(double(subsetVector) .* shiftVector);
 end
+transmitImage = repelem(transmitImage,8);
+
 %%
 numHeaderBits = 16;
 %numPreambleBits = 250;
