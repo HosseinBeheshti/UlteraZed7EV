@@ -1,2 +1,2 @@
 addpath('./');
-% uiopen('./combinedTxRx.slx',1)
+uiopen('./combinedTxRx.slx',1)
