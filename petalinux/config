@@ -289,7 +289,7 @@ CONFIG_PRE_MIRROR_URL="file:///tools/Xilinx/petalinux/downloads"
 #
 # Local sstate feeds settings
 #
-CONFIG_YOCTO_LOCAL_SSTATE_FEEDS_URL="/tools/Xilinx/petalinux/sstate_aarch64_2020.1/aarch64"
+CONFIG_YOCTO_LOCAL_SSTATE_FEEDS_URL="/tools/Xilinx/petalinux/sstate_aarch64/aarch64"
 # CONFIG_YOCTO_NETWORK_SSTATE_FEEDS is not set
 # CONFIG_YOCTO_BB_NO_NETWORK is not set
 
