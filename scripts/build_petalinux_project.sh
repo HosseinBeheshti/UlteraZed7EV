@@ -33,6 +33,10 @@ cp $ORG_DIR/petalinux/system-user.dtsi $PROJ_DIR/project-spec/meta-user/recipes-
 # 7) Subsystem AUTO Hardware Settings -> Advanced bootable images storage Settings -> u-boot env partition settings -> image storage media (primary sd)    
 # 
 # 8) Subsystem AUTO Hardware Settings -> SD/SDIO Settings -> Primary SD/SDIO (psu_sd_1) 
+# 
+# 9) Subsystem AUTO Hardware Settings -> Ethernet Settings -> Randomise MAC Address[*] include
+# 
+# 10) Subsystem AUTO Hardware Settings -> Ethernet Settings -> Obtain IP Automatically[*] include
 cp $ORG_DIR/petalinux/config $PROJ_DIR/project-spec/configs/config
 
 # rootfs configuration: $ORG_DIR/petalinux/rootfs_config 
@@ -75,8 +79,11 @@ petalinux-package --sysroot
 # 1) create new Kit:
 #   Tools -> Options 
 # 2) -> kits -> Qt versions -> Add -> Navigate to project location and then to /images/linux/sdk/sysroots/x86_64-petalinux-linux/usr/bin/qt5 and select qmake file.
+# Note: change runtime with repo path
 # 3) -> kits -> compilers -> Add -> GCC -> C -> renamed compiler to ZynqMPSoC_C / Compiler path: <project path>//images/linux/sdk/sysroots/x86_64-petalinux-linux/usr/bin/aarch64-xilinx-linux/aarch64-linux-gnu-gcc
+# Note: change runtime with repo path
 # 4) -> kits -> compilers -> Add -> GCC -> C++ -> renamed compiler to ZynqMPSoC_C++ / Compiler path: <project path>//images/linux/sdk/sysroots/x86_64-petalinux-linux/usr/bin/aarch64-xilinx-linux/aarch64-linux-gnu-g++
+# Note: change runtime with repo path
 # 5) sudo apt-get install gdb-multiarch
 # 6) -> kits -> Debugger -> Add -> named debugger Multiarch_GDB / path:  /usr/bin/gdb-multiarch
 # Note: Before this step turn on the board and connect it to the internet.
@@ -85,12 +92,12 @@ petalinux-package --sysroot
 #       sysroot: <project path>/images/linux/sdk/sysroots
 #       Device type: Generic Linux Device 
 #       Device: UltraZedEV
-#       compiler: C -> ZynqMPSoC_C / C++ -> ZynqMPSoC_C++  
+#       compiler: C -> <path>/aarch64-linux-gnu-g / <path>/aarch64-linux-gnu-g++
 #       debugger: Multiarch_GDB
-#       Qt version: ???
+#       Qt version: <path>/Qt 5.13.2 (system)
 # 8) close Qt creator
 #
-# 9) source ./images/linux/sdk/environment-setup-aarch64-xilinx-linux
+# 9) source <project path>/images/linux/sdk/environment-setup-aarch64-xilinx-linux
 #
 # 10) run Qt: {installation directory of Qt}/Tools/QtCreator/bin/qtcreator
 #
@@ -104,7 +111,7 @@ petalinux-package --sysroot
 #   Now we need to complete last steps. Qt Creator doesn't know where to transfer 
 #   executable file so we must tell this by editing.pro file. 
 #   Open it and add these line below TARGET =... line:
-#       target.files = Ultra96_Hello_world
+#       target.files = UltraZed7EV_led_test
 #       target.path = /home/root
 #       INSTALLS += target
 #   These lines will tell Qt Creator where to put and how to name executable file in our Ultra96 development board. Click File -> Save All.
@@ -127,3 +134,7 @@ date >> $ORG_DIR/build_petalinux_project_runtime.txt
 # $ sudo tar xvf rootfs.tar.gz -C /media/rootfs
 # picocom terminal
 # sudo picocom -b 115200 -r -l /dev/ttyUSB0 
+# change ip core of board
+# ifconfig eth0 10.1.1.11 netmask 255.255.255.0
+# copy file
+# scp <app_file> root@10.1.1.11:/home/petalinux/
