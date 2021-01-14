@@ -1,5 +1,7 @@
 build/*
 artifacts/*
+qt/sdk/*
+qt/build*
 **/slprj
 vivado*.jou
 vivado*.log
