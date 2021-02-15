@@ -654,13 +654,13 @@ proc create_hier_cell_mpsoc_ss { parentCell nameHier } {
   current_bd_instance $hier_obj
 
   # Create interface pins
-  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_HP0_FPD
-
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_HP1_FPD
 
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_HP2_FPD
 
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_HPC0_FPD
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_HPC1_FPD
 
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 dma_s_axi_lite
 
@@ -2102,7 +2102,7 @@ proc create_hier_cell_mpsoc_ss { parentCell nameHier } {
    CONFIG.PSU__PROTECTION__FPD_SEGMENTS {SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
    CONFIG.PSU__PROTECTION__LOCK_UNUSED_SEGMENTS {0} \
    CONFIG.PSU__PROTECTION__LPD_SEGMENTS {SA:0xFF980000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF5E0000; SIZE:2560; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFCC0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF180000; SIZE:768; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF410000; SIZE:640; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFA70000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF9A0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|SA:0xFF5E0000 ; SIZE:2560; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFFCC0000 ; SIZE:64; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFF180000 ; SIZE:768; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFF9A0000 ; SIZE:64; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
-   CONFIG.PSU__PROTECTION__MASTERS {USB1:NonSecure;0|USB0:NonSecure;1|S_AXI_LPD:NA;0|S_AXI_HPC1_FPD:NA;0|S_AXI_HPC0_FPD:NA;1|S_AXI_HP3_FPD:NA;0|S_AXI_HP2_FPD:NA;1|S_AXI_HP1_FPD:NA;1|S_AXI_HP0_FPD:NA;1|S_AXI_ACP:NA;0|S_AXI_ACE:NA;0|SD1:NonSecure;1|SD0:NonSecure;1|SATA1:NonSecure;1|SATA0:NonSecure;1|RPU1:Secure;1|RPU0:Secure;1|QSPI:NonSecure;1|PMU:NA;1|PCIe:NonSecure;1|NAND:NonSecure;0|LDMA:NonSecure;1|GPU:NonSecure;1|GEM3:NonSecure;1|GEM2:NonSecure;0|GEM1:NonSecure;0|GEM0:NonSecure;0|FDMA:NonSecure;1|DP:NonSecure;1|DAP:NA;1|Coresight:NA;1|CSU:NA;1|APU:NA;1} \
+   CONFIG.PSU__PROTECTION__MASTERS {USB1:NonSecure;0|USB0:NonSecure;1|S_AXI_LPD:NA;0|S_AXI_HPC1_FPD:NA;1|S_AXI_HPC0_FPD:NA;1|S_AXI_HP3_FPD:NA;0|S_AXI_HP2_FPD:NA;0|S_AXI_HP1_FPD:NA;1|S_AXI_HP0_FPD:NA;1|S_AXI_ACP:NA;0|S_AXI_ACE:NA;0|SD1:NonSecure;1|SD0:NonSecure;1|SATA1:NonSecure;1|SATA0:NonSecure;1|RPU1:Secure;1|RPU0:Secure;1|QSPI:NonSecure;1|PMU:NA;1|PCIe:NonSecure;1|NAND:NonSecure;0|LDMA:NonSecure;1|GPU:NonSecure;1|GEM3:NonSecure;1|GEM2:NonSecure;0|GEM1:NonSecure;0|GEM0:NonSecure;0|FDMA:NonSecure;1|DP:NonSecure;1|DAP:NA;1|Coresight:NA;1|CSU:NA;1|APU:NA;1} \
    CONFIG.PSU__PROTECTION__MASTERS_TZ {GEM0:NonSecure|SD1:NonSecure|GEM2:NonSecure|GEM1:NonSecure|GEM3:NonSecure|PCIe:NonSecure|DP:NonSecure|NAND:NonSecure|GPU:NonSecure|USB1:NonSecure|USB0:NonSecure|LDMA:NonSecure|FDMA:NonSecure|QSPI:NonSecure|SD0:NonSecure} \
    CONFIG.PSU__PROTECTION__OCM_SEGMENTS {NONE} \
    CONFIG.PSU__PROTECTION__PRESUBSYSTEMS {NONE} \
@@ -2267,10 +2267,10 @@ proc create_hier_cell_mpsoc_ss { parentCell nameHier } {
    CONFIG.PSU__USE__S_AXI_ACE {0} \
    CONFIG.PSU__USE__S_AXI_ACP {0} \
    CONFIG.PSU__USE__S_AXI_GP0 {1} \
-   CONFIG.PSU__USE__S_AXI_GP1 {0} \
+   CONFIG.PSU__USE__S_AXI_GP1 {1} \
    CONFIG.PSU__USE__S_AXI_GP2 {1} \
    CONFIG.PSU__USE__S_AXI_GP3 {1} \
-   CONFIG.PSU__USE__S_AXI_GP4 {1} \
+   CONFIG.PSU__USE__S_AXI_GP4 {0} \
    CONFIG.PSU__USE__S_AXI_GP5 {0} \
    CONFIG.PSU__USE__S_AXI_GP6 {0} \
    CONFIG.PSU__USE__USB3_0_HUB {0} \
@@ -2304,15 +2304,15 @@ proc create_hier_cell_mpsoc_ss { parentCell nameHier } {
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins gpio_led] [get_bd_intf_pins ps8_0_axi_periph/M01_AXI]
   connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins gpio_push_button] [get_bd_intf_pins ps8_0_axi_periph/M02_AXI]
   connect_bd_intf_net -intf_net Conn4 [get_bd_intf_pins dma_s_axi_lite] [get_bd_intf_pins ps8_0_axi_periph_1/M00_AXI]
-  connect_bd_intf_net -intf_net Conn5 [get_bd_intf_pins S_AXI_HP0_FPD] [get_bd_intf_pins zynq_ultra_ps_e_0/S_AXI_HP0_FPD]
-  connect_bd_intf_net -intf_net [get_bd_intf_nets Conn5] [get_bd_intf_pins S_AXI_HP0_FPD] [get_bd_intf_pins axi_perf_mon_0/SLOT_1_AXI]
   connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins sdi_s_axi_lite] [get_bd_intf_pins ps8_0_axi_periph_1/M02_AXI]
   connect_bd_intf_net -intf_net S_AXI_HP1_FPD_1 [get_bd_intf_pins S_AXI_HP1_FPD] [get_bd_intf_pins zynq_ultra_ps_e_0/S_AXI_HP1_FPD]
   connect_bd_intf_net -intf_net [get_bd_intf_nets S_AXI_HP1_FPD_1] [get_bd_intf_pins S_AXI_HP1_FPD] [get_bd_intf_pins axi_perf_mon_0/SLOT_2_AXI]
-  connect_bd_intf_net -intf_net S_AXI_HP2_FPD_1 [get_bd_intf_pins S_AXI_HP2_FPD] [get_bd_intf_pins zynq_ultra_ps_e_0/S_AXI_HP2_FPD]
+  connect_bd_intf_net -intf_net S_AXI_HP2_FPD_1 [get_bd_intf_pins S_AXI_HP2_FPD] [get_bd_intf_pins zynq_ultra_ps_e_0/S_AXI_HP0_FPD]
   connect_bd_intf_net -intf_net [get_bd_intf_nets S_AXI_HP2_FPD_1] [get_bd_intf_pins S_AXI_HP2_FPD] [get_bd_intf_pins axi_perf_mon_0/SLOT_3_AXI]
   connect_bd_intf_net -intf_net S_AXI_HPC0_FPD_1 [get_bd_intf_pins S_AXI_HPC0_FPD] [get_bd_intf_pins zynq_ultra_ps_e_0/S_AXI_HPC0_FPD]
   connect_bd_intf_net -intf_net [get_bd_intf_nets S_AXI_HPC0_FPD_1] [get_bd_intf_pins S_AXI_HPC0_FPD] [get_bd_intf_pins axi_perf_mon_0/SLOT_0_AXI]
+  connect_bd_intf_net -intf_net S_AXI_HPC1_FPD_1 [get_bd_intf_pins S_AXI_HPC1_FPD] [get_bd_intf_pins zynq_ultra_ps_e_0/S_AXI_HPC1_FPD]
+  connect_bd_intf_net -intf_net [get_bd_intf_nets S_AXI_HPC1_FPD_1] [get_bd_intf_pins S_AXI_HPC1_FPD] [get_bd_intf_pins axi_perf_mon_0/SLOT_1_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_1_M01_AXI [get_bd_intf_pins vcu_s_axi_lite] [get_bd_intf_pins ps8_0_axi_periph_1/M01_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M03_AXI [get_bd_intf_pins axi_perf_mon_0/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M03_AXI]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_FPD [get_bd_intf_pins ps8_0_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_FPD]
@@ -2326,13 +2326,80 @@ proc create_hier_cell_mpsoc_ss { parentCell nameHier } {
   connect_bd_net -net axi_perf_mon_0_interrupt [get_bd_pins axi_perf_mon_0/interrupt] [get_bd_pins xlconcat_0/In4]
   connect_bd_net -net dcm_locked_1 [get_bd_pins dcm_locked] [get_bd_pins rst_ps8_0_99M/dcm_locked]
   connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins pl_clk0_peripheral_aresetn] [get_bd_pins axi_perf_mon_0/s_axi_aresetn] [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/M02_ARESETN] [get_bd_pins ps8_0_axi_periph/M03_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ps8_0_axi_periph_1/ARESETN] [get_bd_pins ps8_0_axi_periph_1/M00_ARESETN] [get_bd_pins ps8_0_axi_periph_1/M01_ARESETN] [get_bd_pins ps8_0_axi_periph_1/M02_ARESETN] [get_bd_pins ps8_0_axi_periph_1/S00_ARESETN] [get_bd_pins rst_ps8_0_99M/peripheral_aresetn]
-  connect_bd_net -net saxihp0_fpd_aclk_1 [get_bd_pins clk_300m] [get_bd_pins axi_perf_mon_0/core_aclk] [get_bd_pins axi_perf_mon_0/slot_0_axi_aclk] [get_bd_pins axi_perf_mon_0/slot_1_axi_aclk] [get_bd_pins axi_perf_mon_0/slot_2_axi_aclk] [get_bd_pins axi_perf_mon_0/slot_3_axi_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihp0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihp1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihp2_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk]
+  connect_bd_net -net saxihp0_fpd_aclk_1 [get_bd_pins clk_300m] [get_bd_pins axi_perf_mon_0/core_aclk] [get_bd_pins axi_perf_mon_0/slot_0_axi_aclk] [get_bd_pins axi_perf_mon_0/slot_1_axi_aclk] [get_bd_pins axi_perf_mon_0/slot_2_axi_aclk] [get_bd_pins axi_perf_mon_0/slot_3_axi_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihp0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihp1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihpc0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihpc1_fpd_aclk]
   connect_bd_net -net slot_0_axi_aresetn_1 [get_bd_pins clk_300m_resetn] [get_bd_pins axi_perf_mon_0/core_aresetn] [get_bd_pins axi_perf_mon_0/slot_0_axi_aresetn] [get_bd_pins axi_perf_mon_0/slot_1_axi_aresetn] [get_bd_pins axi_perf_mon_0/slot_2_axi_aresetn] [get_bd_pins axi_perf_mon_0/slot_3_axi_aresetn]
   connect_bd_net -net vcu_aresetn_Dout [get_bd_pins vcu_resetn] [get_bd_pins vcu_resetn/Dout]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins xlconcat_0/dout] [get_bd_pins zynq_ultra_ps_e_0/pl_ps_irq0]
   connect_bd_net -net zynq_ultra_ps_e_0_emio_gpio_o [get_bd_pins vcu_resetn/Din] [get_bd_pins zynq_ultra_ps_e_0/emio_gpio_o]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins pl_clk0] [get_bd_pins axi_perf_mon_0/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/M02_ACLK] [get_bd_pins ps8_0_axi_periph/M03_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ps8_0_axi_periph_1/ACLK] [get_bd_pins ps8_0_axi_periph_1/M00_ACLK] [get_bd_pins ps8_0_axi_periph_1/M01_ACLK] [get_bd_pins ps8_0_axi_periph_1/M02_ACLK] [get_bd_pins ps8_0_axi_periph_1/S00_ACLK] [get_bd_pins rst_ps8_0_99M/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins pl_resetn0] [get_bd_pins rst_ps8_0_99M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /mpsoc_ss] -layout_string {
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.543902",
+   "Default View_TopLeft":"-208,4",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port S_AXI_HP1_FPD -pg 1 -lvl 0 -x -10 -y 150 -defaultsOSRD
+preplace port S_AXI_HP2_FPD -pg 1 -lvl 0 -x -10 -y 130 -defaultsOSRD
+preplace port S_AXI_HPC0_FPD -pg 1 -lvl 0 -x -10 -y 90 -defaultsOSRD
+preplace port dma_s_axi_lite -pg 1 -lvl 5 -x 1710 -y 1050 -defaultsOSRD
+preplace port gpio_dip_sw -pg 1 -lvl 5 -x 1710 -y 160 -defaultsOSRD
+preplace port gpio_led -pg 1 -lvl 5 -x 1710 -y 180 -defaultsOSRD
+preplace port gpio_push_button -pg 1 -lvl 5 -x 1710 -y 200 -defaultsOSRD
+preplace port sdi_s_axi_lite -pg 1 -lvl 5 -x 1710 -y 1090 -defaultsOSRD
+preplace port vcu_s_axi_lite -pg 1 -lvl 5 -x 1710 -y 1070 -defaultsOSRD
+preplace port S_AXI_HPC1_FPD -pg 1 -lvl 0 -x -10 -y 110 -defaultsOSRD
+preplace port clk_300m -pg 1 -lvl 0 -x -10 -y 210 -defaultsOSRD
+preplace port clk_300m_resetn -pg 1 -lvl 0 -x -10 -y 370 -defaultsOSRD
+preplace port dcm_locked -pg 1 -lvl 0 -x -10 -y 820 -defaultsOSRD
+preplace port dma_mm2s_introut -pg 1 -lvl 0 -x -10 -y 550 -defaultsOSRD
+preplace port dma_s2mm_introut -pg 1 -lvl 0 -x -10 -y 530 -defaultsOSRD
+preplace port pl_clk0 -pg 1 -lvl 5 -x 1710 -y 900 -defaultsOSRD
+preplace port pl_resetn0 -pg 1 -lvl 5 -x 1710 -y 940 -defaultsOSRD
+preplace port vcu_host_interrupt -pg 1 -lvl 0 -x -10 -y 570 -defaultsOSRD
+preplace portBus pl_clk0_peripheral_aresetn -pg 1 -lvl 5 -x 1710 -y 920 -defaultsOSRD
+preplace portBus vcu_resetn -pg 1 -lvl 5 -x 1710 -y 990 -defaultsOSRD
+preplace inst axi_perf_mon_0 -pg 1 -lvl 4 -x 1540 -y 580 -defaultsOSRD
+preplace inst ps8_0_axi_periph -pg 1 -lvl 3 -x 1160 -y 190 -defaultsOSRD
+preplace inst ps8_0_axi_periph_1 -pg 1 -lvl 3 -x 1160 -y 1070 -defaultsOSRD
+preplace inst rst_ps8_0_99M -pg 1 -lvl 3 -x 1160 -y 780 -defaultsOSRD
+preplace inst vcu_resetn -pg 1 -lvl 4 -x 1540 -y 990 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 1 -x 120 -y 500 -defaultsOSRD
+preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 2 -x 590 -y 190 -defaultsOSRD
+preplace netloc In5_1 1 0 1 NJ 530
+preplace netloc In6_1 1 0 1 NJ 550
+preplace netloc In7_1 1 0 1 NJ 570
+preplace netloc Net 1 3 1 1400 500n
+preplace netloc axi_perf_mon_0_interrupt 1 0 5 20 370 220J 410 NJ 410 1370J 250 1680
+preplace netloc dcm_locked_1 1 0 3 NJ 820 NJ 820 NJ
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 2 3 980 440 1370 920 NJ
+preplace netloc saxihp0_fpd_aclk_1 1 0 4 NJ 210 230 460 NJ 460 1380
+preplace netloc slot_0_axi_aresetn_1 1 0 4 10J 360 NJ 360 900J 430 1360
+preplace netloc vcu_aresetn_Dout 1 4 1 NJ 990
+preplace netloc xlconcat_0_dout 1 1 1 240 290n
+preplace netloc zynq_ultra_ps_e_0_emio_gpio_o 1 2 2 940J 10 1350J
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 1 4 280 10 930 420 1390 260 1690J
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 2 3 910 680 1340J 930 1680J
+preplace netloc Conn1 1 3 2 NJ 160 NJ
+preplace netloc ps8_0_axi_periph_1_M01_AXI 1 3 2 NJ 1070 NJ
+preplace netloc ps8_0_axi_periph_M03_AXI 1 3 1 1400 220n
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 2 1 950 70n
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 2 1 920 160n
+preplace netloc S_AXI_HPC0_FPD_1 1 0 4 NJ 90 250 20 970J 370 1360J
+preplace netloc Conn3 1 3 2 NJ 200 NJ
+preplace netloc Conn2 1 3 2 NJ 180 NJ
+preplace netloc Conn4 1 3 2 NJ 1050 NJ
+preplace netloc S_AXI_HP1_FPD_1 1 0 4 NJ 150 260 30 960J 390 1400J
+preplace netloc Conn6 1 3 2 NJ 1090 NJ
+preplace netloc S_AXI_HP2_FPD_1 1 0 4 NJ 130 250 400 NJ 400 NJ
+preplace netloc S_AXI_HPC1_FPD_1 1 0 4 NJ 110 270 380 NJ 380 1380J
+levelinfo -pg 1 -10 120 590 1160 1540 1710
+pagesize -pg 1 -db -bbox -sgen -200 0 1990 1230
+"
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2389,7 +2456,9 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   # Create instance: axi_dma_0, and set properties
   set axi_dma_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 axi_dma_0 ]
   set_property -dict [ list \
+   CONFIG.c_addr_width {64} \
    CONFIG.c_sg_include_stscntrl_strm {0} \
+   CONFIG.c_sg_length_width {26} \
  ] $axi_dma_0
 
   # Create instance: axi_interconnect_0, and set properties
@@ -2423,6 +2492,43 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins clk_300m_resetn] [get_bd_pins axi_dma_0/axi_resetn]
   connect_bd_net -net rst_sysclk_clk_wiz_300M_peripheral_aresetn [get_bd_pins S00_ARESETN] [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_0/S01_ARESETN] [get_bd_pins axi_interconnect_0/S02_ARESETN] [get_bd_pins axis_data_fifo_0/s_axis_aresetn]
   connect_bd_net -net sysclk_clk_wiz_clk_300mhz [get_bd_pins m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_s2mm_aclk] [get_bd_pins axi_dma_0/m_axi_sg_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_0/S01_ACLK] [get_bd_pins axi_interconnect_0/S02_ACLK] [get_bd_pins axis_data_fifo_0/s_axis_aclk]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /dma_ss] -layout_string {
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.867573",
+   "Default View_TopLeft":"-189,-184",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port M00_AXI -pg 1 -lvl 4 -x 1020 -y 220 -defaultsOSRD
+preplace port S_AXI_LITE -pg 1 -lvl 0 -x -10 -y 110 -defaultsOSRD
+preplace port S00_ARESETN -pg 1 -lvl 0 -x -10 -y 220 -defaultsOSRD
+preplace port clk_300m_resetn -pg 1 -lvl 0 -x -10 -y 150 -defaultsOSRD
+preplace port dma_mm2s_introut -pg 1 -lvl 4 -x 1020 -y 20 -defaultsOSRD
+preplace port dma_s2mm_introut -pg 1 -lvl 4 -x 1020 -y 40 -defaultsOSRD
+preplace port m_axi_mm2s_aclk -pg 1 -lvl 0 -x -10 -y 240 -defaultsOSRD
+preplace port s_axi_lite_aclk -pg 1 -lvl 0 -x -10 -y 130 -defaultsOSRD
+preplace inst axi_dma_0 -pg 1 -lvl 2 -x 480 -y 170 -defaultsOSRD
+preplace inst axi_interconnect_0 -pg 1 -lvl 3 -x 850 -y 220 -defaultsOSRD
+preplace inst axis_data_fifo_0 -pg 1 -lvl 1 -x 150 -y 220 -defaultsOSRD
+preplace netloc axi_dma_0_mm2s_introut 1 2 2 670J 20 NJ
+preplace netloc axi_dma_0_s2mm_introut 1 2 2 700J 40 NJ
+preplace netloc mpsoc_ss_pl_clk0 1 0 2 NJ 130 290J
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 0 2 30J 140 270J
+preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 0 3 20 320 NJ 320 680
+preplace netloc sysclk_clk_wiz_clk_300mhz 1 0 3 10 310 280 40 690
+preplace netloc axi_dma_0_M_AXIS_MM2S 1 0 3 30 300 NJ 300 660
+preplace netloc axi_dma_0_M_AXI_MM2S 1 2 1 N 120
+preplace netloc axi_dma_0_M_AXI_S2MM 1 2 1 N 140
+preplace netloc axi_dma_0_M_AXI_SG 1 2 1 N 100
+preplace netloc axi_interconnect_0_M00_AXI 1 3 1 NJ 220
+preplace netloc axis_data_fifo_0_M_AXIS 1 1 1 300 130n
+preplace netloc mpsoc_ss_M00_AXI 1 0 2 NJ 110 NJ
+levelinfo -pg 1 -10 150 480 850 1020
+pagesize -pg 1 -db -bbox -sgen -190 0 1210 400
+"
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2525,7 +2631,7 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
 
   # Create interface connections
   connect_bd_intf_net -intf_net CLK_IN1_D_0_1 [get_bd_intf_ports sysclk_uz7ev] [get_bd_intf_pins sysclk_ss/sysclk_uz7ev]
-  connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins dma_ss/M00_AXI] [get_bd_intf_pins mpsoc_ss/S_AXI_HP0_FPD]
+  connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins dma_ss/M00_AXI] [get_bd_intf_pins mpsoc_ss/S_AXI_HPC1_FPD]
   connect_bd_intf_net -intf_net gth_refclk0_1 [get_bd_intf_ports gth_refclk0] [get_bd_intf_pins sdi_ss/gth_refclk0]
   connect_bd_intf_net -intf_net mpsoc_ss_M00_AXI [get_bd_intf_pins dma_ss/S_AXI_LITE] [get_bd_intf_pins mpsoc_ss/dma_s_axi_lite]
   connect_bd_intf_net -intf_net mpsoc_ss_M01_AXI [get_bd_intf_pins mpsoc_ss/vcu_s_axi_lite] [get_bd_intf_pins vcu_ss/S_AXI_LITE]
@@ -2563,15 +2669,18 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   connect_bd_net -net zero_dout [get_bd_pins sdi_ss/reset] [get_bd_pins zero/dout]
 
   # Create address segments
-  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
-  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
-  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
-  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
-  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
-  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
-  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
-  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
-  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
+  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_DDR_HIGH] -force
+  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_DDR_HIGH] -force
+  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_DDR_HIGH] -force
+  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_DDR_LOW] -force
+  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_DDR_LOW] -force
+  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_DDR_LOW] -force
+  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_PCIE_LOW] -force
+  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_PCIE_LOW] -force
+  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_PCIE_LOW] -force
+  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_QSPI] -force
+  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_QSPI] -force
+  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_QSPI] -force
   assign_bd_address -offset 0xB0000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs dma_ss/axi_dma_0/S_AXI_LITE/Reg] -force
   assign_bd_address -offset 0xA0000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_gpio_dip_sw/S_AXI/Reg] -force
   assign_bd_address -offset 0xA0010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_gpio_led/S_AXI/Reg] -force
@@ -2580,26 +2689,26 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   assign_bd_address -offset 0xB0010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs sdi_ss/v_smpte_uhdsdi_rx_ss_0/S_AXI_CTRL/Reg] -force
   assign_bd_address -offset 0xB0020000 -range 0x00020000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs sdi_ss/v_smpte_uhdsdi_tx_ss_0/S_AXI_CTRL/Reg] -force
   assign_bd_address -offset 0xB0100000 -range 0x00100000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs vcu_ss/vcu_0/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_HIGH] -force
+  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH] -force
+  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH] -force
+  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
+  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
+  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM] -force
+  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM] -force
+  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
+  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
+  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
+  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
   assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_HIGH] -force
+  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_HIGH] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_LOW] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_LOW] -force
-  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_LPS_OCM] -force
   assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_LPS_OCM] -force
-  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_PCIE_LOW] -force
+  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_LPS_OCM] -force
   assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_PCIE_LOW] -force
+  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_PCIE_LOW] -force
   assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_QSPI] -force
   assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_QSPI] -force
-  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH] -force
-  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH] -force
-  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_LOW] -force
-  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_LOW] -force
-  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM] -force
-  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM] -force
-  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_PCIE_LOW] -force
-  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_PCIE_LOW] -force
-  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_QSPI] -force
-  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP4/HP2_QSPI] -force
   assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/Code] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/Code] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] -force
   assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/Code] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM] -force
@@ -2607,76 +2716,73 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/Code] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP0/HPC0_QSPI] -force
 
   # Exclude Address Segments
-  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH]
-  exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM]
-  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH]
-  exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM]
-  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH]
-  exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM]
+  exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_MM2S] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_LPS_OCM]
+  exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_S2MM] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_LPS_OCM]
+  exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces dma_ss/axi_dma_0/Data_SG] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP1/HPC1_LPS_OCM]
 
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.614916",
-   "Default View_TopLeft":"-143,-44",
+   "Default View_ScaleFactor":"0.998934",
+   "Default View_TopLeft":"288,82",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1640 -y 80 -defaultsOSRD
+preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1650 -y 80 -defaultsOSRD
 preplace port gth_refclk0 -pg 1 -lvl 0 -x 0 -y 750 -defaultsOSRD
-preplace port led_8bits -pg 1 -lvl 5 -x 1640 -y 220 -defaultsOSRD
-preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1640 -y 360 -defaultsOSRD
+preplace port led_8bits -pg 1 -lvl 5 -x 1650 -y 220 -defaultsOSRD
+preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1650 -y 360 -defaultsOSRD
 preplace port sysclk_uz7ev -pg 1 -lvl 0 -x 0 -y 190 -defaultsOSRD
 preplace port gth3_rx_n -pg 1 -lvl 0 -x 0 -y 850 -defaultsOSRD
 preplace port gth3_rx_p -pg 1 -lvl 0 -x 0 -y 870 -defaultsOSRD
-preplace port gth3_tx_n -pg 1 -lvl 5 -x 1640 -y 840 -defaultsOSRD
-preplace port gth3_tx_p -pg 1 -lvl 5 -x 1640 -y 860 -defaultsOSRD
-preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1480 -y 80 -defaultsOSRD
-preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1480 -y 220 -defaultsOSRD
-preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1480 -y 360 -defaultsOSRD
+preplace port gth3_tx_n -pg 1 -lvl 5 -x 1650 -y 840 -defaultsOSRD
+preplace port gth3_tx_p -pg 1 -lvl 5 -x 1650 -y 860 -defaultsOSRD
+preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1490 -y 80 -defaultsOSRD
+preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1490 -y 220 -defaultsOSRD
+preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1490 -y 360 -defaultsOSRD
 preplace inst dma_ss -pg 1 -lvl 2 -x 610 -y 520 -defaultsOSRD -resize 318 158
-preplace inst mpsoc_ss -pg 1 -lvl 3 -x 1050 -y 250 -defaultsOSRD
+preplace inst mpsoc_ss -pg 1 -lvl 3 -x 1060 -y 250 -defaultsOSRD
 preplace inst one -pg 1 -lvl 2 -x 610 -y 650 -defaultsOSRD
-preplace inst sdi_ss -pg 1 -lvl 4 -x 1480 -y 830 -defaultsOSRD
+preplace inst sdi_ss -pg 1 -lvl 4 -x 1490 -y 830 -defaultsOSRD
 preplace inst sysclk_ss -pg 1 -lvl 1 -x 190 -y 200 -defaultsOSRD
 preplace inst vcu_ss -pg 1 -lvl 2 -x 610 -y 230 -defaultsOSRD
-preplace inst zero -pg 1 -lvl 3 -x 1050 -y 940 -defaultsOSRD -resize 120 88
-preplace netloc dma_ss_mm2s_introut 1 2 1 830 300n
-preplace netloc dma_ss_s2mm_introut 1 2 1 850 320n
-preplace netloc drpclk_aresetn_1 1 1 3 360J 70 NJ 70 1310
-preplace netloc drpclk_in_1 1 1 3 370 80 NJ 80 1290J
+preplace inst zero -pg 1 -lvl 3 -x 1060 -y 940 -defaultsOSRD -resize 120 88
+preplace netloc dma_ss_mm2s_introut 1 2 1 840 300n
+preplace netloc dma_ss_s2mm_introut 1 2 1 860 320n
+preplace netloc drpclk_aresetn_1 1 1 3 360J 70 NJ 70 1320
+preplace netloc drpclk_in_1 1 1 3 370 80 NJ 80 1300J
 preplace netloc gth3_rx_n_1 1 0 4 NJ 850 NJ 850 NJ 850 NJ
 preplace netloc gth3_rx_p_1 1 0 4 NJ 870 NJ 870 NJ 870 NJ
-preplace netloc mpsoc_ss_Dout 1 1 3 410 390 NJ 390 1250
-preplace netloc mpsoc_ss_pl_clk0 1 1 3 400 400 NJ 400 1320
-preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 100 NJ 100 NJ 100 1250
-preplace netloc one_dout 1 2 2 840 730 1270J
-preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 410 740 NJ 740 1330
-preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 370 330 820
+preplace netloc mpsoc_ss_Dout 1 1 3 410 390 NJ 390 1260
+preplace netloc mpsoc_ss_pl_clk0 1 1 3 400 400 NJ 400 1330
+preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 100 NJ 100 NJ 100 1260
+preplace netloc one_dout 1 2 2 850 730 1280J
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 410 740 NJ 740 1340
+preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 370 330 830
 preplace netloc sdi_ss_gth3_tx_n 1 4 1 NJ 840
 preplace netloc sdi_ss_gth3_tx_p 1 4 1 NJ 860
-preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 380 120 850
+preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 380 120 860
 preplace netloc sysclk_ss_clk_33_33333mhz 1 1 1 N 240
-preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 810 260n
-preplace netloc zero_dout 1 3 1 1340J 890n
-preplace netloc vcu_ss_M00_AXI2 1 2 1 810 220n
-preplace netloc vcu_ss_M00_AXI1 1 2 1 N 200
-preplace netloc vcu_ss_M00_AXI 1 2 1 790 180n
-preplace netloc sdi_ss_VIDEO_OUT 1 3 2 1340 670 1620
-preplace netloc sdi_s_axi_ctrl_1 1 3 1 1300 240n
-preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1280 220n
+preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 790 260n
+preplace netloc zero_dout 1 3 1 1350J 890n
+preplace netloc vcu_ss_M00_AXI2 1 2 1 810 200n
+preplace netloc vcu_ss_M00_AXI1 1 2 1 800 180n
+preplace netloc vcu_ss_M00_AXI 1 2 1 790 160n
+preplace netloc sdi_ss_VIDEO_OUT 1 3 2 1350 670 1630
+preplace netloc sdi_s_axi_ctrl_1 1 3 1 1310 240n
+preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1290 220n
 preplace netloc net_mpsoc_ss_M01_AXI 1 3 1 N 200
-preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1280 60n
+preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1290 60n
 preplace netloc net_axi_gpio_2_GPIO 1 4 1 NJ 360
 preplace netloc net_axi_gpio_1_GPIO 1 4 1 NJ 220
 preplace netloc net_axi_gpio_0_GPIO 1 4 1 NJ 80
-preplace netloc mpsoc_ss_M01_AXI 1 1 3 410 90 NJ 90 1260
-preplace netloc mpsoc_ss_M00_AXI 1 1 3 390 60 NJ 60 1270
+preplace netloc mpsoc_ss_M01_AXI 1 1 3 410 90 NJ 90 1270
+preplace netloc mpsoc_ss_M00_AXI 1 1 3 390 60 NJ 60 1280
 preplace netloc gth_refclk0_1 1 0 4 NJ 750 NJ 750 NJ 750 NJ
-preplace netloc axi_interconnect_0_M00_AXI 1 2 1 800 160n
+preplace netloc axi_interconnect_0_M00_AXI 1 2 1 820 220n
 preplace netloc CLK_IN1_D_0_1 1 0 1 NJ 190
-levelinfo -pg 1 0 190 610 1050 1480 1640
-pagesize -pg 1 -db -bbox -sgen -150 0 1830 1000
+levelinfo -pg 1 0 190 610 1060 1490 1650
+pagesize -pg 1 -db -bbox -sgen -150 0 1840 1000
 "
 }
 

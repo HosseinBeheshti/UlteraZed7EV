@@ -1,6 +1,21 @@
 /include/ "system-conf.dtsi"
 / {
+	axidma_chrdev: axidma_chrdev@0 {
+	    compatible = "xlnx,axidma-chrdev";
+	    dmas = <&dma_ss_axi_dma_0 0 &dma_ss_axi_dma_0 1>;
+	    dma-names = "tx_channel", "rx_channel";
+	};
+};
 
+&dma_ss_axi_dma_0 {
+	dma-channel@b0000000 {
+		dma-channels = <0x0>;
+		xlnx,device-id = <0x0>;
+	};
+	dma-channel@b0000030 {
+		dma-channels = <0x1>;
+		xlnx,device-id = <0x1>;
+	};
 };
 
 &sdhci1 {
