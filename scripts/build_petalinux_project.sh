@@ -128,13 +128,23 @@ date >> $ORG_DIR/build_petalinux_project_runtime.txt
 
 # Configuring SD boot 
 # Ref: UG1144 (v2020.1) PetaLinux Tools Documentation Reference Guide page: 76
-# $ cp images/linux/BOOT.BIN /media/BOOT/ 
-# $ cp images/linux/image.ub /media/BOOT/ 
-# $ cp images/linux/boot.scr /media/BOOT/ 
-# $ sudo tar xvf rootfs.tar.gz -C /media/rootfs
+# $ cp images/linux/BOOT.BIN /media/<user>/BOOT/ 
+# $ cp images/linux/image.ub /media/<user>/BOOT/ 
+# $ cp images/linux/boot.scr /media/<user>/BOOT/ 
+# $ sudo tar xvf rootfs.tar.gz -C /media/<user>/rootfs
+
 # picocom terminal
 # sudo picocom -b 115200 -r -l /dev/ttyUSB0 
+
 # change ip core of board
 # ifconfig eth0 10.1.1.11 netmask 255.255.255.0
 # copy file
 # scp <app_file> root@10.1.1.11:/home/petalinux/
+
+# add custom apps and kernel module
+# create a user module called mymodule in C (the default): 
+# $ petalinux-create -t modules --name mymodule --enable 
+# For example, to create a user application called myapp in C (the default): 
+# $ petalinux-create -t apps --name myapp --enable 
+# Removes the shared state cache of the corresponding component:
+# $petalinux-build -x distclean
