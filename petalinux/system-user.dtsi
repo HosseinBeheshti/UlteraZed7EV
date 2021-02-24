@@ -9,11 +9,9 @@
 
 &dma_ss_axi_dma_0 {
 	dma-channel@b0000000 {
-		dma-channels = <0x0>;
 		xlnx,device-id = <0x0>;
 	};
 	dma-channel@b0000030 {
-		dma-channels = <0x1>;
 		xlnx,device-id = <0x1>;
 	};
 };

@@ -134,12 +134,14 @@ date >> $ORG_DIR/build_petalinux_project_runtime.txt
 # $ sudo tar xvf rootfs.tar.gz -C /media/<user>/rootfs
 
 # picocom terminal
-# sudo picocom -b 115200 -r -l /dev/ttyUSB0 
+# $ sudo picocom -b 115200 -r -l /dev/ttyUSB0 
 
 # change ip core of board
-# ifconfig eth0 10.1.1.11 netmask 255.255.255.0
+# $ ifconfig eth0 10.1.1.11 netmask 255.255.255.0
 # copy file
-# scp <app_file> root@10.1.1.11:/home/petalinux/
+# $ scp <app_file> root@10.1.1.11:/home/petalinux/
+# solve "ssh remote host identification has changed"
+# $ ssh-keygen -R 10.1.1.11
 
 # add custom apps and kernel module
 # create a user module called mymodule in C (the default): 
@@ -147,4 +149,4 @@ date >> $ORG_DIR/build_petalinux_project_runtime.txt
 # For example, to create a user application called myapp in C (the default): 
 # $ petalinux-create -t apps --name myapp --enable 
 # Removes the shared state cache of the corresponding component:
-# $petalinux-build -x distclean
+# $ petalinux-build -x distclean

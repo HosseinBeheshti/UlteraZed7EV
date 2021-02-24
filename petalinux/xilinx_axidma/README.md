@@ -289,3 +289,33 @@ APP_OBJS += util.o
 ````console
  petalinux-build -c axidma-benchmark
 ````
+
+# Build transfer application
+## 1) Create app
+```console
+petalinux-create -t apps --name axidma-transfer --enable 
+
+```
+## 2) Modify axidma-benchmark.bb
+```console
+SRC_URI = "file://axidma_transfer.c \
+           file://axidma_ioctl.h \
+           file://conversion.h \
+           file://libaxidma.h \
+           file://libaxidma.c \
+           file://util.c \
+           file://util.h \
+	       file://Makefile \
+		  "
+```
+## 3) Modify Makefile
+Add:
+````console
+APP_OBJS += libaxidma.o
+APP_OBJS += util.o
+````
+
+## 4) Build app
+````console
+ petalinux-build -c axidma-transfer
+````
