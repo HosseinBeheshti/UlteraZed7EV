@@ -22,7 +22,7 @@ echo "----------------copy new files----------------"
 sudo rm -rf /media/$USER/BOOT/*
 cp $PROJ_DIR/images/linux/BOOT.BIN /media/$USER/BOOT/
 cp $PROJ_DIR/images/linux/image.ub /media/$USER/BOOT/
-cp $PROJ_DIR/images/linux/boot.str /media/$USER/BOOT/
+cp $PROJ_DIR/images/linux/boot.scr /media/$USER/BOOT/
 sudo tar xvf $PROJ_DIR/images/linux/rootfs.tar.gz -C /media/$USER/rootfs
 echo "----------------Sync----------------"
 sync

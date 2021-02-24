@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "gpio_cntrl.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,9 +15,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    gpio_cntrl ZynqLedGPIO;
 
 private slots:
-    void on_LEDTestButton_clicked();
+    void on_LEDStartTestButton_clicked();
+    void blink_LED(int blinkDelay);
 
 private:
     Ui::MainWindow *ui;

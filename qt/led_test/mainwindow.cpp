@@ -2,11 +2,10 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->inputLEDSequence->setInputMask("FF");
+
 }
 
 MainWindow::~MainWindow()
@@ -14,8 +13,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_LEDTestButton_clicked()
+void MainWindow::on_LEDStartTestButton_clicked()
 {
+    int blinkDelay = ui->inputBlinkDelay->text().toInt();
+    blink_LED(blinkDelay);
+}
 
+void MainWindow::blink_LED(int blinkDelay)
+{
+    ZynqLedGPIO;
+    ZynqLedGPIO.blink_operation(blinkDelay*1000);
 }

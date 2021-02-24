@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>379</width>
-    <height>124</height>
+    <width>506</width>
+    <height>123</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,21 +22,21 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Enter number (Hex)</string>
+           <string>Enter blink time (ms)</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="inputLEDSequence">
+         <widget class="QLineEdit" name="inputBlinkDelay">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="LEDTestButton">
+         <widget class="QPushButton" name="LEDStartTestButton">
           <property name="text">
-           <string>LED test</string>
+           <string>Start</string>
           </property>
          </widget>
         </item>
@@ -51,7 +51,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>379</width>
+     <width>506</width>
      <height>22</height>
     </rect>
    </property>
