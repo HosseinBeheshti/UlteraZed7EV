@@ -1,5 +1,6 @@
 build/*
 artifacts/*
+log_data/*
 qt/sdk/*
 qt/build*
 **/slprj
@@ -8,3 +9,4 @@ vivado*.log
 vivado*.str
 *runtime.txt
 *.slxc
+*.asv
