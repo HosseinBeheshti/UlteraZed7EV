@@ -2790,10 +2790,10 @@ if { [get_property IS_LOCKED [ get_files -norecurse design_1.bd] ] == 1  } {
 
 # Create 'synth_1' run (if not found)
 if {[string equal [get_runs -quiet synth_1] ""]} {
-    create_run -name synth_1 -part xczu7ev-fbvb900-1-i -flow {Vivado Synthesis 2020} -strategy "Vivado Synthesis Defaults" -report_strategy {No Reports} -constrset constrs_1
+    create_run -name synth_1 -part xczu7ev-fbvb900-1-i -flow {Vivado Synthesis 2021} -strategy "Vivado Synthesis Defaults" -report_strategy {No Reports} -constrset constrs_1
 } else {
   set_property strategy "Vivado Synthesis Defaults" [get_runs synth_1]
-  set_property flow "Vivado Synthesis 2020" [get_runs synth_1]
+  set_property flow "Vivado Synthesis 2021" [get_runs synth_1]
 }
 set obj [get_runs synth_1]
 set_property set_report_strategy_name 1 $obj
@@ -2815,10 +2815,10 @@ current_run -synthesis [get_runs synth_1]
 
 # Create 'impl_1' run (if not found)
 if {[string equal [get_runs -quiet impl_1] ""]} {
-    create_run -name impl_1 -part xczu7ev-fbvb900-1-i -flow {Vivado Implementation 2020} -strategy "Performance_Explore" -report_strategy {No Reports} -constrset constrs_1 -parent_run synth_1
+    create_run -name impl_1 -part xczu7ev-fbvb900-1-i -flow {Vivado Implementation 2021} -strategy "Performance_Explore" -report_strategy {No Reports} -constrset constrs_1 -parent_run synth_1
 } else {
   set_property strategy "Performance_Explore" [get_runs impl_1]
-  set_property flow "Vivado Implementation 2020" [get_runs impl_1]
+  set_property flow "Vivado Implementation 2021" [get_runs impl_1]
 }
 set obj [get_runs impl_1]
 set_property set_report_strategy_name 1 $obj
