@@ -227,20 +227,22 @@ proc cr_bd_design_1 { parentCell } {
   set bCheckIPs 1
   if { $bCheckIPs == 1 } {
      set list_check_ips "\ 
+  xilinx.com:ip:axis_data_fifo:2.0\
   xilinx.com:ip:axi_gpio:2.0\
   xilinx.com:ip:xlconstant:1.1\
   xilinx.com:ip:axi_dma:7.1\
-  xilinx.com:ip:axis_data_fifo:2.0\
   xilinx.com:ip:system_ila:1.1\
   xilinx.com:ip:axi_perf_mon:5.0\
   xilinx.com:ip:proc_sys_reset:5.0\
   xilinx.com:ip:xlslice:1.0\
   xilinx.com:ip:xlconcat:2.1\
   xilinx.com:ip:zynq_ultra_ps_e:3.3\
+  xilinx.com:ip:smartconnect:1.0\
   xilinx.com:ip:uhdsdi_gt:2.0\
   xilinx.com:ip:util_ds_buf:2.1\
   xilinx.com:ip:v_smpte_uhdsdi_rx_ss:2.0\
   xilinx.com:ip:v_smpte_uhdsdi_tx_ss:2.0\
+  xilinx.com:ip:v_uhdsdi_audio:2.0\
   xilinx.com:ip:clk_wiz:6.0\
   xilinx.com:ip:vcu:1.2\
   "
@@ -371,6 +373,48 @@ proc create_hier_cell_vcu_ss { parentCell nameHier } {
   connect_bd_net -net s_axi_lite_aclk_1 [get_bd_pins s_axi_lite_aclk] [get_bd_pins vcu_0/s_axi_lite_aclk]
   connect_bd_net -net vcu_0_vcu_host_interrupt [get_bd_pins vcu_host_interrupt] [get_bd_pins vcu_0/vcu_host_interrupt]
   connect_bd_net -net vcu_resetn_1 [get_bd_pins vcu_resetn] [get_bd_pins vcu_0/vcu_resetn]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /vcu_ss] -layout_string {
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.853659",
+   "Default View_TopLeft":"-552,-11",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port DEC_M_AXI -pg 1 -lvl 3 -x 680 -y 420 -defaultsOSRD
+preplace port ENC_M_AXI -pg 1 -lvl 3 -x 680 -y 140 -defaultsOSRD
+preplace port S_AXI_LITE -pg 1 -lvl 0 -x -10 -y 280 -defaultsOSRD
+preplace port VCU_MCU -pg 1 -lvl 3 -x 680 -y 690 -defaultsOSRD
+preplace port clk_300m -pg 1 -lvl 0 -x -10 -y 360 -defaultsOSRD
+preplace port clk_300m_resetn -pg 1 -lvl 0 -x -10 -y 110 -defaultsOSRD
+preplace port clk_33_33333m -pg 1 -lvl 0 -x -10 -y 340 -defaultsOSRD
+preplace port s_axi_lite_aclk -pg 1 -lvl 0 -x -10 -y 300 -defaultsOSRD
+preplace port vcu_host_interrupt -pg 1 -lvl 3 -x 680 -y 570 -defaultsOSRD
+preplace portBus vcu_resetn -pg 1 -lvl 0 -x -10 -y 320 -defaultsOSRD
+preplace inst axi_interconnect_0 -pg 1 -lvl 2 -x 510 -y 140 -defaultsOSRD
+preplace inst axi_interconnect_1 -pg 1 -lvl 2 -x 510 -y 420 -defaultsOSRD
+preplace inst axi_interconnect_2 -pg 1 -lvl 2 -x 510 -y 690 -defaultsOSRD
+preplace inst vcu_0 -pg 1 -lvl 1 -x 170 -y 340 -defaultsOSRD
+preplace netloc M00_ARESETN_1 1 0 2 NJ 110 340
+preplace netloc S00_ACLK_1 1 0 2 10 460 360
+preplace netloc pll_ref_clk_1 1 0 1 NJ 340
+preplace netloc s_axi_lite_aclk_1 1 0 1 NJ 300
+preplace netloc vcu_0_vcu_host_interrupt 1 1 2 330J 570 NJ
+preplace netloc vcu_resetn_1 1 0 1 NJ 320
+preplace netloc vcu_0_M_AXI_MCU 1 1 1 350 370n
+preplace netloc vcu_0_M_AXI_ENC1 1 1 1 350 70n
+preplace netloc vcu_0_M_AXI_ENC0 1 1 1 330 50n
+preplace netloc vcu_0_M_AXI_DEC1 1 1 1 N 350
+preplace netloc vcu_0_M_AXI_DEC0 1 1 1 N 330
+preplace netloc axi_interconnect_2_M00_AXI 1 2 1 NJ 690
+preplace netloc axi_interconnect_1_M00_AXI 1 2 1 NJ 420
+preplace netloc axi_interconnect_0_M00_AXI 1 2 1 NJ 140
+preplace netloc S_AXI_LITE_1 1 0 1 NJ 280
+levelinfo -pg 1 -10 170 510 680
+pagesize -pg 1 -db -bbox -sgen -180 -10 870 810
+"
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -520,6 +564,10 @@ proc create_hier_cell_sdi_ss { parentCell nameHier } {
   current_bd_instance $hier_obj
 
   # Create interface pins
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:axis_rtl:1.0 AUDIO_IN
+
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 AUDIO_OUT
+
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:axis_rtl:1.0 VIDEO_IN
 
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 VIDEO_OUT
@@ -542,13 +590,6 @@ proc create_hier_cell_sdi_ss { parentCell nameHier } {
   create_bd_pin -dir I -type clk s_axi_aclk
   create_bd_pin -dir I -type rst s_axi_arstn
 
-  # Create instance: axi_interconnect_0, and set properties
-  set axi_interconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0 ]
-  set_property -dict [ list \
-   CONFIG.S00_HAS_DATA_FIFO {2} \
-   CONFIG.STRATEGY {2} \
- ] $axi_interconnect_0
-
   # Create instance: rst_uhdsdi_gt_0_148M, and set properties
   set rst_uhdsdi_gt_0_148M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_uhdsdi_gt_0_148M ]
   set_property -dict [ list \
@@ -562,6 +603,15 @@ proc create_hier_cell_sdi_ss { parentCell nameHier } {
    CONFIG.RESET_BOARD_INTERFACE {reset} \
    CONFIG.USE_BOARD_FLOW {true} \
  ] $rst_uhdsdi_gt_0_148M_1
+
+  # Create instance: smartconnect_0, and set properties
+  set smartconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 smartconnect_0 ]
+  set_property -dict [ list \
+   CONFIG.HAS_ARESETN {1} \
+   CONFIG.NUM_CLKS {1} \
+   CONFIG.NUM_MI {4} \
+   CONFIG.NUM_SI {1} \
+ ] $smartconnect_0
 
   # Create instance: uhdsdi_gt_0, and set properties
   set uhdsdi_gt_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:uhdsdi_gt:2.0 uhdsdi_gt_0 ]
@@ -583,38 +633,134 @@ proc create_hier_cell_sdi_ss { parentCell nameHier } {
 
   # Create instance: v_smpte_uhdsdi_tx_ss_0, and set properties
   set v_smpte_uhdsdi_tx_ss_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:v_smpte_uhdsdi_tx_ss:2.0 v_smpte_uhdsdi_tx_ss_0 ]
+  set_property -dict [ list \
+   CONFIG.C_INCLUDE_ADV_FEATURES {true} \
+ ] $v_smpte_uhdsdi_tx_ss_0
+
+  # Create instance: v_uhdsdi_audio_embedder, and set properties
+  set v_uhdsdi_audio_embedder [ create_bd_cell -type ip -vlnv xilinx.com:ip:v_uhdsdi_audio:2.0 v_uhdsdi_audio_embedder ]
+
+  # Create instance: v_uhdsdi_audio_extractor, and set properties
+  set v_uhdsdi_audio_extractor [ create_bd_cell -type ip -vlnv xilinx.com:ip:v_uhdsdi_audio:2.0 v_uhdsdi_audio_extractor ]
+  set_property -dict [ list \
+   CONFIG.C_AUDIO_FUNCTION {Extract} \
+   CONFIG.C_ENABLE_PER_GROUP_AXIS {false} \
+ ] $v_uhdsdi_audio_extractor
 
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins gth_refclk0] [get_bd_intf_pins util_ds_buf_0/CLK_IN_D]
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins VIDEO_IN] [get_bd_intf_pins v_smpte_uhdsdi_tx_ss_0/VIDEO_IN]
   connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins VIDEO_OUT] [get_bd_intf_pins v_smpte_uhdsdi_rx_ss_0/VIDEO_OUT]
-  connect_bd_intf_net -intf_net S_AXI_CTRL_1 [get_bd_intf_pins sdi_s_axi_ctrl] [get_bd_intf_pins axi_interconnect_0/S00_AXI]
-  connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins axi_interconnect_0/M00_AXI] [get_bd_intf_pins v_smpte_uhdsdi_rx_ss_0/S_AXI_CTRL]
-  connect_bd_intf_net -intf_net axi_interconnect_0_M01_AXI [get_bd_intf_pins axi_interconnect_0/M01_AXI] [get_bd_intf_pins v_smpte_uhdsdi_tx_ss_0/S_AXI_CTRL]
+  connect_bd_intf_net -intf_net sdi_s_axi_ctrl_1 [get_bd_intf_pins sdi_s_axi_ctrl] [get_bd_intf_pins smartconnect_0/S00_AXI]
+  connect_bd_intf_net -intf_net smartconnect_0_M00_AXI [get_bd_intf_pins smartconnect_0/M00_AXI] [get_bd_intf_pins v_smpte_uhdsdi_rx_ss_0/S_AXI_CTRL]
+  connect_bd_intf_net -intf_net smartconnect_0_M01_AXI [get_bd_intf_pins smartconnect_0/M01_AXI] [get_bd_intf_pins v_smpte_uhdsdi_tx_ss_0/S_AXI_CTRL]
+  connect_bd_intf_net -intf_net smartconnect_0_M02_AXI [get_bd_intf_pins smartconnect_0/M02_AXI] [get_bd_intf_pins v_uhdsdi_audio_embedder/S_AXI_CTRL]
+  connect_bd_intf_net -intf_net smartconnect_0_M03_AXI [get_bd_intf_pins smartconnect_0/M03_AXI] [get_bd_intf_pins v_uhdsdi_audio_extractor/S_AXI_CTRL]
   connect_bd_intf_net -intf_net uhdsdi_gt_0_intf_0_rx_axi4s_ch0 [get_bd_intf_pins uhdsdi_gt_0/intf_0_rx_axi4s_ch0] [get_bd_intf_pins v_smpte_uhdsdi_rx_ss_0/S_AXIS_RX]
   connect_bd_intf_net -intf_net uhdsdi_gt_0_intf_0_stat_sb_rx [get_bd_intf_pins uhdsdi_gt_0/intf_0_stat_sb_rx] [get_bd_intf_pins v_smpte_uhdsdi_rx_ss_0/S_AXIS_STS_SB_RX]
   connect_bd_intf_net -intf_net uhdsdi_gt_0_intf_0_stat_sb_tx [get_bd_intf_pins uhdsdi_gt_0/intf_0_stat_sb_tx] [get_bd_intf_pins v_smpte_uhdsdi_tx_ss_0/S_AXIS_STS_SB_TX]
   connect_bd_intf_net -intf_net v_smpte_uhdsdi_rx_ss_0_M_AXIS_CTRL_SB_RX [get_bd_intf_pins uhdsdi_gt_0/intf_0_ctrl_sb_rx] [get_bd_intf_pins v_smpte_uhdsdi_rx_ss_0/M_AXIS_CTRL_SB_RX]
+  connect_bd_intf_net -intf_net v_smpte_uhdsdi_rx_ss_0_SDI_RX_ANC_DS_OUT [get_bd_intf_pins v_smpte_uhdsdi_rx_ss_0/SDI_RX_ANC_DS_OUT] [get_bd_intf_pins v_uhdsdi_audio_extractor/SDI_EXTRACT_ANC_DS_IN]
   connect_bd_intf_net -intf_net v_smpte_uhdsdi_tx_ss_0_M_AXIS_CTRL_SB_TX [get_bd_intf_pins uhdsdi_gt_0/intf_0_ctrl_sb_tx] [get_bd_intf_pins v_smpte_uhdsdi_tx_ss_0/M_AXIS_CTRL_SB_TX]
   connect_bd_intf_net -intf_net v_smpte_uhdsdi_tx_ss_0_M_AXIS_TX [get_bd_intf_pins uhdsdi_gt_0/intf_0_tx_axi4s_ch0] [get_bd_intf_pins v_smpte_uhdsdi_tx_ss_0/M_AXIS_TX]
+  connect_bd_intf_net -intf_net v_smpte_uhdsdi_tx_ss_0_SDI_TX_ANC_DS_OUT [get_bd_intf_pins v_smpte_uhdsdi_tx_ss_0/SDI_TX_ANC_DS_OUT] [get_bd_intf_pins v_uhdsdi_audio_embedder/SDI_EMBED_ANC_DS_IN]
+  connect_bd_intf_net -intf_net v_uhdsdi_audio_0_SDI_EMBED_ANC_DS_OUT [get_bd_intf_pins v_smpte_uhdsdi_tx_ss_0/SDI_TX_ANC_DS_IN] [get_bd_intf_pins v_uhdsdi_audio_embedder/SDI_EMBED_ANC_DS_OUT]
+  connect_bd_intf_net -intf_net v_uhdsdi_audio_1_M_AXIS_DATA [get_bd_intf_pins AUDIO_OUT] [get_bd_intf_pins v_uhdsdi_audio_extractor/M_AXIS_DATA]
 
   # Create port connections
-  connect_bd_net -net Net [get_bd_pins drpclk_aresetn] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/video_out_arstn] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/video_in_arstn]
+  connect_bd_net -net Net [get_bd_pins drpclk_aresetn] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/video_out_arstn] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/video_in_arstn] [get_bd_pins v_uhdsdi_audio_embedder/s_axis_resetn]
   connect_bd_net -net Net1 [get_bd_pins dcm_locked] [get_bd_pins rst_uhdsdi_gt_0_148M/dcm_locked] [get_bd_pins rst_uhdsdi_gt_0_148M_1/dcm_locked]
-  connect_bd_net -net drpclk_in_1 [get_bd_pins drpclk_in] [get_bd_pins uhdsdi_gt_0/drpclk_in] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/video_out_clk] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/video_in_clk]
-  connect_bd_net -net intf_0_rx_axi4s_rst_1 [get_bd_pins rst_uhdsdi_gt_0_148M/peripheral_reset] [get_bd_pins uhdsdi_gt_0/intf_0_rx_axi4s_rst] [get_bd_pins uhdsdi_gt_0/intf_0_sb_rx_rst] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/sdi_rx_rst]
+  connect_bd_net -net drpclk_in_1 [get_bd_pins drpclk_in] [get_bd_pins uhdsdi_gt_0/drpclk_in] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/video_out_clk] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/video_in_clk] [get_bd_pins v_uhdsdi_audio_embedder/s_axis_clk] [get_bd_pins v_uhdsdi_audio_extractor/m_axis_clk]
+  connect_bd_net -net intf_0_rx_axi4s_rst_1 [get_bd_pins rst_uhdsdi_gt_0_148M/peripheral_reset] [get_bd_pins uhdsdi_gt_0/intf_0_rx_axi4s_rst] [get_bd_pins uhdsdi_gt_0/intf_0_sb_rx_rst] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/sdi_rx_rst] [get_bd_pins v_uhdsdi_audio_extractor/sdi_extract_reset]
   connect_bd_net -net intf_0_rxn_0_1 [get_bd_pins gth3_rx_n] [get_bd_pins uhdsdi_gt_0/intf_0_rxn]
   connect_bd_net -net intf_0_rxp_0_1 [get_bd_pins gth3_rx_p] [get_bd_pins uhdsdi_gt_0/intf_0_rxp]
-  connect_bd_net -net net_zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/M01_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/s_axi_aclk] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/s_axi_aclk]
+  connect_bd_net -net net_zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins s_axi_aclk] [get_bd_pins smartconnect_0/aclk] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/s_axi_aclk] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/s_axi_aclk] [get_bd_pins v_uhdsdi_audio_embedder/s_axi_aclk] [get_bd_pins v_uhdsdi_audio_extractor/s_axi_aclk]
   connect_bd_net -net reset_1 [get_bd_pins reset] [get_bd_pins rst_uhdsdi_gt_0_148M/ext_reset_in] [get_bd_pins rst_uhdsdi_gt_0_148M_1/ext_reset_in]
-  connect_bd_net -net rst_uhdsdi_gt_0_148M_1_peripheral_reset [get_bd_pins rst_uhdsdi_gt_0_148M_1/peripheral_reset] [get_bd_pins uhdsdi_gt_0/intf_0_sb_tx_rst] [get_bd_pins uhdsdi_gt_0/intf_0_tx_axi4s_rst] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/sdi_tx_rst]
-  connect_bd_net -net s_axi_arstn_1 [get_bd_pins s_axi_arstn] [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/M01_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/s_axi_arstn] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/s_axi_arstn]
-  connect_bd_net -net uhdsdi_gt_0_intf_0_rxoutclk [get_bd_pins rst_uhdsdi_gt_0_148M/slowest_sync_clk] [get_bd_pins uhdsdi_gt_0/intf_0_rx_axi4s_aclk] [get_bd_pins uhdsdi_gt_0/intf_0_rxoutclk] [get_bd_pins uhdsdi_gt_0/intf_0_sb_rx_clk] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/sdi_rx_clk]
+  connect_bd_net -net rst_uhdsdi_gt_0_148M_1_peripheral_reset [get_bd_pins rst_uhdsdi_gt_0_148M_1/peripheral_reset] [get_bd_pins uhdsdi_gt_0/intf_0_sb_tx_rst] [get_bd_pins uhdsdi_gt_0/intf_0_tx_axi4s_rst] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/sdi_tx_rst] [get_bd_pins v_uhdsdi_audio_embedder/sdi_embed_reset]
+  connect_bd_net -net s_axi_arstn_1 [get_bd_pins s_axi_arstn] [get_bd_pins smartconnect_0/aresetn] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/s_axi_arstn] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/s_axi_arstn] [get_bd_pins v_uhdsdi_audio_embedder/s_axi_aresetn] [get_bd_pins v_uhdsdi_audio_extractor/m_axis_resetn] [get_bd_pins v_uhdsdi_audio_extractor/s_axi_aresetn]
+  connect_bd_net -net uhdsdi_gt_0_intf_0_rxoutclk [get_bd_pins rst_uhdsdi_gt_0_148M/slowest_sync_clk] [get_bd_pins uhdsdi_gt_0/intf_0_rx_axi4s_aclk] [get_bd_pins uhdsdi_gt_0/intf_0_rxoutclk] [get_bd_pins uhdsdi_gt_0/intf_0_sb_rx_clk] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/sdi_rx_clk] [get_bd_pins v_uhdsdi_audio_extractor/sdi_extract_clk]
   connect_bd_net -net uhdsdi_gt_0_intf_0_txn [get_bd_pins gth3_tx_n] [get_bd_pins uhdsdi_gt_0/intf_0_txn]
-  connect_bd_net -net uhdsdi_gt_0_intf_0_txoutclk [get_bd_pins rst_uhdsdi_gt_0_148M_1/slowest_sync_clk] [get_bd_pins uhdsdi_gt_0/intf_0_sb_tx_clk] [get_bd_pins uhdsdi_gt_0/intf_0_tx_axi4s_aclk] [get_bd_pins uhdsdi_gt_0/intf_0_txoutclk] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/sdi_tx_clk]
+  connect_bd_net -net uhdsdi_gt_0_intf_0_txoutclk [get_bd_pins rst_uhdsdi_gt_0_148M_1/slowest_sync_clk] [get_bd_pins uhdsdi_gt_0/intf_0_sb_tx_clk] [get_bd_pins uhdsdi_gt_0/intf_0_tx_axi4s_aclk] [get_bd_pins uhdsdi_gt_0/intf_0_txoutclk] [get_bd_pins v_smpte_uhdsdi_tx_ss_0/sdi_tx_clk] [get_bd_pins v_uhdsdi_audio_embedder/sdi_embed_clk]
   connect_bd_net -net uhdsdi_gt_0_intf_0_txp [get_bd_pins gth3_tx_p] [get_bd_pins uhdsdi_gt_0/intf_0_txp]
   connect_bd_net -net util_ds_buf_0_IBUF_OUT [get_bd_pins uhdsdi_gt_0/intf_0_qpll0_refclk_in] [get_bd_pins util_ds_buf_0/IBUF_OUT]
   connect_bd_net -net v_smpte_uhdsdi_rx_ss_0_fid [get_bd_pins fid] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/fid]
+  connect_bd_net -net v_smpte_uhdsdi_rx_ss_0_sdi_rx_anc_ctrl_out [get_bd_pins v_smpte_uhdsdi_rx_ss_0/sdi_rx_anc_ctrl_out] [get_bd_pins v_uhdsdi_audio_extractor/sdi_extract_anc_ctrl_in]
+  connect_bd_net -net v_smpte_uhdsdi_tx_ss_0_sdi_tx_anc_ctrl_out [get_bd_pins v_smpte_uhdsdi_tx_ss_0/sdi_tx_anc_ctrl_out] [get_bd_pins v_uhdsdi_audio_embedder/sdi_embed_anc_ctrl_in]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /sdi_ss] -layout_string {
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.760532",
+   "Default View_TopLeft":"-756,0",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port VIDEO_IN -pg 1 -lvl 0 -x 0 -y 30 -defaultsOSRD
+preplace port VIDEO_OUT -pg 1 -lvl 7 -x 2790 -y 700 -defaultsOSRD
+preplace port gth_refclk0 -pg 1 -lvl 0 -x 0 -y 500 -defaultsOSRD
+preplace port sdi_s_axi_ctrl -pg 1 -lvl 0 -x 0 -y 390 -defaultsOSRD
+preplace port AUDIO_IN -pg 1 -lvl 0 -x 0 -y 50 -defaultsOSRD
+preplace port AUDIO_OUT -pg 1 -lvl 7 -x 2790 -y 810 -defaultsOSRD
+preplace port dcm_locked -pg 1 -lvl 0 -x 0 -y 710 -defaultsOSRD
+preplace port drpclk_aresetn -pg 1 -lvl 0 -x 0 -y 210 -defaultsOSRD
+preplace port drpclk_in -pg 1 -lvl 0 -x 0 -y 190 -defaultsOSRD
+preplace port fid -pg 1 -lvl 7 -x 2790 -y 980 -defaultsOSRD
+preplace port gth3_rx_n -pg 1 -lvl 0 -x 0 -y 520 -defaultsOSRD
+preplace port gth3_rx_p -pg 1 -lvl 0 -x 0 -y 540 -defaultsOSRD
+preplace port gth3_tx_n -pg 1 -lvl 7 -x 2790 -y 430 -defaultsOSRD
+preplace port gth3_tx_p -pg 1 -lvl 7 -x 2790 -y 410 -defaultsOSRD
+preplace port reset -pg 1 -lvl 0 -x 0 -y 570 -defaultsOSRD
+preplace port s_axi_aclk -pg 1 -lvl 0 -x 0 -y 410 -defaultsOSRD
+preplace port s_axi_arstn -pg 1 -lvl 0 -x 0 -y 430 -defaultsOSRD
+preplace inst rst_uhdsdi_gt_0_148M -pg 1 -lvl 3 -x 1210 -y 630 -defaultsOSRD
+preplace inst rst_uhdsdi_gt_0_148M_1 -pg 1 -lvl 1 -x 220 -y 670 -defaultsOSRD
+preplace inst uhdsdi_gt_0 -pg 1 -lvl 4 -x 1680 -y 340 -defaultsOSRD
+preplace inst util_ds_buf_0 -pg 1 -lvl 3 -x 1210 -y 450 -defaultsOSRD
+preplace inst v_smpte_uhdsdi_rx_ss_0 -pg 1 -lvl 5 -x 2130 -y 780 -defaultsOSRD
+preplace inst v_smpte_uhdsdi_tx_ss_0 -pg 1 -lvl 3 -x 1210 -y 180 -defaultsOSRD
+preplace inst v_uhdsdi_audio_embedder -pg 1 -lvl 2 -x 710 -y 180 -defaultsOSRD
+preplace inst v_uhdsdi_audio_extractor -pg 1 -lvl 6 -x 2570 -y 840 -defaultsOSRD
+preplace inst smartconnect_0 -pg 1 -lvl 1 -x 220 -y 410 -defaultsOSRD
+preplace netloc Net 1 0 5 NJ 210 460 330 1000 820 NJ 820 NJ
+preplace netloc Net1 1 0 3 30 770 480J 720 1020J
+preplace netloc drpclk_in_1 1 0 6 NJ 190 470 360 950 350 1430 770 1870 950 2370J
+preplace netloc intf_0_rx_axi4s_rst_1 1 3 3 1480 760 1890 940 2360J
+preplace netloc intf_0_rxn_0_1 1 0 4 NJ 520 NJ 520 NJ 520 1460J
+preplace netloc intf_0_rxp_0_1 1 0 4 20J 530 NJ 530 NJ 530 1450J
+preplace netloc net_zynq_ultra_ps_e_0_pl_clk0 1 0 6 40 540 410 340 930 830 NJ 830 1940 640 2360
+preplace netloc reset_1 1 0 3 20 570 NJ 570 950
+preplace netloc rst_uhdsdi_gt_0_148M_1_peripheral_reset 1 1 3 480 380 980 370 1420
+preplace netloc s_axi_arstn_1 1 0 6 30 550 440 350 940 840 NJ 840 1880 920 2350
+preplace netloc uhdsdi_gt_0_intf_0_rxoutclk 1 2 4 1020 380 1470 750 1900 930 2340J
+preplace netloc uhdsdi_gt_0_intf_0_txn 1 4 3 NJ 430 NJ 430 NJ
+preplace netloc uhdsdi_gt_0_intf_0_txoutclk 1 0 5 40 560 450 370 960 360 1440 610 1890
+preplace netloc uhdsdi_gt_0_intf_0_txp 1 4 3 NJ 410 NJ 410 NJ
+preplace netloc util_ds_buf_0_IBUF_OUT 1 3 1 1410J 210n
+preplace netloc v_smpte_uhdsdi_rx_ss_0_fid 1 5 2 2330J 980 NJ
+preplace netloc v_smpte_uhdsdi_tx_ss_0_sdi_tx_anc_ctrl_out 1 1 3 490 390 990J 340 1400
+preplace netloc v_smpte_uhdsdi_rx_ss_0_sdi_rx_anc_ctrl_out 1 5 1 2320 840n
+preplace netloc Conn1 1 0 3 NJ 500 NJ 500 1010J
+preplace netloc Conn2 1 0 3 NJ 30 NJ 30 960J
+preplace netloc Conn3 1 5 2 2350J 700 NJ
+preplace netloc uhdsdi_gt_0_intf_0_rx_axi4s_ch0 1 4 1 1930 250n
+preplace netloc uhdsdi_gt_0_intf_0_stat_sb_rx 1 4 1 1920 270n
+preplace netloc uhdsdi_gt_0_intf_0_stat_sb_tx 1 2 3 970 10 NJ 10 1930
+preplace netloc v_smpte_uhdsdi_rx_ss_0_M_AXIS_CTRL_SB_RX 1 3 3 1490 620 NJ 620 2330
+preplace netloc v_smpte_uhdsdi_tx_ss_0_M_AXIS_CTRL_SB_TX 1 3 1 N 150
+preplace netloc v_smpte_uhdsdi_tx_ss_0_M_AXIS_TX 1 3 1 N 130
+preplace netloc v_smpte_uhdsdi_tx_ss_0_SDI_TX_ANC_DS_OUT 1 1 3 490 20 NJ 20 1410
+preplace netloc v_uhdsdi_audio_0_SDI_EMBED_ANC_DS_OUT 1 2 1 930 140n
+preplace netloc v_uhdsdi_audio_1_M_AXIS_DATA 1 6 1 NJ 810
+preplace netloc v_smpte_uhdsdi_rx_ss_0_SDI_RX_ANC_DS_OUT 1 5 1 N 780
+preplace netloc sdi_s_axi_ctrl_1 1 0 1 NJ 390
+preplace netloc smartconnect_0_M00_AXI 1 1 4 430 740 NJ 740 NJ 740 NJ
+preplace netloc smartconnect_0_M01_AXI 1 1 2 NJ 400 970
+preplace netloc smartconnect_0_M02_AXI 1 1 1 400 90n
+preplace netloc smartconnect_0_M03_AXI 1 1 5 420 730 NJ 730 NJ 730 1910J 630 2370J
+levelinfo -pg 1 0 220 710 1210 1680 2130 2570 2790
+pagesize -pg 1 -db -bbox -sgen -160 0 2930 1000
+"
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2435,44 +2581,6 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   connect_bd_net -net rst_sysclk_clk_wiz_300M_peripheral_aresetn [get_bd_pins S00_ARESETN] [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_0/S01_ARESETN] [get_bd_pins axi_interconnect_0/S02_ARESETN] [get_bd_pins axis_data_fifo_0/s_axis_aresetn] [get_bd_pins dma_system_ila/resetn]
   connect_bd_net -net sysclk_clk_wiz_clk_300mhz [get_bd_pins m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_s2mm_aclk] [get_bd_pins axi_dma_0/m_axi_sg_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_0/S01_ACLK] [get_bd_pins axi_interconnect_0/S02_ACLK] [get_bd_pins axis_data_fifo_0/s_axis_aclk] [get_bd_pins dma_system_ila/clk]
 
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /dma_ss] -layout_string {
-   "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.626749",
-   "Default View_TopLeft":"-239,-121",
-   "ExpandedHierarchyInLayout":"",
-   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
-#  -string -flagsOSRD
-preplace port M00_AXI -pg 1 -lvl 4 -x 1360 -y 220 -defaultsOSRD
-preplace port S_AXI_LITE -pg 1 -lvl 0 -x -60 -y 110 -defaultsOSRD
-preplace port S00_ARESETN -pg 1 -lvl 0 -x -60 -y 220 -defaultsOSRD
-preplace port clk_300m_resetn -pg 1 -lvl 0 -x -60 -y 150 -defaultsOSRD
-preplace port dma_mm2s_introut -pg 1 -lvl 4 -x 1360 -y 20 -defaultsOSRD
-preplace port dma_s2mm_introut -pg 1 -lvl 4 -x 1360 -y 40 -defaultsOSRD
-preplace port m_axi_mm2s_aclk -pg 1 -lvl 0 -x -60 -y 240 -defaultsOSRD
-preplace port s_axi_lite_aclk -pg 1 -lvl 0 -x -60 -y 130 -defaultsOSRD
-preplace inst axi_dma_0 -pg 1 -lvl 2 -x 820 -y 170 -defaultsOSRD
-preplace inst axi_interconnect_0 -pg 1 -lvl 3 -x 1190 -y 220 -defaultsOSRD
-preplace inst axis_data_fifo_0 -pg 1 -lvl 1 -x 420 -y 210 -defaultsOSRD
-preplace inst dma_system_ila -pg 1 -lvl 2 -x 820 -y 490 -defaultsOSRD
-preplace netloc axi_dma_0_mm2s_introut 1 2 2 1010J 20 NJ
-preplace netloc axi_dma_0_s2mm_introut 1 2 2 1030J 40 NJ
-preplace netloc mpsoc_ss_pl_clk0 1 0 2 NJ 130 540J
-preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 0 2 -20J 100 550J
-preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 0 3 -40 410 540J 410 1040
-preplace netloc sysclk_clk_wiz_clk_300mhz 1 0 3 -30 290 570 40 1020
-preplace netloc axi_dma_0_M_AXIS_MM2S 1 0 3 -20 300 NJ 300 1000
-preplace netloc axi_dma_0_M_AXI_MM2S 1 2 1 N 120
-preplace netloc axi_dma_0_M_AXI_S2MM 1 2 1 N 140
-preplace netloc axi_dma_0_M_AXI_SG 1 2 1 N 100
-preplace netloc axi_interconnect_0_M00_AXI 1 3 1 NJ 220
-preplace netloc axis_data_fifo_0_M_AXIS 1 1 1 560 130n
-preplace netloc mpsoc_ss_M00_AXI 1 0 2 NJ 110 NJ
-levelinfo -pg 1 -60 420 820 1190 1360
-pagesize -pg 1 -db -bbox -sgen -240 -220 1550 570
-"
-}
-
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -2524,6 +2632,9 @@ pagesize -pg 1 -db -bbox -sgen -240 -220 1550 570
   set gth3_tx_n [ create_bd_port -dir O gth3_tx_n ]
   set gth3_tx_p [ create_bd_port -dir O gth3_tx_p ]
 
+  # Create instance: audio_axis_data_fifo, and set properties
+  set audio_axis_data_fifo [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 audio_axis_data_fifo ]
+
   # Create instance: axi_gpio_dip_sw, and set properties
   set axi_gpio_dip_sw [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_dip_sw ]
   set_property -dict [ list \
@@ -2569,11 +2680,15 @@ pagesize -pg 1 -db -bbox -sgen -240 -220 1550 570
   # Create instance: vcu_ss
   create_hier_cell_vcu_ss [current_bd_instance .] vcu_ss
 
+  # Create instance: video_axis_data_fifo, and set properties
+  set video_axis_data_fifo [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 video_axis_data_fifo ]
+
   # Create instance: zero, and set properties
   set zero [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 zero ]
 
   # Create interface connections
   connect_bd_intf_net -intf_net CLK_IN1_D_0_1 [get_bd_intf_ports sysclk_uz7ev] [get_bd_intf_pins sysclk_ss/sysclk_uz7ev]
+  connect_bd_intf_net -intf_net audio_axis_data_fifo_M_AXIS [get_bd_intf_pins audio_axis_data_fifo/M_AXIS] [get_bd_intf_pins sdi_ss/AUDIO_IN]
   connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins dma_ss/M00_AXI] [get_bd_intf_pins mpsoc_ss/S_AXI_HPC1_FPD]
   connect_bd_intf_net -intf_net gth_refclk0_1 [get_bd_intf_ports gth_refclk0] [get_bd_intf_pins sdi_ss/gth_refclk0]
   connect_bd_intf_net -intf_net mpsoc_ss_M00_AXI [get_bd_intf_pins dma_ss/S_AXI_LITE] [get_bd_intf_pins mpsoc_ss/dma_s_axi_lite]
@@ -2585,17 +2700,18 @@ pagesize -pg 1 -db -bbox -sgen -240 -220 1550 570
   connect_bd_intf_net -intf_net net_mpsoc_ss_M01_AXI [get_bd_intf_pins axi_gpio_led/S_AXI] [get_bd_intf_pins mpsoc_ss/gpio_led]
   connect_bd_intf_net -intf_net net_mpsoc_ss_M02_AXI [get_bd_intf_pins axi_gpio_push_buttons/S_AXI] [get_bd_intf_pins mpsoc_ss/gpio_push_button]
   connect_bd_intf_net -intf_net sdi_s_axi_ctrl_1 [get_bd_intf_pins mpsoc_ss/sdi_s_axi_lite] [get_bd_intf_pins sdi_ss/sdi_s_axi_ctrl]
-  create_bd_intf_net sdi_ss_VIDEO_OUT
-  connect_bd_intf_net -intf_net [get_bd_intf_nets sdi_ss_VIDEO_OUT] [get_bd_intf_pins sdi_ss/VIDEO_IN] [get_bd_intf_pins sdi_ss/VIDEO_OUT]
+  connect_bd_intf_net -intf_net sdi_ss_AUDIO_OUT [get_bd_intf_pins audio_axis_data_fifo/S_AXIS] [get_bd_intf_pins sdi_ss/AUDIO_OUT]
+  connect_bd_intf_net -intf_net sdi_ss_VIDEO_OUT [get_bd_intf_pins sdi_ss/VIDEO_OUT] [get_bd_intf_pins video_axis_data_fifo/S_AXIS]
   connect_bd_intf_net -intf_net vcu_ss_M00_AXI [get_bd_intf_pins mpsoc_ss/S_AXI_HP1_FPD] [get_bd_intf_pins vcu_ss/ENC_M_AXI]
   connect_bd_intf_net -intf_net vcu_ss_M00_AXI1 [get_bd_intf_pins mpsoc_ss/S_AXI_HP2_FPD] [get_bd_intf_pins vcu_ss/DEC_M_AXI]
   connect_bd_intf_net -intf_net vcu_ss_M00_AXI2 [get_bd_intf_pins mpsoc_ss/S_AXI_HPC0_FPD] [get_bd_intf_pins vcu_ss/VCU_MCU]
+  connect_bd_intf_net -intf_net video_axis_data_fifo_M_AXIS [get_bd_intf_pins sdi_ss/VIDEO_IN] [get_bd_intf_pins video_axis_data_fifo/M_AXIS]
 
   # Create port connections
   connect_bd_net -net dma_ss_mm2s_introut [get_bd_pins dma_ss/dma_mm2s_introut] [get_bd_pins mpsoc_ss/dma_mm2s_introut]
   connect_bd_net -net dma_ss_s2mm_introut [get_bd_pins dma_ss/dma_s2mm_introut] [get_bd_pins mpsoc_ss/dma_s2mm_introut]
-  connect_bd_net -net drpclk_aresetn_1 [get_bd_pins sdi_ss/drpclk_aresetn] [get_bd_pins sysclk_ss/clk_200m_aresetn]
-  connect_bd_net -net drpclk_in_1 [get_bd_pins sdi_ss/drpclk_in] [get_bd_pins sysclk_ss/clk_200m]
+  connect_bd_net -net drpclk_aresetn_1 [get_bd_pins audio_axis_data_fifo/s_axis_aresetn] [get_bd_pins sdi_ss/drpclk_aresetn] [get_bd_pins sysclk_ss/clk_200m_aresetn] [get_bd_pins video_axis_data_fifo/s_axis_aresetn]
+  connect_bd_net -net drpclk_in_1 [get_bd_pins audio_axis_data_fifo/s_axis_aclk] [get_bd_pins sdi_ss/drpclk_in] [get_bd_pins sysclk_ss/clk_200m] [get_bd_pins video_axis_data_fifo/s_axis_aclk]
   connect_bd_net -net gth3_rx_n_1 [get_bd_ports gth3_rx_n] [get_bd_pins sdi_ss/gth3_rx_n]
   connect_bd_net -net gth3_rx_p_1 [get_bd_ports gth3_rx_p] [get_bd_pins sdi_ss/gth3_rx_p]
   connect_bd_net -net mpsoc_ss_Dout [get_bd_pins mpsoc_ss/vcu_resetn] [get_bd_pins vcu_ss/vcu_resetn]
@@ -2631,15 +2747,17 @@ pagesize -pg 1 -db -bbox -sgen -240 -220 1550 570
   assign_bd_address -offset 0xA0030000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs mpsoc_ss/axi_perf_mon_0/S_AXI/Reg] -force
   assign_bd_address -offset 0xB0010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs sdi_ss/v_smpte_uhdsdi_rx_ss_0/S_AXI_CTRL/Reg] -force
   assign_bd_address -offset 0xB0020000 -range 0x00020000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs sdi_ss/v_smpte_uhdsdi_tx_ss_0/S_AXI_CTRL/Reg] -force
+  assign_bd_address -offset 0xB0040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs sdi_ss/v_uhdsdi_audio_embedder/S_AXI_CTRL/reg0] -force
+  assign_bd_address -offset 0xB0050000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs sdi_ss/v_uhdsdi_audio_extractor/S_AXI_CTRL/reg0] -force
   assign_bd_address -offset 0xB0100000 -range 0x00100000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs vcu_ss/vcu_0/S_AXI_LITE/Reg] -force
   assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH] -force
   assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
-  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM] -force
   assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM] -force
-  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
+  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM] -force
   assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
+  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
   assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
   assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
   assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_HIGH] -force
@@ -2648,8 +2766,8 @@ pagesize -pg 1 -db -bbox -sgen -240 -220 1550 570
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_LOW] -force
   assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_LPS_OCM] -force
   assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_LPS_OCM] -force
-  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_PCIE_LOW] -force
   assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_PCIE_LOW] -force
+  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_PCIE_LOW] -force
   assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_QSPI] -force
   assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_QSPI] -force
   assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/Code] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH] -force
@@ -2666,66 +2784,71 @@ pagesize -pg 1 -db -bbox -sgen -240 -220 1550 570
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.998934",
-   "Default View_TopLeft":"58,235",
+   "Default View_ScaleFactor":"0.614035",
+   "Default View_TopLeft":"-402,0",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1670 -y 80 -defaultsOSRD
-preplace port gth_refclk0 -pg 1 -lvl 0 -x -20 -y 750 -defaultsOSRD
-preplace port led_8bits -pg 1 -lvl 5 -x 1670 -y 220 -defaultsOSRD
-preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1670 -y 360 -defaultsOSRD
-preplace port sysclk_uz7ev -pg 1 -lvl 0 -x -20 -y 190 -defaultsOSRD
-preplace port gth3_rx_n -pg 1 -lvl 0 -x -20 -y 850 -defaultsOSRD
-preplace port gth3_rx_p -pg 1 -lvl 0 -x -20 -y 870 -defaultsOSRD
-preplace port gth3_tx_n -pg 1 -lvl 5 -x 1670 -y 840 -defaultsOSRD
-preplace port gth3_tx_p -pg 1 -lvl 5 -x 1670 -y 860 -defaultsOSRD
-preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1510 -y 80 -defaultsOSRD
-preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1510 -y 220 -defaultsOSRD
-preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1510 -y 360 -defaultsOSRD
-preplace inst dma_ss -pg 1 -lvl 2 -x 620 -y 520 -defaultsOSRD -resize 318 158
-preplace inst mpsoc_ss -pg 1 -lvl 3 -x 1090 -y 250 -defaultsOSRD
-preplace inst one -pg 1 -lvl 2 -x 620 -y 650 -defaultsOSRD
-preplace inst sdi_ss -pg 1 -lvl 4 -x 1510 -y 830 -defaultsOSRD
-preplace inst sysclk_ss -pg 1 -lvl 1 -x 190 -y 370 -defaultsOSRD
-preplace inst vcu_ss -pg 1 -lvl 2 -x 620 -y 230 -defaultsOSRD
-preplace inst zero -pg 1 -lvl 3 -x 1090 -y 940 -defaultsOSRD -resize 120 88
-preplace netloc dma_ss_mm2s_introut 1 2 1 870 300n
-preplace netloc dma_ss_s2mm_introut 1 2 1 890 320n
-preplace netloc drpclk_aresetn_1 1 1 3 380J 390 NJ 390 1320
-preplace netloc drpclk_in_1 1 1 3 360 380 800J 720 1290J
-preplace netloc gth3_rx_n_1 1 0 4 NJ 850 NJ 850 NJ 850 NJ
-preplace netloc gth3_rx_p_1 1 0 4 NJ 870 NJ 870 NJ 870 NJ
-preplace netloc mpsoc_ss_Dout 1 1 3 440 400 NJ 400 1290
-preplace netloc mpsoc_ss_pl_clk0 1 1 3 430 410 NJ 410 1330
-preplace netloc mpsoc_ss_pl_resetn0 1 0 4 10 270 400J 420 NJ 420 1310
-preplace netloc one_dout 1 2 2 880 730 1310J
-preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 440 740 NJ 740 1340
-preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 370 330 860
-preplace netloc sdi_ss_gth3_tx_n 1 4 1 NJ 840
-preplace netloc sdi_ss_gth3_tx_p 1 4 1 NJ 860
-preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 390 340 840
-preplace netloc sysclk_ss_clk_33_33333mhz 1 1 1 410 240n
-preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 850 260n
-preplace netloc zero_dout 1 3 1 1350J 890n
-preplace netloc vcu_ss_M00_AXI2 1 2 1 820 200n
-preplace netloc vcu_ss_M00_AXI1 1 2 1 810 180n
-preplace netloc vcu_ss_M00_AXI 1 2 1 800 160n
-preplace netloc sdi_ss_VIDEO_OUT 1 3 2 1360 980 1650
-preplace netloc sdi_s_axi_ctrl_1 1 3 1 1300 240n
-preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1320 220n
-preplace netloc net_mpsoc_ss_M01_AXI 1 3 1 N 200
-preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1320 60n
-preplace netloc net_axi_gpio_2_GPIO 1 4 1 NJ 360
-preplace netloc net_axi_gpio_1_GPIO 1 4 1 NJ 220
-preplace netloc net_axi_gpio_0_GPIO 1 4 1 NJ 80
-preplace netloc mpsoc_ss_M01_AXI 1 1 3 440 100 NJ 100 1290
-preplace netloc mpsoc_ss_M00_AXI 1 1 3 420 90 NJ 90 1300
-preplace netloc gth_refclk0_1 1 0 4 NJ 750 NJ 750 NJ 750 NJ
-preplace netloc axi_interconnect_0_M00_AXI 1 2 1 830 220n
-preplace netloc CLK_IN1_D_0_1 1 0 1 0J 190n
-levelinfo -pg 1 -20 190 620 1090 1510 1670
-pagesize -pg 1 -db -bbox -sgen -170 -80 1860 1000
+preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1630 -y 200 -defaultsOSRD
+preplace port gth_refclk0 -pg 1 -lvl 0 -x 0 -y 760 -defaultsOSRD
+preplace port led_8bits -pg 1 -lvl 5 -x 1630 -y 340 -defaultsOSRD
+preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1630 -y 480 -defaultsOSRD
+preplace port sysclk_uz7ev -pg 1 -lvl 0 -x 0 -y 270 -defaultsOSRD
+preplace port gth3_rx_n -pg 1 -lvl 0 -x 0 -y 820 -defaultsOSRD
+preplace port gth3_rx_p -pg 1 -lvl 0 -x 0 -y 840 -defaultsOSRD
+preplace port gth3_tx_n -pg 1 -lvl 5 -x 1630 -y 870 -defaultsOSRD
+preplace port gth3_tx_p -pg 1 -lvl 5 -x 1630 -y 890 -defaultsOSRD
+preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1460 -y 200 -defaultsOSRD
+preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1460 -y 340 -defaultsOSRD
+preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1460 -y 480 -defaultsOSRD
+preplace inst dma_ss -pg 1 -lvl 2 -x 600 -y 110 -defaultsOSRD -resize 318 158
+preplace inst mpsoc_ss -pg 1 -lvl 3 -x 1030 -y 370 -defaultsOSRD
+preplace inst one -pg 1 -lvl 2 -x 600 -y 480 -defaultsOSRD
+preplace inst sdi_ss -pg 1 -lvl 4 -x 1460 -y 850 -defaultsOSRD
+preplace inst sysclk_ss -pg 1 -lvl 1 -x 190 -y 280 -defaultsOSRD
+preplace inst vcu_ss -pg 1 -lvl 2 -x 600 -y 310 -defaultsOSRD
+preplace inst zero -pg 1 -lvl 3 -x 1030 -y 1080 -defaultsOSRD -resize 120 88
+preplace inst video_axis_data_fifo -pg 1 -lvl 3 -x 1030 -y 930 -defaultsOSRD
+preplace inst audio_axis_data_fifo -pg 1 -lvl 3 -x 1030 -y 670 -defaultsOSRD -resize 200 116
+preplace netloc dma_ss_mm2s_introut 1 2 1 820 110n
+preplace netloc dma_ss_s2mm_introut 1 2 1 810 130n
+preplace netloc drpclk_aresetn_1 1 1 3 360 580 780 830 1250
+preplace netloc drpclk_in_1 1 1 3 370 560 800 850 1230
+preplace netloc gth3_rx_n_1 1 0 4 20J 1010 NJ 1010 NJ 1010 1310J
+preplace netloc gth3_rx_p_1 1 0 4 NJ 840 NJ 840 NJ 840 1240J
+preplace netloc mpsoc_ss_Dout 1 1 3 420 570 NJ 570 1240
+preplace netloc mpsoc_ss_pl_clk0 1 1 3 410 540 NJ 540 1290
+preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 550 NJ 550 NJ 550 1260
+preplace netloc one_dout 1 2 2 830 530 1280J
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 400 750 NJ 750 1300
+preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 380 410 800J
+preplace netloc sdi_ss_gth3_tx_n 1 4 1 NJ 870
+preplace netloc sdi_ss_gth3_tx_p 1 4 1 NJ 890
+preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 390 420 790J
+preplace netloc sysclk_ss_clk_33_33333mhz 1 1 1 N 320
+preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 780 340n
+preplace netloc zero_dout 1 3 1 1320J 920n
+preplace netloc vcu_ss_M00_AXI2 1 2 1 N 320
+preplace netloc vcu_ss_M00_AXI1 1 2 1 780 280n
+preplace netloc vcu_ss_M00_AXI 1 2 1 790 280n
+preplace netloc sdi_s_axi_ctrl_1 1 3 1 1250 360n
+preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1280 340n
+preplace netloc net_mpsoc_ss_M01_AXI 1 3 1 N 320
+preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1280 180n
+preplace netloc net_axi_gpio_2_GPIO 1 4 1 NJ 480
+preplace netloc net_axi_gpio_1_GPIO 1 4 1 NJ 340
+preplace netloc net_axi_gpio_0_GPIO 1 4 1 NJ 200
+preplace netloc mpsoc_ss_M01_AXI 1 1 3 420 200 NJ 200 1240
+preplace netloc mpsoc_ss_M00_AXI 1 1 3 420 10 NJ 10 1250
+preplace netloc gth_refclk0_1 1 0 4 NJ 760 NJ 760 NJ 760 NJ
+preplace netloc axi_interconnect_0_M00_AXI 1 2 1 830 90n
+preplace netloc CLK_IN1_D_0_1 1 0 1 NJ 270
+preplace netloc sdi_ss_AUDIO_OUT 1 2 3 820 580 NJ 580 1610
+preplace netloc audio_axis_data_fifo_M_AXIS 1 3 1 1270 670n
+preplace netloc sdi_ss_VIDEO_OUT 1 2 3 830 590 NJ 590 1600
+preplace netloc video_axis_data_fifo_M_AXIS 1 3 1 1260 740n
+levelinfo -pg 1 0 190 600 1030 1460 1630
+pagesize -pg 1 -db -bbox -sgen -150 0 1820 1140
 "
 }
 
