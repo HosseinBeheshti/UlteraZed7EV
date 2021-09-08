@@ -30,13 +30,11 @@ cp $ORG_DIR/petalinux/system-user.dtsi $PROJ_DIR/project-spec/meta-user/recipes-
 # 
 # 6) run petalinux-config -> Image Packaging Configuration ->  (/dev/mmcblk1p2) Device node of SD device
 # 
-# 7) Subsystem AUTO Hardware Settings -> Advanced bootable images storage Settings -> u-boot env partition settings -> image storage media (primary sd)    
+# 7) Subsystem AUTO Hardware Settings -> SD/SDIO Settings -> Primary SD/SDIO (psu_sd_1) 
 # 
-# 8) Subsystem AUTO Hardware Settings -> SD/SDIO Settings -> Primary SD/SDIO (psu_sd_1) 
+# 8) Subsystem AUTO Hardware Settings -> Ethernet Settings -> Randomise MAC Address[*] include
 # 
-# 9) Subsystem AUTO Hardware Settings -> Ethernet Settings -> Randomise MAC Address[*] include
-# 
-# 10) Subsystem AUTO Hardware Settings -> Ethernet Settings -> Obtain IP Automatically[*] include
+# 9) Subsystem AUTO Hardware Settings -> Ethernet Settings -> Obtain IP Automatically[*] include
 cp $ORG_DIR/petalinux/config $PROJ_DIR/project-spec/configs/config
 
 # rootfs configuration: $ORG_DIR/petalinux/rootfs_config 
