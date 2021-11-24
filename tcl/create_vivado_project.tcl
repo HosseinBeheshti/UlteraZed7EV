@@ -2764,45 +2764,45 @@ preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1420 -y 220 -defaultsOSRD
 preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1420 -y 360 -defaultsOSRD
 preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1420 -y 500 -defaultsOSRD
 preplace inst video_axis_data_fifo -pg 1 -lvl 3 -x 990 -y 890 -defaultsOSRD
-preplace netloc dma_ss_dma_mm2s_introut 1 2 1 780 130n
-preplace netloc dma_ss_dma_s2mm_introut 1 2 1 770 150n
-preplace netloc drpclk_aresetn_1 1 1 3 360 600 760 770 1220
-preplace netloc drpclk_in_1 1 1 3 370 610 740 810 N
-preplace netloc gth3_rx_n_1 1 0 4 NJ 800 NJ 800 780J 790 1200J
-preplace netloc gth3_rx_p_1 1 0 4 NJ 820 NJ 820 790J 800 1190J
-preplace netloc mpsoc_ss_Dout 1 1 3 420 580 NJ 580 1190
-preplace netloc mpsoc_ss_pl_clk0 1 1 3 400 590 NJ 590 1270
+preplace netloc dma_ss_dma_mm2s_introut 1 2 1 770 130n
+preplace netloc dma_ss_dma_s2mm_introut 1 2 1 760 150n
+preplace netloc drpclk_aresetn_1 1 1 3 350 600 750 770 1220
+preplace netloc drpclk_in_1 1 1 3 360 610 730 810 N
+preplace netloc gth3_rx_n_1 1 0 4 NJ 800 NJ 800 770J 790 1200J
+preplace netloc gth3_rx_p_1 1 0 4 NJ 820 NJ 820 780J 800 1190J
+preplace netloc mpsoc_ss_Dout 1 1 3 410 580 NJ 580 1190
+preplace netloc mpsoc_ss_pl_clk0 1 1 3 390 590 NJ 590 1270
 preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 570 NJ 570 NJ 570 1200
-preplace netloc one_dout 1 2 2 790 600 1260J
-preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 420 220 NJ 220 1230
-preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 380 440 760J
+preplace netloc one_dout 1 2 2 780 600 1260J
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 410 220 NJ 220 1230
+preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 370 440 750J
 preplace netloc sdi_ss_gth3_tx_n 1 4 1 NJ 820
 preplace netloc sdi_ss_gth3_tx_p 1 4 1 NJ 840
-preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 390 430 740J
+preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 380 430 730J
 preplace netloc sysclk_ss_clk_33_33333mhz 1 1 1 N 340
-preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 750 360n
+preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 740 360n
 preplace netloc zero_dout 1 3 1 1280J 870n
-preplace netloc video_axis_data_fifo_M_AXIS 1 3 1 1240 710n
-preplace netloc vcu_ss_M00_AXI2 1 2 1 N 340
-preplace netloc vcu_ss_M00_AXI 1 2 1 750 300n
-preplace netloc sdi_ss_VIDEO_OUT 1 2 3 780 970 NJ 970 1560
-preplace netloc sdi_ss_AUDIO_OUT 1 2 3 780 610 NJ 610 1560
-preplace netloc sdi_s_axi_ctrl_1 1 3 1 1210 380n
-preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1260 360n
-preplace netloc net_mpsoc_ss_M01_AXI 1 3 1 N 340
-preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1200 200n
-preplace netloc net_axi_gpio_2_GPIO 1 4 1 NJ 500
-preplace netloc net_axi_gpio_1_GPIO 1 4 1 NJ 360
-preplace netloc net_axi_gpio_0_GPIO 1 4 1 NJ 220
-preplace netloc mpsoc_ss_dma_s_axi_lite 1 1 3 380 10 NJ 10 1190
-preplace netloc mpsoc_ss_M01_AXI 1 1 3 410 560 NJ 560 1220
-preplace netloc gth_refclk0_1 1 0 4 NJ 780 NJ 780 NJ 780 1250J
-preplace netloc dma_ss_M00_AXI 1 2 1 790 90n
-preplace netloc audio_axis_data_fifo_M_AXIS 1 3 1 N 690
-preplace netloc vcu_ss_M00_AXI1 1 2 1 740 300n
 preplace netloc CLK_IN1_D_0_1 1 0 1 NJ 290
+preplace netloc audio_axis_data_fifo_M_AXIS 1 3 1 N 690
+preplace netloc dma_ss_M00_AXI 1 2 1 780 90n
+preplace netloc gth_refclk0_1 1 0 4 NJ 780 NJ 780 NJ 780 1250J
+preplace netloc mpsoc_ss_M01_AXI 1 1 3 400 560 NJ 560 1220
+preplace netloc mpsoc_ss_dma_s_axi_lite 1 1 3 370 10 NJ 10 1190
+preplace netloc net_axi_gpio_0_GPIO 1 4 1 NJ 220
+preplace netloc net_axi_gpio_1_GPIO 1 4 1 NJ 360
+preplace netloc net_axi_gpio_2_GPIO 1 4 1 NJ 500
+preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1200 200n
+preplace netloc net_mpsoc_ss_M01_AXI 1 3 1 N 340
+preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1260 360n
+preplace netloc sdi_s_axi_ctrl_1 1 3 1 1210 380n
+preplace netloc sdi_ss_AUDIO_OUT 1 2 3 770 610 NJ 610 1560
+preplace netloc sdi_ss_VIDEO_OUT 1 2 3 770 970 NJ 970 1560
+preplace netloc vcu_ss_M00_AXI 1 2 1 740 300n
+preplace netloc vcu_ss_M00_AXI1 1 2 1 730 300n
+preplace netloc vcu_ss_M00_AXI2 1 2 1 N 340
+preplace netloc video_axis_data_fifo_M_AXIS 1 3 1 1240 710n
 levelinfo -pg 1 0 190 580 990 1420 1580
-pagesize -pg 1 -db -bbox -sgen -150 0 1770 1100
+pagesize -pg 1 -db -bbox -sgen -140 0 1760 1100
 "
 }
 
@@ -2840,10 +2840,10 @@ if { [get_property IS_LOCKED [ get_files -norecurse design_1.bd] ] == 1  } {
 
 # Create 'synth_1' run (if not found)
 if {[string equal [get_runs -quiet synth_1] ""]} {
-    create_run -name synth_1 -part xczu7ev-fbvb900-1-i -flow {Vivado Synthesis 2020} -strategy "Vivado Synthesis Defaults" -report_strategy {No Reports} -constrset constrs_1
+    create_run -name synth_1 -part xczu7ev-fbvb900-1-i -flow {Vivado Synthesis 2021} -strategy "Vivado Synthesis Defaults" -report_strategy {No Reports} -constrset constrs_1
 } else {
   set_property strategy "Vivado Synthesis Defaults" [get_runs synth_1]
-  set_property flow "Vivado Synthesis 2020" [get_runs synth_1]
+  set_property flow "Vivado Synthesis 2021" [get_runs synth_1]
 }
 set obj [get_runs synth_1]
 set_property set_report_strategy_name 1 $obj
@@ -2865,10 +2865,10 @@ current_run -synthesis [get_runs synth_1]
 
 # Create 'impl_1' run (if not found)
 if {[string equal [get_runs -quiet impl_1] ""]} {
-    create_run -name impl_1 -part xczu7ev-fbvb900-1-i -flow {Vivado Implementation 2020} -strategy "Performance_Explore" -report_strategy {No Reports} -constrset constrs_1 -parent_run synth_1
+    create_run -name impl_1 -part xczu7ev-fbvb900-1-i -flow {Vivado Implementation 2021} -strategy "Vivado Implementation Defaults" -report_strategy {No Reports} -constrset constrs_1 -parent_run synth_1
 } else {
-  set_property strategy "Performance_Explore" [get_runs impl_1]
-  set_property flow "Vivado Implementation 2020" [get_runs impl_1]
+  set_property strategy "Vivado Implementation Defaults" [get_runs impl_1]
+  set_property flow "Vivado Implementation 2021" [get_runs impl_1]
 }
 set obj [get_runs impl_1]
 set_property set_report_strategy_name 1 $obj
@@ -3071,11 +3071,7 @@ set_property -name "options.warn_on_violation" -value "1" -objects $obj
 
 }
 set obj [get_runs impl_1]
-set_property -name "strategy" -value "Performance_Explore" -objects $obj
-set_property -name "steps.opt_design.args.directive" -value "Explore" -objects $obj
-set_property -name "steps.place_design.args.directive" -value "Explore" -objects $obj
-set_property -name "steps.phys_opt_design.args.directive" -value "Explore" -objects $obj
-set_property -name "steps.route_design.args.directive" -value "Explore" -objects $obj
+set_property -name "strategy" -value "Vivado Implementation Defaults" -objects $obj
 set_property -name "steps.write_bitstream.args.readback_file" -value "0" -objects $obj
 set_property -name "steps.write_bitstream.args.verbose" -value "0" -objects $obj
 
@@ -3088,35 +3084,30 @@ if {[string equal [get_dashboard_gadgets  [ list "drc_1" ] ] ""]} {
 create_dashboard_gadget -name {drc_1} -type drc
 }
 set obj [get_dashboard_gadgets [ list "drc_1" ] ]
-set_property -name "reports" -value "impl_1#impl_1_route_report_drc_0" -objects $obj
 
 # Create 'methodology_1' gadget (if not found)
 if {[string equal [get_dashboard_gadgets  [ list "methodology_1" ] ] ""]} {
 create_dashboard_gadget -name {methodology_1} -type methodology
 }
 set obj [get_dashboard_gadgets [ list "methodology_1" ] ]
-set_property -name "reports" -value "impl_1#impl_1_route_report_methodology_0" -objects $obj
 
 # Create 'power_1' gadget (if not found)
 if {[string equal [get_dashboard_gadgets  [ list "power_1" ] ] ""]} {
 create_dashboard_gadget -name {power_1} -type power
 }
 set obj [get_dashboard_gadgets [ list "power_1" ] ]
-set_property -name "reports" -value "impl_1#impl_1_route_report_power_0" -objects $obj
 
 # Create 'timing_1' gadget (if not found)
 if {[string equal [get_dashboard_gadgets  [ list "timing_1" ] ] ""]} {
 create_dashboard_gadget -name {timing_1} -type timing
 }
 set obj [get_dashboard_gadgets [ list "timing_1" ] ]
-set_property -name "reports" -value "impl_1#impl_1_route_report_timing_summary_0" -objects $obj
 
 # Create 'utilization_1' gadget (if not found)
 if {[string equal [get_dashboard_gadgets  [ list "utilization_1" ] ] ""]} {
 create_dashboard_gadget -name {utilization_1} -type utilization
 }
 set obj [get_dashboard_gadgets [ list "utilization_1" ] ]
-set_property -name "reports" -value "synth_1#synth_1_synth_report_utilization_0" -objects $obj
 set_property -name "run.step" -value "synth_design" -objects $obj
 set_property -name "run.type" -value "synthesis" -objects $obj
 
@@ -3125,7 +3116,6 @@ if {[string equal [get_dashboard_gadgets  [ list "utilization_2" ] ] ""]} {
 create_dashboard_gadget -name {utilization_2} -type utilization
 }
 set obj [get_dashboard_gadgets [ list "utilization_2" ] ]
-set_property -name "reports" -value "impl_1#impl_1_place_report_utilization_0" -objects $obj
 
 move_dashboard_gadget -name {utilization_1} -row 0 -col 0
 move_dashboard_gadget -name {power_1} -row 1 -col 0
