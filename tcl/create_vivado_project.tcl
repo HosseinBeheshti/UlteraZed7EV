@@ -1,5 +1,5 @@
 #*****************************************************************************************
-# Vivado (TM) v2020.2 (64-bit)
+# Vivado (TM) v2021.2 (64-bit)
 #
 #####################
 ###___           ___
@@ -28,7 +28,7 @@
 #
 # 3. The following remote source files that were added to the original project:-
 #
-#    "/home/beheshti/UlteraZed7EV/xdc/top.xdc"
+#    "/media/beheshti/projects/UlteraZed7EV/xdc/top.xdc"
 #
 #*****************************************************************************************
 # H128B717------------------------------------------------------------------------
@@ -37,7 +37,7 @@ set origin_dir [file dirname [file dirname [info script]]]
 proc checkRequiredFiles { origin_dir} {
   set status true
   set files [list \
-   "$origin_dir/xdc/top.xdc" \
+ "[file normalize "$origin_dir/xdc/top.xdc"]"\
   ]
   foreach ifile $files {
     if { ![file isfile $ifile] } {
@@ -47,8 +47,8 @@ proc checkRequiredFiles { origin_dir} {
   }
 
   set paths [list \
-   [file normalize "$origin_dir/hls"] \
-   [file normalize "$origin_dir/matlab"] \
+ "[file normalize "$origin_dir/[file normalize "$origin_dir/hls"]"]"\
+ "[file normalize "$origin_dir/[file normalize "$origin_dir/matlab"]"]"\
   ]
   foreach ipath $paths {
     if { ![file isdirectory $ipath] } {
@@ -160,6 +160,7 @@ set_property -name "platform.design_intent.embedded" -value "true" -objects $obj
 set_property -name "platform.design_intent.external_host" -value "false" -objects $obj
 set_property -name "platform.design_intent.server_managed" -value "false" -objects $obj
 set_property -name "platform.name" -value "name" -objects $obj
+set_property -name "revised_directory_structure" -value "1" -objects $obj
 set_property -name "sim.central_dir" -value "$proj_dir/${_xil_proj_name_}.ip_user_files" -objects $obj
 set_property -name "sim.ip.auto_export_scripts" -value "1" -objects $obj
 set_property -name "simulator_language" -value "Mixed" -objects $obj
@@ -170,7 +171,6 @@ set_property -name "webtalk.modelsim_export_sim" -value "3" -objects $obj
 set_property -name "webtalk.questa_export_sim" -value "3" -objects $obj
 set_property -name "webtalk.riviera_export_sim" -value "3" -objects $obj
 set_property -name "webtalk.vcs_export_sim" -value "3" -objects $obj
-set_property -name "webtalk.xcelium_export_sim" -value "1" -objects $obj
 set_property -name "webtalk.xsim_export_sim" -value "3" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_FIFO XPM_MEMORY" -objects $obj
 
@@ -233,7 +233,6 @@ set obj [get_filesets sim_1]
 
 # Set 'sim_1' fileset properties
 set obj [get_filesets sim_1]
-set_property -name "hbs.configure_design_for_hier_access" -value "1" -objects $obj
 set_property -name "top" -value "design_1_wrapper" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
@@ -279,7 +278,7 @@ proc cr_bd_design_1 { parentCell } {
   xilinx.com:ip:xlconcat:2.1\
   xilinx.com:ip:zynq_ultra_ps_e:3.3\
   xilinx.com:ip:uhdsdi_gt:2.0\
-  xilinx.com:ip:util_ds_buf:2.1\
+  xilinx.com:ip:util_ds_buf:2.2\
   xilinx.com:ip:v_smpte_uhdsdi_rx_ss:2.0\
   xilinx.com:ip:v_smpte_uhdsdi_tx_ss:2.0\
   xilinx.com:ip:v_uhdsdi_audio:2.0\
@@ -615,10 +614,14 @@ proc create_hier_cell_sdi_ss { parentCell nameHier } {
   set uhdsdi_gt_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:uhdsdi_gt:2.0 uhdsdi_gt_0 ]
   set_property -dict [ list \
    CONFIG.C_DRP_CLK_FREQ {200} \
+   CONFIG.C_Tx_PLL2_Selection_INTF_0 {2} \
+   CONFIG.C_Tx_PLL2_Selection_INTF_1 {2} \
+   CONFIG.C_Tx_PLL2_Selection_INTF_2 {2} \
+   CONFIG.C_Tx_PLL2_Selection_INTF_3 {2} \
  ] $uhdsdi_gt_0
 
   # Create instance: util_ds_buf_0, and set properties
-  set util_ds_buf_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_ds_buf:2.1 util_ds_buf_0 ]
+  set util_ds_buf_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_ds_buf:2.2 util_ds_buf_0 ]
   set_property -dict [ list \
    CONFIG.C_BUF_TYPE {IBUFDSGTE} \
  ] $util_ds_buf_0
@@ -626,6 +629,7 @@ proc create_hier_cell_sdi_ss { parentCell nameHier } {
   # Create instance: v_smpte_uhdsdi_rx_ss_0, and set properties
   set v_smpte_uhdsdi_rx_ss_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:v_smpte_uhdsdi_rx_ss:2.0 v_smpte_uhdsdi_rx_ss_0 ]
   set_property -dict [ list \
+   CONFIG.C_EXDESBOARD_VERSION {2} \
    CONFIG.C_INCLUDE_ADV_FEATURES {true} \
  ] $v_smpte_uhdsdi_rx_ss_0
 
@@ -1295,52 +1299,17 @@ proc create_hier_cell_mpsoc_ss { parentCell nameHier } {
    CONFIG.PSU_MIO_9_POLARITY {Default} \
    CONFIG.PSU_MIO_9_PULLUPDOWN {pullup} \
    CONFIG.PSU_MIO_9_SLEW {fast} \
-   CONFIG.PSU_MIO_TREE_PERIPHERALS { \
-     0#SD 0#GPIO0 \
-     0#SD 0#GPIO0 \
-     0#SD 0#GPIO0 \
-     0#SD 0#GPIO0 \
-     0#SD 0#GPIO0 \
-     0#UART 0#GPIO1 \
-     0#USB 0#Gem \
-     0#USB 0#Gem \
-     0#USB 0#Gem \
-     0#USB 0#Gem \
-     0#USB 0#Gem \
-     0#USB 0#Gem \
-     1#GPIO1 MIO#DPAUX#DPAUX#DPAUX#DPAUX#PCIE#UART \
-     1#SD 1#USB \
-     1#SD 1#USB \
-     1#SD 1#USB \
-     1#UART 1#UART \
-     3#Gem 3#MDIO \
-     3#Gem 3#MDIO \
-     3#Gem 3#MDIO \
-     3#Gem 3#MDIO \
-     3#Gem 3#MDIO \
-     3#Gem 3#MDIO \
-     3#MDIO 3 \
-     Flash#Feedback Clk#Quad \
-     Flash#Quad SPI \
-     Flash#Quad SPI \
-     Flash#Quad SPI \
-     Flash#Quad SPI \
-     Flash#Quad SPI \
-     MIO#GPIO1 MIO#GPIO1 \
-     MIO#GPIO1 MIO#GPIO1 \
-     MIO#GPIO1 MIO#GPIO1 \
-     MIO#GPIO1 MIO#GPIO1 \
-     MIO#I2C 1#I2C \
-     MIO#SD 1#SD \
-     Quad SPI \
-     SPI Flash#SD \
-     SPI Flash#SD \
-     SPI Flash#SD \
-     SPI Flash#SD \
-     SPI Flash#SD \
-     SPI Flash#SD \
-   } \
-   CONFIG.PSU_MIO_TREE_SIGNALS {sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#clk_for_lpbk#n_ss_out_upper#mo_upper[0]#mo_upper[1]#mo_upper[2]#mo_upper[3]#sclk_out_upper#sdio0_data_out[0]#sdio0_data_out[1]#sdio0_data_out[2]#sdio0_data_out[3]#sdio0_data_out[4]#sdio0_data_out[5]#sdio0_data_out[6]#sdio0_data_out[7]#sdio0_cmd_out#sdio0_clk_out#gpio0[23]#scl_out#sda_out#gpio1[26]#dp_aux_data_out#dp_hot_plug_detect#dp_aux_data_oe#dp_aux_data_in#reset_n#txd#rxd#rxd#txd#gpio1[36]#gpio1[37]#gpio1[38]#gpio1[39]#gpio1[40]#gpio1[41]#gpio1[42]#gpio1[43]#gpio1[44]#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#gem3_mdc#gem3_mdio_out} \
+   CONFIG.PSU_MIO_TREE_PERIPHERALS {\
+Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad\
+SPI Flash#Feedback Clk#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI\
+Flash#Quad SPI Flash#Quad SPI Flash#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD\
+0#SD 0#GPIO0 MIO#I2C 1#I2C 1#GPIO1 MIO#DPAUX#DPAUX#DPAUX#DPAUX#PCIE#UART 1#UART\
+1#UART 0#UART 0#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#GPIO1\
+MIO#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#USB 0#USB\
+0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#Gem 3#Gem 3#Gem\
+3#Gem 3#Gem 3#Gem 3#Gem 3#Gem 3#Gem 3#Gem 3#Gem 3#Gem 3#MDIO 3#MDIO 3} \
+   CONFIG.PSU_MIO_TREE_SIGNALS {\
+sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#clk_for_lpbk#n_ss_out_upper#mo_upper[0]#mo_upper[1]#mo_upper[2]#mo_upper[3]#sclk_out_upper#sdio0_data_out[0]#sdio0_data_out[1]#sdio0_data_out[2]#sdio0_data_out[3]#sdio0_data_out[4]#sdio0_data_out[5]#sdio0_data_out[6]#sdio0_data_out[7]#sdio0_cmd_out#sdio0_clk_out#gpio0[23]#scl_out#sda_out#gpio1[26]#dp_aux_data_out#dp_hot_plug_detect#dp_aux_data_oe#dp_aux_data_in#reset_n#txd#rxd#rxd#txd#gpio1[36]#gpio1[37]#gpio1[38]#gpio1[39]#gpio1[40]#gpio1[41]#gpio1[42]#gpio1[43]#gpio1[44]#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#gem3_mdc#gem3_mdio_out} \
    CONFIG.PSU_PERIPHERAL_BOARD_PRESET {} \
    CONFIG.PSU_SD0_INTERNAL_BUS_WIDTH {8} \
    CONFIG.PSU_SD1_INTERNAL_BUS_WIDTH {4} \
@@ -2169,16 +2138,47 @@ proc create_hier_cell_mpsoc_ss { parentCell nameHier } {
    CONFIG.PSU__PROTECTION__DDR_SEGMENTS {NONE} \
    CONFIG.PSU__PROTECTION__DEBUG {0} \
    CONFIG.PSU__PROTECTION__ENABLE {0} \
-   CONFIG.PSU__PROTECTION__FPD_SEGMENTS {SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
+   CONFIG.PSU__PROTECTION__FPD_SEGMENTS {\
+SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure;\
+WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD010000; SIZE:64;\
+UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |  \
+SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure;\
+WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD040000; SIZE:64;\
+UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |  \
+SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD610000; SIZE:512; UNIT:KB;\
+RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |  \
+SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |  SA:0xFD1A0000 ; SIZE:1280; UNIT:KB;\
+RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
    CONFIG.PSU__PROTECTION__LOCK_UNUSED_SEGMENTS {0} \
-   CONFIG.PSU__PROTECTION__LPD_SEGMENTS {SA:0xFF980000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF5E0000; SIZE:2560; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFCC0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF180000; SIZE:768; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF410000; SIZE:640; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFA70000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF9A0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|SA:0xFF5E0000 ; SIZE:2560; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFFCC0000 ; SIZE:64; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFF180000 ; SIZE:768; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFF9A0000 ; SIZE:64; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
-   CONFIG.PSU__PROTECTION__MASTERS {USB1:NonSecure;0|USB0:NonSecure;1|S_AXI_LPD:NA;0|S_AXI_HPC1_FPD:NA;1|S_AXI_HPC0_FPD:NA;1|S_AXI_HP3_FPD:NA;0|S_AXI_HP2_FPD:NA;0|S_AXI_HP1_FPD:NA;1|S_AXI_HP0_FPD:NA;1|S_AXI_ACP:NA;0|S_AXI_ACE:NA;0|SD1:NonSecure;1|SD0:NonSecure;1|SATA1:NonSecure;1|SATA0:NonSecure;1|RPU1:Secure;1|RPU0:Secure;1|QSPI:NonSecure;1|PMU:NA;1|PCIe:NonSecure;1|NAND:NonSecure;0|LDMA:NonSecure;1|GPU:NonSecure;1|GEM3:NonSecure;1|GEM2:NonSecure;0|GEM1:NonSecure;0|GEM0:NonSecure;0|FDMA:NonSecure;1|DP:NonSecure;1|DAP:NA;1|Coresight:NA;1|CSU:NA;1|APU:NA;1} \
-   CONFIG.PSU__PROTECTION__MASTERS_TZ {GEM0:NonSecure|SD1:NonSecure|GEM2:NonSecure|GEM1:NonSecure|GEM3:NonSecure|PCIe:NonSecure|DP:NonSecure|NAND:NonSecure|GPU:NonSecure|USB1:NonSecure|USB0:NonSecure|LDMA:NonSecure|FDMA:NonSecure|QSPI:NonSecure|SD0:NonSecure} \
+   CONFIG.PSU__PROTECTION__LPD_SEGMENTS {\
+SA:0xFF980000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware| SA:0xFF5E0000; SIZE:2560; UNIT:KB; RegionTZ:Secure;\
+WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFCC0000; SIZE:64;\
+UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|\
+SA:0xFF180000; SIZE:768; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware| SA:0xFF410000; SIZE:640; UNIT:KB; RegionTZ:Secure;\
+WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFA70000; SIZE:64;\
+UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|\
+SA:0xFF9A0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware|SA:0xFF5E0000 ; SIZE:2560; UNIT:KB; RegionTZ:Secure ;\
+WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFFCC0000 ; SIZE:64;\
+UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure\
+Subsystem|SA:0xFF180000 ; SIZE:768; UNIT:KB; RegionTZ:Secure ;\
+WrAllowed:Read/Write; subsystemId:Secure Subsystem|SA:0xFF9A0000 ; SIZE:64;\
+UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
+   CONFIG.PSU__PROTECTION__MASTERS {\
+USB1:NonSecure;0|USB0:NonSecure;1|S_AXI_LPD:NA;0|S_AXI_HPC1_FPD:NA;1|S_AXI_HPC0_FPD:NA;1|S_AXI_HP3_FPD:NA;0|S_AXI_HP2_FPD:NA;0|S_AXI_HP1_FPD:NA;1|S_AXI_HP0_FPD:NA;1|S_AXI_ACP:NA;0|S_AXI_ACE:NA;0|SD1:NonSecure;1|SD0:NonSecure;1|SATA1:NonSecure;1|SATA0:NonSecure;1|RPU1:Secure;1|RPU0:Secure;1|QSPI:NonSecure;1|PMU:NA;1|PCIe:NonSecure;1|NAND:NonSecure;0|LDMA:NonSecure;1|GPU:NonSecure;1|GEM3:NonSecure;1|GEM2:NonSecure;0|GEM1:NonSecure;0|GEM0:NonSecure;0|FDMA:NonSecure;1|DP:NonSecure;1|DAP:NA;1|Coresight:NA;1|CSU:NA;1|APU:NA;1} \
+   CONFIG.PSU__PROTECTION__MASTERS_TZ {\
+GEM0:NonSecure|SD1:NonSecure|GEM2:NonSecure|GEM1:NonSecure|GEM3:NonSecure|PCIe:NonSecure|DP:NonSecure|NAND:NonSecure|GPU:NonSecure|USB1:NonSecure|USB0:NonSecure|LDMA:NonSecure|FDMA:NonSecure|QSPI:NonSecure|SD0:NonSecure} \
    CONFIG.PSU__PROTECTION__OCM_SEGMENTS {NONE} \
    CONFIG.PSU__PROTECTION__PRESUBSYSTEMS {NONE} \
-   CONFIG.PSU__PROTECTION__SLAVES { \
-     LPD;USB3_1_XHCI;FE300000;FE3FFFFF;0|LPD;USB3_1;FF9E0000;FF9EFFFF;0|LPD;USB3_0_XHCI;FE200000;FE2FFFFF;1|LPD;USB3_0;FF9D0000;FF9DFFFF;1|LPD;UART1;FF010000;FF01FFFF;1|LPD;UART0;FF000000;FF00FFFF;1|LPD;TTC3;FF140000;FF14FFFF;1|LPD;TTC2;FF130000;FF13FFFF;1|LPD;TTC1;FF120000;FF12FFFF;1|LPD;TTC0;FF110000;FF11FFFF;1|FPD;SWDT1;FD4D0000;FD4DFFFF;1|LPD;SWDT0;FF150000;FF15FFFF;1|LPD;SPI1;FF050000;FF05FFFF;0|LPD;SPI0;FF040000;FF04FFFF;0|FPD;SMMU_REG;FD5F0000;FD5FFFFF;1|FPD;SMMU;FD800000;FDFFFFFF;1|FPD;SIOU;FD3D0000;FD3DFFFF;1|FPD;SERDES;FD400000;FD47FFFF;1|LPD;SD1;FF170000;FF17FFFF;1|LPD;SD0;FF160000;FF16FFFF;1|FPD;SATA;FD0C0000;FD0CFFFF;1|LPD;RTC;FFA60000;FFA6FFFF;1|LPD;RSA_CORE;FFCE0000;FFCEFFFF;1|LPD;RPU;FF9A0000;FF9AFFFF;1|LPD;R5_TCM_RAM_GLOBAL;FFE00000;FFE3FFFF;1|LPD;R5_1_Instruction_Cache;FFEC0000;FFECFFFF;1|LPD;R5_1_Data_Cache;FFED0000;FFEDFFFF;1|LPD;R5_1_BTCM_GLOBAL;FFEB0000;FFEBFFFF;1|LPD;R5_1_ATCM_GLOBAL;FFE90000;FFE9FFFF;1|LPD;R5_0_Instruction_Cache;FFE40000;FFE4FFFF;1|LPD;R5_0_Data_Cache;FFE50000;FFE5FFFF;1|LPD;R5_0_BTCM_GLOBAL;FFE20000;FFE2FFFF;1|LPD;R5_0_ATCM_GLOBAL;FFE00000;FFE0FFFF;1|LPD;QSPI_Linear_Address;C0000000;DFFFFFFF;1|LPD;QSPI;FF0F0000;FF0FFFFF;1|LPD;PMU_RAM;FFDC0000;FFDDFFFF;1|LPD;PMU_GLOBAL;FFD80000;FFDBFFFF;1|FPD;PCIE_MAIN;FD0E0000;FD0EFFFF;1|FPD;PCIE_LOW;E0000000;EFFFFFFF;1|FPD;PCIE_HIGH2;8000000000;BFFFFFFFFF;1|FPD;PCIE_HIGH1;600000000;7FFFFFFFF;1|FPD;PCIE_DMA;FD0F0000;FD0FFFFF;1|FPD;PCIE_ATTRIB;FD480000;FD48FFFF;1|LPD;OCM_XMPU_CFG;FFA70000;FFA7FFFF;1|LPD;OCM_SLCR;FF960000;FF96FFFF;1|OCM;OCM;FFFC0000;FFFFFFFF;1|LPD;NAND;FF100000;FF10FFFF;0|LPD;MBISTJTAG;FFCF0000;FFCFFFFF;1|LPD;LPD_XPPU_SINK;FF9C0000;FF9CFFFF;1|LPD;LPD_XPPU;FF980000;FF98FFFF;1|LPD;LPD_SLCR_SECURE;FF4B0000;FF4DFFFF;1|LPD;LPD_SLCR;FF410000;FF4AFFFF;1|LPD;LPD_GPV;FE100000;FE1FFFFF;1|LPD;LPD_DMA_7;FFAF0000;FFAFFFFF;1|LPD;LPD_DMA_6;FFAE0000;FFAEFFFF;1|LPD;LPD_DMA_5;FFAD0000;FFADFFFF;1|LPD;LPD_DMA_4;FFAC0000;FFACFFFF;1|LPD;LPD_DMA_3;FFAB0000;FFABFFFF;1|LPD;LPD_DMA_2;FFAA0000;FFAAFFFF;1|LPD;LPD_DMA_1;FFA90000;FFA9FFFF;1|LPD;LPD_DMA_0;FFA80000;FFA8FFFF;1|LPD;IPI_CTRL;FF380000;FF3FFFFF;1|LPD;IOU_SLCR;FF180000;FF23FFFF;1|LPD;IOU_SECURE_SLCR;FF240000;FF24FFFF;1|LPD;IOU_SCNTRS;FF260000;FF26FFFF;1|LPD;IOU_SCNTR;FF250000;FF25FFFF;1|LPD;IOU_GPV;FE000000;FE0FFFFF;1|LPD;I2C1;FF030000;FF03FFFF;1|LPD;I2C0;FF020000;FF02FFFF;0|FPD;GPU;FD4B0000;FD4BFFFF;1|LPD;GPIO;FF0A0000;FF0AFFFF;1|LPD;GEM3;FF0E0000;FF0EFFFF;1|LPD;GEM2;FF0D0000;FF0DFFFF;0|LPD;GEM1;FF0C0000;FF0CFFFF;0|LPD;GEM0;FF0B0000;FF0BFFFF;0|FPD;FPD_XMPU_SINK;FD4F0000;FD4FFFFF;1|FPD;FPD_XMPU_CFG;FD5D0000;FD5DFFFF;1|FPD;FPD_SLCR_SECURE;FD690000;FD6CFFFF;1|FPD;FPD_SLCR;FD610000;FD68FFFF;1|FPD;FPD_DMA_CH7;FD570000;FD57FFFF;1|FPD;FPD_DMA_CH6;FD560000;FD56FFFF;1|FPD;FPD_DMA_CH5;FD550000;FD55FFFF;1|FPD;FPD_DMA_CH4;FD540000;FD54FFFF;1|FPD;FPD_DMA_CH3;FD530000;FD53FFFF;1|FPD;FPD_DMA_CH2;FD520000;FD52FFFF;1|FPD;FPD_DMA_CH1;FD510000;FD51FFFF;1|FPD;FPD_DMA_CH0;FD500000;FD50FFFF;1|LPD;EFUSE;FFCC0000;FFCCFFFF;1|FPD;Display Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD050000;FD05FFFF;1|FPD;DDR_XMPU4_CFG;FD040000;FD04FFFF;1|FPD;DDR_XMPU3_CFG;FD030000;FD03FFFF;1|FPD;DDR_XMPU2_CFG;FD020000;FD02FFFF;1|FPD;DDR_XMPU1_CFG;FD010000;FD01FFFF;1|FPD;DDR_XMPU0_CFG;FD000000;FD00FFFF;1|FPD;DDR_QOS_CTRL;FD090000;FD09FFFF;1|FPD;DDR_PHY;FD080000;FD08FFFF;1|DDR;DDR_LOW;0;7FFFFFFF;1|DDR;DDR_HIGH;800000000;87FFFFFFF;1|FPD;DDDR_CTRL;FD070000;FD070FFF;1|LPD;Coresight;FE800000;FEFFFFFF;1|LPD;CSU_DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;1|LPD;CRL_APB;FF5E0000;FF85FFFF;1|FPD;CRF_APB;FD1A0000;FD2DFFFF;1|FPD;CCI_REG;FD5E0000;FD5EFFFF;1|LPD;CAN1;FF070000;FF07FFFF;0|LPD;CAN0;FF060000;FF06FFFF;0|FPD;APU;FD5C0000;FD5CFFFF;1|LPD;APM_INTC_IOU;FFA20000;FFA2FFFF;1|LPD;APM_FPD_LPD;FFA30000;FFA3FFFF;1|FPD;APM_5;FD490000;FD49FFFF;1|FPD;APM_0;FD0B0000;FD0BFFFF;1|LPD;APM2;FFA10000;FFA1FFFF;1|LPD;APM1;FFA00000;FFA0FFFF;1|LPD;AMS;FFA50000;FFA5FFFF;1|FPD;AFI_5;FD3B0000;FD3BFFFF;1|FPD;AFI_4;FD3A0000;FD3AFFFF;1|FPD;AFI_3;FD390000;FD39FFFF;1|FPD;AFI_2;FD380000;FD38FFFF;1|FPD;AFI_1;FD370000;FD37FFFF;1|FPD;AFI_0;FD360000;FD36FFFF;1|LPD;AFIFM6;FF9B0000;FF9BFFFF;1|FPD;ACPU_GIC;F9010000;F907FFFF;1 \
-   } \
+   CONFIG.PSU__PROTECTION__SLAVES {\
+LPD;USB3_1_XHCI;FE300000;FE3FFFFF;0|LPD;USB3_1;FF9E0000;FF9EFFFF;0|LPD;USB3_0_XHCI;FE200000;FE2FFFFF;1|LPD;USB3_0;FF9D0000;FF9DFFFF;1|LPD;UART1;FF010000;FF01FFFF;1|LPD;UART0;FF000000;FF00FFFF;1|LPD;TTC3;FF140000;FF14FFFF;1|LPD;TTC2;FF130000;FF13FFFF;1|LPD;TTC1;FF120000;FF12FFFF;1|LPD;TTC0;FF110000;FF11FFFF;1|FPD;SWDT1;FD4D0000;FD4DFFFF;1|LPD;SWDT0;FF150000;FF15FFFF;1|LPD;SPI1;FF050000;FF05FFFF;0|LPD;SPI0;FF040000;FF04FFFF;0|FPD;SMMU_REG;FD5F0000;FD5FFFFF;1|FPD;SMMU;FD800000;FDFFFFFF;1|FPD;SIOU;FD3D0000;FD3DFFFF;1|FPD;SERDES;FD400000;FD47FFFF;1|LPD;SD1;FF170000;FF17FFFF;1|LPD;SD0;FF160000;FF16FFFF;1|FPD;SATA;FD0C0000;FD0CFFFF;1|LPD;RTC;FFA60000;FFA6FFFF;1|LPD;RSA_CORE;FFCE0000;FFCEFFFF;1|LPD;RPU;FF9A0000;FF9AFFFF;1|LPD;R5_TCM_RAM_GLOBAL;FFE00000;FFE3FFFF;1|LPD;R5_1_Instruction_Cache;FFEC0000;FFECFFFF;1|LPD;R5_1_Data_Cache;FFED0000;FFEDFFFF;1|LPD;R5_1_BTCM_GLOBAL;FFEB0000;FFEBFFFF;1|LPD;R5_1_ATCM_GLOBAL;FFE90000;FFE9FFFF;1|LPD;R5_0_Instruction_Cache;FFE40000;FFE4FFFF;1|LPD;R5_0_Data_Cache;FFE50000;FFE5FFFF;1|LPD;R5_0_BTCM_GLOBAL;FFE20000;FFE2FFFF;1|LPD;R5_0_ATCM_GLOBAL;FFE00000;FFE0FFFF;1|LPD;QSPI_Linear_Address;C0000000;DFFFFFFF;1|LPD;QSPI;FF0F0000;FF0FFFFF;1|LPD;PMU_RAM;FFDC0000;FFDDFFFF;1|LPD;PMU_GLOBAL;FFD80000;FFDBFFFF;1|FPD;PCIE_MAIN;FD0E0000;FD0EFFFF;1|FPD;PCIE_LOW;E0000000;EFFFFFFF;1|FPD;PCIE_HIGH2;8000000000;BFFFFFFFFF;1|FPD;PCIE_HIGH1;600000000;7FFFFFFFF;1|FPD;PCIE_DMA;FD0F0000;FD0FFFFF;1|FPD;PCIE_ATTRIB;FD480000;FD48FFFF;1|LPD;OCM_XMPU_CFG;FFA70000;FFA7FFFF;1|LPD;OCM_SLCR;FF960000;FF96FFFF;1|OCM;OCM;FFFC0000;FFFFFFFF;1|LPD;NAND;FF100000;FF10FFFF;0|LPD;MBISTJTAG;FFCF0000;FFCFFFFF;1|LPD;LPD_XPPU_SINK;FF9C0000;FF9CFFFF;1|LPD;LPD_XPPU;FF980000;FF98FFFF;1|LPD;LPD_SLCR_SECURE;FF4B0000;FF4DFFFF;1|LPD;LPD_SLCR;FF410000;FF4AFFFF;1|LPD;LPD_GPV;FE100000;FE1FFFFF;1|LPD;LPD_DMA_7;FFAF0000;FFAFFFFF;1|LPD;LPD_DMA_6;FFAE0000;FFAEFFFF;1|LPD;LPD_DMA_5;FFAD0000;FFADFFFF;1|LPD;LPD_DMA_4;FFAC0000;FFACFFFF;1|LPD;LPD_DMA_3;FFAB0000;FFABFFFF;1|LPD;LPD_DMA_2;FFAA0000;FFAAFFFF;1|LPD;LPD_DMA_1;FFA90000;FFA9FFFF;1|LPD;LPD_DMA_0;FFA80000;FFA8FFFF;1|LPD;IPI_CTRL;FF380000;FF3FFFFF;1|LPD;IOU_SLCR;FF180000;FF23FFFF;1|LPD;IOU_SECURE_SLCR;FF240000;FF24FFFF;1|LPD;IOU_SCNTRS;FF260000;FF26FFFF;1|LPD;IOU_SCNTR;FF250000;FF25FFFF;1|LPD;IOU_GPV;FE000000;FE0FFFFF;1|LPD;I2C1;FF030000;FF03FFFF;1|LPD;I2C0;FF020000;FF02FFFF;0|FPD;GPU;FD4B0000;FD4BFFFF;1|LPD;GPIO;FF0A0000;FF0AFFFF;1|LPD;GEM3;FF0E0000;FF0EFFFF;1|LPD;GEM2;FF0D0000;FF0DFFFF;0|LPD;GEM1;FF0C0000;FF0CFFFF;0|LPD;GEM0;FF0B0000;FF0BFFFF;0|FPD;FPD_XMPU_SINK;FD4F0000;FD4FFFFF;1|FPD;FPD_XMPU_CFG;FD5D0000;FD5DFFFF;1|FPD;FPD_SLCR_SECURE;FD690000;FD6CFFFF;1|FPD;FPD_SLCR;FD610000;FD68FFFF;1|FPD;FPD_DMA_CH7;FD570000;FD57FFFF;1|FPD;FPD_DMA_CH6;FD560000;FD56FFFF;1|FPD;FPD_DMA_CH5;FD550000;FD55FFFF;1|FPD;FPD_DMA_CH4;FD540000;FD54FFFF;1|FPD;FPD_DMA_CH3;FD530000;FD53FFFF;1|FPD;FPD_DMA_CH2;FD520000;FD52FFFF;1|FPD;FPD_DMA_CH1;FD510000;FD51FFFF;1|FPD;FPD_DMA_CH0;FD500000;FD50FFFF;1|LPD;EFUSE;FFCC0000;FFCCFFFF;1|FPD;Display\
+Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD050000;FD05FFFF;1|FPD;DDR_XMPU4_CFG;FD040000;FD04FFFF;1|FPD;DDR_XMPU3_CFG;FD030000;FD03FFFF;1|FPD;DDR_XMPU2_CFG;FD020000;FD02FFFF;1|FPD;DDR_XMPU1_CFG;FD010000;FD01FFFF;1|FPD;DDR_XMPU0_CFG;FD000000;FD00FFFF;1|FPD;DDR_QOS_CTRL;FD090000;FD09FFFF;1|FPD;DDR_PHY;FD080000;FD08FFFF;1|DDR;DDR_LOW;0;7FFFFFFF;1|DDR;DDR_HIGH;800000000;87FFFFFFF;1|FPD;DDDR_CTRL;FD070000;FD070FFF;1|LPD;Coresight;FE800000;FEFFFFFF;1|LPD;CSU_DMA;FFC80000;FFC9FFFF;1|LPD;CSU;FFCA0000;FFCAFFFF;1|LPD;CRL_APB;FF5E0000;FF85FFFF;1|FPD;CRF_APB;FD1A0000;FD2DFFFF;1|FPD;CCI_REG;FD5E0000;FD5EFFFF;1|LPD;CAN1;FF070000;FF07FFFF;0|LPD;CAN0;FF060000;FF06FFFF;0|FPD;APU;FD5C0000;FD5CFFFF;1|LPD;APM_INTC_IOU;FFA20000;FFA2FFFF;1|LPD;APM_FPD_LPD;FFA30000;FFA3FFFF;1|FPD;APM_5;FD490000;FD49FFFF;1|FPD;APM_0;FD0B0000;FD0BFFFF;1|LPD;APM2;FFA10000;FFA1FFFF;1|LPD;APM1;FFA00000;FFA0FFFF;1|LPD;AMS;FFA50000;FFA5FFFF;1|FPD;AFI_5;FD3B0000;FD3BFFFF;1|FPD;AFI_4;FD3A0000;FD3AFFFF;1|FPD;AFI_3;FD390000;FD39FFFF;1|FPD;AFI_2;FD380000;FD38FFFF;1|FPD;AFI_1;FD370000;FD37FFFF;1|FPD;AFI_0;FD360000;FD36FFFF;1|LPD;AFIFM6;FF9B0000;FF9BFFFF;1|FPD;ACPU_GIC;F9010000;F907FFFF;1} \
    CONFIG.PSU__PROTECTION__SUBSYSTEMS {PMU Firmware:PMU|Secure Subsystem:} \
    CONFIG.PSU__PSS_ALT_REF_CLK__ENABLE {0} \
    CONFIG.PSU__PSS_ALT_REF_CLK__FREQMHZ {33.333} \
@@ -2486,7 +2486,8 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   # Create instance: dma_system_ila, and set properties
   set dma_system_ila [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.1 dma_system_ila ]
   set_property -dict [ list \
-   CONFIG.C_BRAM_CNT {0} \
+   CONFIG.C_BRAM_CNT {0.0} \
+   CONFIG.C_MON_TYPE {INTERFACE} \
    CONFIG.C_NUM_MONITOR_SLOTS {2} \
    CONFIG.C_SLOT {1} \
    CONFIG.C_SLOT_0_INTF_TYPE {xilinx.com:interface:axis_rtl:1.0} \
@@ -2532,55 +2533,6 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   connect_bd_net -net clk_300m_resetn_1 [get_bd_pins pl_clk0_aresetn] [get_bd_pins axi_dma_0/axi_resetn]
   connect_bd_net -net mpsoc_ss_pl_clk0 [get_bd_pins pl_clk0] [get_bd_pins axi_dma_0/s_axi_lite_aclk] [get_bd_pins smartconnect_0/aclk]
   connect_bd_net -net sysclk_clk_wiz_clk_300mhz [get_bd_pins data_clk] [get_bd_pins axi_dma_0/m_axi_mm2s_aclk] [get_bd_pins axi_dma_0/m_axi_s2mm_aclk] [get_bd_pins axi_dma_0/m_axi_sg_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_0/S01_ACLK] [get_bd_pins axi_interconnect_0/S02_ACLK] [get_bd_pins dma_lb_axis_switch_0/ap_clk] [get_bd_pins dma_system_ila/clk] [get_bd_pins pl_to_ps_fifo/s_axis_aclk] [get_bd_pins ps_to_pl_fifo/s_axis_aclk] [get_bd_pins smartconnect_0/aclk1]
-
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /dma_ss] -layout_string {
-   "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.526316",
-   "Default View_TopLeft":"-475,0",
-   "ExpandedHierarchyInLayout":"",
-   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
-#  -string -flagsOSRD
-preplace port dma_ss_s_axi -pg 1 -lvl 0 -x 0 -y 300 -defaultsOSRD
-preplace port M00_AXI -pg 1 -lvl 4 -x 1150 -y 220 -defaultsOSRD
-preplace port to_pl_stream -pg 1 -lvl 4 -x 1150 -y 650 -defaultsOSRD
-preplace port to_ps_stream -pg 1 -lvl 0 -x 0 -y 660 -defaultsOSRD
-preplace port dma_mm2s_introut -pg 1 -lvl 4 -x 1150 -y 20 -defaultsOSRD
-preplace port dma_s2mm_introut -pg 1 -lvl 4 -x 1150 -y 40 -defaultsOSRD
-preplace port pl_clk0 -pg 1 -lvl 0 -x 0 -y 320 -defaultsOSRD
-preplace port pl_clk0_aresetn -pg 1 -lvl 0 -x 0 -y 230 -defaultsOSRD
-preplace port data_clk -pg 1 -lvl 0 -x 0 -y 500 -defaultsOSRD
-preplace port data_aresetn -pg 1 -lvl 0 -x 0 -y 480 -defaultsOSRD
-preplace inst axi_dma_0 -pg 1 -lvl 2 -x 550 -y 170 -defaultsOSRD
-preplace inst axi_interconnect_0 -pg 1 -lvl 3 -x 970 -y 220 -defaultsOSRD
-preplace inst dma_lb_axis_switch_0 -pg 1 -lvl 3 -x 970 -y 660 -defaultsOSRD
-preplace inst dma_system_ila -pg 1 -lvl 3 -x 970 -y 470 -defaultsOSRD
-preplace inst pl_to_ps_fifo -pg 1 -lvl 1 -x 180 -y 580 -defaultsOSRD
-preplace inst ps_to_pl_fifo -pg 1 -lvl 2 -x 550 -y 480 -defaultsOSRD
-preplace inst smartconnect_0 -pg 1 -lvl 1 -x 180 -y 320 -defaultsOSRD
-preplace netloc S00_ARESETN_1 1 0 3 20 480 320 560 760
-preplace netloc axi_dma_0_mm2s_introut 1 2 2 740J 20 NJ
-preplace netloc axi_dma_0_s2mm_introut 1 2 2 750J 40 NJ
-preplace netloc clk_300m_resetn_1 1 0 2 NJ 230 NJ
-preplace netloc mpsoc_ss_pl_clk0 1 0 2 20 150 N
-preplace netloc sysclk_clk_wiz_clk_300mhz 1 0 3 30 240 330 30 790
-preplace netloc to_ps_stream_1 1 0 3 NJ 660 NJ 660 NJ
-preplace netloc to_ps_stream 1 1 2 340 390 810J
-preplace netloc from_ps_stream 1 2 1 770 460n
-preplace netloc dma_lb_axis_switch_0_to_pl 1 3 1 NJ 650
-preplace netloc dma_lb_axis_switch_0_to_dma 1 0 4 40 400 NJ 400 780J 560 1130
-preplace netloc axi_interconnect_0_M00_AXI 1 3 1 NJ 220
-preplace netloc axi_dma_0_M_AXI_SG 1 2 1 N 100
-preplace netloc axi_dma_0_M_AXI_S2MM 1 2 1 N 140
-preplace netloc axi_dma_0_M_AXI_MM2S 1 2 1 N 120
-preplace netloc axi_dma_0_M_AXIS_MM2S 1 1 2 350 40 730
-preplace netloc dma_ss_s_axi_1 1 0 1 NJ 300
-preplace netloc smartconnect_0_M00_AXI 1 1 1 320 110n
-preplace netloc smartconnect_0_M01_AXI 1 1 2 320 380 800J
-levelinfo -pg 1 0 180 550 970 1150
-pagesize -pg 1 -db -bbox -sgen -160 0 1340 760
-"
-}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2752,26 +2704,26 @@ pagesize -pg 1 -db -bbox -sgen -160 0 1340 760
   assign_bd_address -offset 0xB0040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs sdi_ss/v_uhdsdi_audio_embedder/S_AXI_CTRL/reg0] -force
   assign_bd_address -offset 0xB0050000 -range 0x00010000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs sdi_ss/v_uhdsdi_audio_extractor/S_AXI_CTRL/reg0] -force
   assign_bd_address -offset 0xB0100000 -range 0x00100000 -target_address_space [get_bd_addr_spaces mpsoc_ss/zynq_ultra_ps_e_0/Data] [get_bd_addr_segs vcu_ss/vcu_0/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH] -force
   assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH] -force
-  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
+  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_HIGH] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
-  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM] -force
+  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
   assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM] -force
+  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM] -force
   assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
   assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_PCIE_LOW] -force
-  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
   assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
-  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_HIGH] -force
+  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/DecData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP2/HP0_QSPI] -force
   assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_HIGH] -force
-  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_LOW] -force
+  assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_HIGH] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_LOW] -force
-  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_LPS_OCM] -force
+  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_DDR_LOW] -force
   assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_LPS_OCM] -force
-  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_PCIE_LOW] -force
+  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_LPS_OCM] -force
   assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_PCIE_LOW] -force
-  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_QSPI] -force
+  assign_bd_address -offset 0xE0000000 -range 0x10000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_PCIE_LOW] -force
   assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData1] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_QSPI] -force
+  assign_bd_address -offset 0xC0000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/EncData0] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP3/HP1_QSPI] -force
   assign_bd_address -offset 0x000800000000 -range 0x000800000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/Code] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/Code] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] -force
   assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces vcu_ss/vcu_0/Code] [get_bd_addr_segs mpsoc_ss/zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM] -force
@@ -2786,71 +2738,71 @@ pagesize -pg 1 -db -bbox -sgen -160 0 1340 760
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.363636",
-   "Default View_TopLeft":"-729,0",
+   "Default View_ScaleFactor":"0.462727",
+   "Default View_TopLeft":"-398,0",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1610 -y 220 -defaultsOSRD
+preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1580 -y 220 -defaultsOSRD
 preplace port gth_refclk0 -pg 1 -lvl 0 -x 0 -y 780 -defaultsOSRD
-preplace port led_8bits -pg 1 -lvl 5 -x 1610 -y 360 -defaultsOSRD
-preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1610 -y 500 -defaultsOSRD
+preplace port led_8bits -pg 1 -lvl 5 -x 1580 -y 360 -defaultsOSRD
+preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1580 -y 500 -defaultsOSRD
 preplace port sysclk_uz7ev -pg 1 -lvl 0 -x 0 -y 290 -defaultsOSRD
-preplace port gth3_rx_n -pg 1 -lvl 0 -x 0 -y 800 -defaultsOSRD
-preplace port gth3_rx_p -pg 1 -lvl 0 -x 0 -y 820 -defaultsOSRD
-preplace port gth3_tx_n -pg 1 -lvl 5 -x 1610 -y 820 -defaultsOSRD
-preplace port gth3_tx_p -pg 1 -lvl 5 -x 1610 -y 840 -defaultsOSRD
-preplace inst audio_axis_data_fifo -pg 1 -lvl 3 -x 1010 -y 690 -defaultsOSRD -resize 200 116
-preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1440 -y 220 -defaultsOSRD
-preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1440 -y 360 -defaultsOSRD
-preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1440 -y 500 -defaultsOSRD
-preplace inst mpsoc_ss -pg 1 -lvl 3 -x 1010 -y 390 -defaultsOSRD
-preplace inst one -pg 1 -lvl 2 -x 590 -y 500 -defaultsOSRD
-preplace inst sdi_ss -pg 1 -lvl 4 -x 1440 -y 800 -defaultsOSRD
+preplace port port-id_gth3_rx_n -pg 1 -lvl 0 -x 0 -y 800 -defaultsOSRD
+preplace port port-id_gth3_rx_p -pg 1 -lvl 0 -x 0 -y 820 -defaultsOSRD
+preplace port port-id_gth3_tx_n -pg 1 -lvl 5 -x 1580 -y 820 -defaultsOSRD
+preplace port port-id_gth3_tx_p -pg 1 -lvl 5 -x 1580 -y 840 -defaultsOSRD
+preplace inst dma_ss -pg 1 -lvl 2 -x 580 -y 120 -defaultsOSRD
+preplace inst mpsoc_ss -pg 1 -lvl 3 -x 990 -y 390 -defaultsOSRD
+preplace inst one -pg 1 -lvl 2 -x 580 -y 500 -defaultsOSRD
+preplace inst sdi_ss -pg 1 -lvl 4 -x 1420 -y 800 -defaultsOSRD
 preplace inst sysclk_ss -pg 1 -lvl 1 -x 190 -y 300 -defaultsOSRD
-preplace inst vcu_ss -pg 1 -lvl 2 -x 590 -y 330 -defaultsOSRD
-preplace inst video_axis_data_fifo -pg 1 -lvl 3 -x 1010 -y 890 -defaultsOSRD
-preplace inst zero -pg 1 -lvl 3 -x 1010 -y 1040 -defaultsOSRD -resize 120 88
-preplace inst dma_ss -pg 1 -lvl 2 -x 590 -y 120 -defaultsOSRD
-preplace netloc drpclk_aresetn_1 1 1 3 360 600 790 790 N
-preplace netloc drpclk_in_1 1 1 3 370 610 770 810 N
-preplace netloc gth3_rx_n_1 1 0 4 NJ 800 NJ 800 NJ 800 1210J
-preplace netloc gth3_rx_p_1 1 0 4 NJ 820 NJ 820 750J 970 1290J
-preplace netloc mpsoc_ss_Dout 1 1 3 430 560 NJ 560 1210
-preplace netloc mpsoc_ss_pl_clk0 1 1 3 400 570 NJ 570 1270
-preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 590 NJ 590 780J 550 1220
-preplace netloc one_dout 1 2 2 810 540 1230J
-preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 410 580 NJ 580 1280
-preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 380 220 790J
+preplace inst vcu_ss -pg 1 -lvl 2 -x 580 -y 330 -defaultsOSRD
+preplace inst zero -pg 1 -lvl 3 -x 990 -y 1040 -defaultsOSRD -resize 120 88
+preplace inst audio_axis_data_fifo -pg 1 -lvl 3 -x 990 -y 690 -defaultsOSRD -resize 200 116
+preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1420 -y 220 -defaultsOSRD
+preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1420 -y 360 -defaultsOSRD
+preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1420 -y 500 -defaultsOSRD
+preplace inst video_axis_data_fifo -pg 1 -lvl 3 -x 990 -y 890 -defaultsOSRD
+preplace netloc dma_ss_dma_mm2s_introut 1 2 1 780 130n
+preplace netloc dma_ss_dma_s2mm_introut 1 2 1 770 150n
+preplace netloc drpclk_aresetn_1 1 1 3 360 600 760 770 1220
+preplace netloc drpclk_in_1 1 1 3 370 610 740 810 N
+preplace netloc gth3_rx_n_1 1 0 4 NJ 800 NJ 800 780J 790 1200J
+preplace netloc gth3_rx_p_1 1 0 4 NJ 820 NJ 820 790J 800 1190J
+preplace netloc mpsoc_ss_Dout 1 1 3 420 580 NJ 580 1190
+preplace netloc mpsoc_ss_pl_clk0 1 1 3 400 590 NJ 590 1270
+preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 570 NJ 570 NJ 570 1200
+preplace netloc one_dout 1 2 2 790 600 1260J
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 420 220 NJ 220 1230
+preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 380 440 760J
 preplace netloc sdi_ss_gth3_tx_n 1 4 1 NJ 820
 preplace netloc sdi_ss_gth3_tx_p 1 4 1 NJ 840
-preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 390 430 770J
+preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 390 430 740J
 preplace netloc sysclk_ss_clk_33_33333mhz 1 1 1 N 340
-preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 760 360n
-preplace netloc zero_dout 1 3 1 1300J 870n
-preplace netloc dma_ss_dma_mm2s_introut 1 2 1 800 130n
-preplace netloc dma_ss_dma_s2mm_introut 1 2 1 780 150n
+preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 750 360n
+preplace netloc zero_dout 1 3 1 1280J 870n
 preplace netloc video_axis_data_fifo_M_AXIS 1 3 1 1240 710n
 preplace netloc vcu_ss_M00_AXI2 1 2 1 N 340
-preplace netloc vcu_ss_M00_AXI 1 2 1 760 300n
-preplace netloc sdi_ss_VIDEO_OUT 1 2 3 810 610 NJ 610 1580
-preplace netloc sdi_ss_AUDIO_OUT 1 2 3 800 600 NJ 600 1590
-preplace netloc sdi_s_axi_ctrl_1 1 3 1 1260 380n
-preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1230 360n
+preplace netloc vcu_ss_M00_AXI 1 2 1 750 300n
+preplace netloc sdi_ss_VIDEO_OUT 1 2 3 780 970 NJ 970 1560
+preplace netloc sdi_ss_AUDIO_OUT 1 2 3 780 610 NJ 610 1560
+preplace netloc sdi_s_axi_ctrl_1 1 3 1 1210 380n
+preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1260 360n
 preplace netloc net_mpsoc_ss_M01_AXI 1 3 1 N 340
-preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1220 200n
+preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1200 200n
 preplace netloc net_axi_gpio_2_GPIO 1 4 1 NJ 500
 preplace netloc net_axi_gpio_1_GPIO 1 4 1 NJ 360
 preplace netloc net_axi_gpio_0_GPIO 1 4 1 NJ 220
-preplace netloc mpsoc_ss_M01_AXI 1 1 3 420 440 750J 530 1240
+preplace netloc mpsoc_ss_dma_s_axi_lite 1 1 3 380 10 NJ 10 1190
+preplace netloc mpsoc_ss_M01_AXI 1 1 3 410 560 NJ 560 1220
 preplace netloc gth_refclk0_1 1 0 4 NJ 780 NJ 780 NJ 780 1250J
+preplace netloc dma_ss_M00_AXI 1 2 1 790 90n
 preplace netloc audio_axis_data_fifo_M_AXIS 1 3 1 N 690
-preplace netloc vcu_ss_M00_AXI1 1 2 1 750 300n
+preplace netloc vcu_ss_M00_AXI1 1 2 1 740 300n
 preplace netloc CLK_IN1_D_0_1 1 0 1 NJ 290
-preplace netloc dma_ss_M00_AXI 1 2 1 810 90n
-preplace netloc mpsoc_ss_dma_s_axi_lite 1 1 3 360 10 NJ 10 1210
-levelinfo -pg 1 0 190 590 1010 1440 1610
-pagesize -pg 1 -db -bbox -sgen -150 0 1800 1100
+levelinfo -pg 1 0 190 580 990 1420 1580
+pagesize -pg 1 -db -bbox -sgen -150 0 1770 1100
 "
 }
 
