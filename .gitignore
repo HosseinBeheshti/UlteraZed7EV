@@ -1,11 +1,13 @@
 build/*
 artifacts/*
 log_data/*
+hls/dma_lb_axis_switch/dma_lb_axis_switch/*
 qt/sdk/*
 qt/build*
 **/slprj
 vivado*.jou
 vivado*.log
+vitis_hls*.log
 vivado*.str
 *runtime.txt
 *.slxc
