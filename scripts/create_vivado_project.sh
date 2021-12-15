@@ -27,7 +27,7 @@ for file in ./hls/*/script.tcl; do
 	cd $cwd	
 	echo
 done
-# prepare SysGen IPs
+# prepare model_composer IPs
 # 
 # build vivado project
 vivado -mode tcl -source $ORG_DIR/tcl/create_vivado_project.tcl -notrace
