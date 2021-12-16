@@ -19,7 +19,7 @@ sudo rm -rf /media/$USER/BOOT/*
 sudo rm -rf /media/$USER/rootfs/*
 
 echo "----------------copy new files----------------"
-# create dir: mkdir -p ./build/apu/fz3/images/linux/
+# create dir: mkdir -p ./build/apu/ultrazed7ev/images/linux/
 sudo rm -rf /media/$USER/BOOT/*
 cp $PROJ_DIR/images/linux/BOOT.BIN /media/$USER/BOOT/
 cp $PROJ_DIR/images/linux/image.ub /media/$USER/BOOT/
