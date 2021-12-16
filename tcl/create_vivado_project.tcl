@@ -28,7 +28,7 @@
 #
 # 3. The following remote source files that were added to the original project:-
 #
-#    "/media/beheshti/projects/UlteraZed7EV/xdc/top.xdc"
+#    "/home/beheshti/UlteraZed7EV/xdc/top.xdc"
 #
 #*****************************************************************************************
 # H128B717------------------------------------------------------------------------
@@ -147,7 +147,7 @@ set proj_dir [get_property directory [current_project]]
 
 # Set project properties
 set obj [current_project]
-set_property -name "board_part" -value "em.avnet.com:ultrazed_7ev_cc:part0:1.1" -objects $obj
+set_property -name "board_part" -value "avnet.com:ultrazed_7ev_cc:part0:1.5" -objects $obj
 set_property -name "default_lib" -value "xil_defaultlib" -objects $obj
 set_property -name "enable_vhdl_2008" -value "1" -objects $obj
 set_property -name "ip_cache_permissions" -value "read write" -objects $obj
@@ -2140,18 +2140,19 @@ sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#clk_for_lpbk#n_ss_out_upper#mo_upper
    CONFIG.PSU__PROTECTION__ENABLE {0} \
    CONFIG.PSU__PROTECTION__FPD_SEGMENTS {\
 SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware  |   SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure;\
-WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD010000; SIZE:64;\
-UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |  \
-SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware  |   SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure;\
-WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD040000; SIZE:64;\
-UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |  \
+subsystemId:PMU Firmware   |    SA:0xFD000000; SIZE:64; UNIT:KB;\
+RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |   \
+SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware   |    SA:0xFD020000; SIZE:64; UNIT:KB;\
+RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |   \
+SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware   |    SA:0xFD040000; SIZE:64; UNIT:KB;\
+RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |   \
 SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware  |   SA:0xFD610000; SIZE:512; UNIT:KB;\
-RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |  \
+subsystemId:PMU Firmware   |    SA:0xFD610000; SIZE:512; UNIT:KB;\
+RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware   |   \
 SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware  |  SA:0xFD1A0000 ; SIZE:1280; UNIT:KB;\
+subsystemId:PMU Firmware   |   SA:0xFD1A0000 ; SIZE:1280; UNIT:KB;\
 RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem} \
    CONFIG.PSU__PROTECTION__LOCK_UNUSED_SEGMENTS {0} \
    CONFIG.PSU__PROTECTION__LPD_SEGMENTS {\
@@ -2743,66 +2744,66 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1580 -y 220 -defaultsOSRD
+preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1610 -y 220 -defaultsOSRD
 preplace port gth_refclk0 -pg 1 -lvl 0 -x 0 -y 780 -defaultsOSRD
-preplace port led_8bits -pg 1 -lvl 5 -x 1580 -y 360 -defaultsOSRD
-preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1580 -y 500 -defaultsOSRD
+preplace port led_8bits -pg 1 -lvl 5 -x 1610 -y 360 -defaultsOSRD
+preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1610 -y 500 -defaultsOSRD
 preplace port sysclk_uz7ev -pg 1 -lvl 0 -x 0 -y 290 -defaultsOSRD
 preplace port port-id_gth3_rx_n -pg 1 -lvl 0 -x 0 -y 800 -defaultsOSRD
 preplace port port-id_gth3_rx_p -pg 1 -lvl 0 -x 0 -y 820 -defaultsOSRD
-preplace port port-id_gth3_tx_n -pg 1 -lvl 5 -x 1580 -y 820 -defaultsOSRD
-preplace port port-id_gth3_tx_p -pg 1 -lvl 5 -x 1580 -y 840 -defaultsOSRD
-preplace inst dma_ss -pg 1 -lvl 2 -x 580 -y 120 -defaultsOSRD
-preplace inst mpsoc_ss -pg 1 -lvl 3 -x 990 -y 390 -defaultsOSRD
-preplace inst one -pg 1 -lvl 2 -x 580 -y 500 -defaultsOSRD
-preplace inst sdi_ss -pg 1 -lvl 4 -x 1420 -y 800 -defaultsOSRD
+preplace port port-id_gth3_tx_n -pg 1 -lvl 5 -x 1610 -y 820 -defaultsOSRD
+preplace port port-id_gth3_tx_p -pg 1 -lvl 5 -x 1610 -y 840 -defaultsOSRD
+preplace inst audio_axis_data_fifo -pg 1 -lvl 3 -x 1010 -y 690 -defaultsOSRD -resize 200 116
+preplace inst dma_ss -pg 1 -lvl 2 -x 590 -y 120 -defaultsOSRD
+preplace inst mpsoc_ss -pg 1 -lvl 3 -x 1010 -y 390 -defaultsOSRD
+preplace inst one -pg 1 -lvl 2 -x 590 -y 500 -defaultsOSRD
+preplace inst sdi_ss -pg 1 -lvl 4 -x 1440 -y 800 -defaultsOSRD
 preplace inst sysclk_ss -pg 1 -lvl 1 -x 190 -y 300 -defaultsOSRD
-preplace inst vcu_ss -pg 1 -lvl 2 -x 580 -y 330 -defaultsOSRD
-preplace inst zero -pg 1 -lvl 3 -x 990 -y 1040 -defaultsOSRD -resize 120 88
-preplace inst audio_axis_data_fifo -pg 1 -lvl 3 -x 990 -y 690 -defaultsOSRD -resize 200 116
-preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1420 -y 220 -defaultsOSRD
-preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1420 -y 360 -defaultsOSRD
-preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1420 -y 500 -defaultsOSRD
-preplace inst video_axis_data_fifo -pg 1 -lvl 3 -x 990 -y 890 -defaultsOSRD
-preplace netloc dma_ss_dma_mm2s_introut 1 2 1 770 130n
-preplace netloc dma_ss_dma_s2mm_introut 1 2 1 760 150n
-preplace netloc drpclk_aresetn_1 1 1 3 350 600 750 770 1220
-preplace netloc drpclk_in_1 1 1 3 360 610 730 810 N
-preplace netloc gth3_rx_n_1 1 0 4 NJ 800 NJ 800 770J 790 1200J
-preplace netloc gth3_rx_p_1 1 0 4 NJ 820 NJ 820 780J 800 1190J
-preplace netloc mpsoc_ss_Dout 1 1 3 410 580 NJ 580 1190
-preplace netloc mpsoc_ss_pl_clk0 1 1 3 390 590 NJ 590 1270
-preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 570 NJ 570 NJ 570 1200
-preplace netloc one_dout 1 2 2 780 600 1260J
-preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 410 220 NJ 220 1230
-preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 370 440 750J
+preplace inst vcu_ss -pg 1 -lvl 2 -x 590 -y 330 -defaultsOSRD
+preplace inst video_axis_data_fifo -pg 1 -lvl 3 -x 1010 -y 890 -defaultsOSRD
+preplace inst zero -pg 1 -lvl 3 -x 1010 -y 1040 -defaultsOSRD -resize 120 88
+preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1440 -y 220 -defaultsOSRD
+preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1440 -y 360 -defaultsOSRD
+preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1440 -y 500 -defaultsOSRD
+preplace netloc dma_ss_dma_mm2s_introut 1 2 1 800 130n
+preplace netloc dma_ss_dma_s2mm_introut 1 2 1 780 150n
+preplace netloc drpclk_aresetn_1 1 1 3 360 600 790 790 N
+preplace netloc drpclk_in_1 1 1 3 370 610 770 810 N
+preplace netloc gth3_rx_n_1 1 0 4 NJ 800 NJ 800 NJ 800 1210J
+preplace netloc gth3_rx_p_1 1 0 4 NJ 820 NJ 820 750J 970 1290J
+preplace netloc mpsoc_ss_Dout 1 1 3 430 560 NJ 560 1210
+preplace netloc mpsoc_ss_pl_clk0 1 1 3 400 570 NJ 570 1270
+preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 590 NJ 590 780J 550 1220
+preplace netloc one_dout 1 2 2 810 540 1230J
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 410 580 NJ 580 1280
+preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 380 220 790J
 preplace netloc sdi_ss_gth3_tx_n 1 4 1 NJ 820
 preplace netloc sdi_ss_gth3_tx_p 1 4 1 NJ 840
-preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 380 430 730J
+preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 390 430 770J
 preplace netloc sysclk_ss_clk_33_33333mhz 1 1 1 N 340
-preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 740 360n
-preplace netloc zero_dout 1 3 1 1280J 870n
+preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 760 360n
+preplace netloc zero_dout 1 3 1 1300J 870n
 preplace netloc CLK_IN1_D_0_1 1 0 1 NJ 290
 preplace netloc audio_axis_data_fifo_M_AXIS 1 3 1 N 690
-preplace netloc dma_ss_M00_AXI 1 2 1 780 90n
+preplace netloc dma_ss_M00_AXI 1 2 1 810 90n
 preplace netloc gth_refclk0_1 1 0 4 NJ 780 NJ 780 NJ 780 1250J
-preplace netloc mpsoc_ss_M01_AXI 1 1 3 400 560 NJ 560 1220
-preplace netloc mpsoc_ss_dma_s_axi_lite 1 1 3 370 10 NJ 10 1190
+preplace netloc mpsoc_ss_M01_AXI 1 1 3 420 440 750J 530 1240
+preplace netloc mpsoc_ss_dma_s_axi_lite 1 1 3 360 10 NJ 10 1210
 preplace netloc net_axi_gpio_0_GPIO 1 4 1 NJ 220
 preplace netloc net_axi_gpio_1_GPIO 1 4 1 NJ 360
 preplace netloc net_axi_gpio_2_GPIO 1 4 1 NJ 500
-preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1200 200n
+preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1220 200n
 preplace netloc net_mpsoc_ss_M01_AXI 1 3 1 N 340
-preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1260 360n
-preplace netloc sdi_s_axi_ctrl_1 1 3 1 1210 380n
-preplace netloc sdi_ss_AUDIO_OUT 1 2 3 770 610 NJ 610 1560
-preplace netloc sdi_ss_VIDEO_OUT 1 2 3 770 970 NJ 970 1560
-preplace netloc vcu_ss_M00_AXI 1 2 1 740 300n
-preplace netloc vcu_ss_M00_AXI1 1 2 1 730 300n
+preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1230 360n
+preplace netloc sdi_s_axi_ctrl_1 1 3 1 1260 380n
+preplace netloc sdi_ss_AUDIO_OUT 1 2 3 800 600 NJ 600 1590
+preplace netloc sdi_ss_VIDEO_OUT 1 2 3 810 610 NJ 610 1580
+preplace netloc vcu_ss_M00_AXI 1 2 1 760 300n
+preplace netloc vcu_ss_M00_AXI1 1 2 1 750 300n
 preplace netloc vcu_ss_M00_AXI2 1 2 1 N 340
 preplace netloc video_axis_data_fifo_M_AXIS 1 3 1 1240 710n
-levelinfo -pg 1 0 190 580 990 1420 1580
-pagesize -pg 1 -db -bbox -sgen -140 0 1760 1100
+levelinfo -pg 1 0 190 590 1010 1440 1610
+pagesize -pg 1 -db -bbox -sgen -150 0 1800 1100
 "
 }
 
@@ -2882,6 +2883,7 @@ set obj [get_report_configs -of_objects [get_runs impl_1] impl_1_init_report_tim
 if { $obj != "" } {
 set_property -name "is_enabled" -value "0" -objects $obj
 set_property -name "options.max_paths" -value "10" -objects $obj
+set_property -name "options.report_unconstrained" -value "1" -objects $obj
 
 }
 # Create 'impl_1_opt_report_drc_0' report (if not found)
@@ -2900,6 +2902,7 @@ set obj [get_report_configs -of_objects [get_runs impl_1] impl_1_opt_report_timi
 if { $obj != "" } {
 set_property -name "is_enabled" -value "0" -objects $obj
 set_property -name "options.max_paths" -value "10" -objects $obj
+set_property -name "options.report_unconstrained" -value "1" -objects $obj
 
 }
 # Create 'impl_1_power_opt_report_timing_summary_0' report (if not found)
@@ -2910,6 +2913,7 @@ set obj [get_report_configs -of_objects [get_runs impl_1] impl_1_power_opt_repor
 if { $obj != "" } {
 set_property -name "is_enabled" -value "0" -objects $obj
 set_property -name "options.max_paths" -value "10" -objects $obj
+set_property -name "options.report_unconstrained" -value "1" -objects $obj
 
 }
 # Create 'impl_1_place_report_io_0' report (if not found)
@@ -2963,6 +2967,7 @@ set obj [get_report_configs -of_objects [get_runs impl_1] impl_1_place_report_ti
 if { $obj != "" } {
 set_property -name "is_enabled" -value "0" -objects $obj
 set_property -name "options.max_paths" -value "10" -objects $obj
+set_property -name "options.report_unconstrained" -value "1" -objects $obj
 
 }
 # Create 'impl_1_post_place_power_opt_report_timing_summary_0' report (if not found)
@@ -2973,6 +2978,7 @@ set obj [get_report_configs -of_objects [get_runs impl_1] impl_1_post_place_powe
 if { $obj != "" } {
 set_property -name "is_enabled" -value "0" -objects $obj
 set_property -name "options.max_paths" -value "10" -objects $obj
+set_property -name "options.report_unconstrained" -value "1" -objects $obj
 
 }
 # Create 'impl_1_phys_opt_report_timing_summary_0' report (if not found)
@@ -2983,6 +2989,7 @@ set obj [get_report_configs -of_objects [get_runs impl_1] impl_1_phys_opt_report
 if { $obj != "" } {
 set_property -name "is_enabled" -value "0" -objects $obj
 set_property -name "options.max_paths" -value "10" -objects $obj
+set_property -name "options.report_unconstrained" -value "1" -objects $obj
 
 }
 # Create 'impl_1_route_report_drc_0' report (if not found)
@@ -3024,6 +3031,7 @@ if { [ string equal [get_report_configs -of_objects [get_runs impl_1] impl_1_rou
 set obj [get_report_configs -of_objects [get_runs impl_1] impl_1_route_report_timing_summary_0]
 if { $obj != "" } {
 set_property -name "options.max_paths" -value "10" -objects $obj
+set_property -name "options.report_unconstrained" -value "1" -objects $obj
 
 }
 # Create 'impl_1_route_report_incremental_reuse_0' report (if not found)
@@ -3058,6 +3066,7 @@ if { [ string equal [get_report_configs -of_objects [get_runs impl_1] impl_1_pos
 set obj [get_report_configs -of_objects [get_runs impl_1] impl_1_post_route_phys_opt_report_timing_summary_0]
 if { $obj != "" } {
 set_property -name "options.max_paths" -value "10" -objects $obj
+set_property -name "options.report_unconstrained" -value "1" -objects $obj
 set_property -name "options.warn_on_violation" -value "1" -objects $obj
 
 }
@@ -3084,30 +3093,35 @@ if {[string equal [get_dashboard_gadgets  [ list "drc_1" ] ] ""]} {
 create_dashboard_gadget -name {drc_1} -type drc
 }
 set obj [get_dashboard_gadgets [ list "drc_1" ] ]
+set_property -name "reports" -value "impl_1#impl_1_route_report_drc_0" -objects $obj
 
 # Create 'methodology_1' gadget (if not found)
 if {[string equal [get_dashboard_gadgets  [ list "methodology_1" ] ] ""]} {
 create_dashboard_gadget -name {methodology_1} -type methodology
 }
 set obj [get_dashboard_gadgets [ list "methodology_1" ] ]
+set_property -name "reports" -value "impl_1#impl_1_route_report_methodology_0" -objects $obj
 
 # Create 'power_1' gadget (if not found)
 if {[string equal [get_dashboard_gadgets  [ list "power_1" ] ] ""]} {
 create_dashboard_gadget -name {power_1} -type power
 }
 set obj [get_dashboard_gadgets [ list "power_1" ] ]
+set_property -name "reports" -value "impl_1#impl_1_route_report_power_0" -objects $obj
 
 # Create 'timing_1' gadget (if not found)
 if {[string equal [get_dashboard_gadgets  [ list "timing_1" ] ] ""]} {
 create_dashboard_gadget -name {timing_1} -type timing
 }
 set obj [get_dashboard_gadgets [ list "timing_1" ] ]
+set_property -name "reports" -value "impl_1#impl_1_route_report_timing_summary_0" -objects $obj
 
 # Create 'utilization_1' gadget (if not found)
 if {[string equal [get_dashboard_gadgets  [ list "utilization_1" ] ] ""]} {
 create_dashboard_gadget -name {utilization_1} -type utilization
 }
 set obj [get_dashboard_gadgets [ list "utilization_1" ] ]
+set_property -name "reports" -value "synth_1#synth_1_synth_report_utilization_0" -objects $obj
 set_property -name "run.step" -value "synth_design" -objects $obj
 set_property -name "run.type" -value "synthesis" -objects $obj
 
@@ -3116,6 +3130,7 @@ if {[string equal [get_dashboard_gadgets  [ list "utilization_2" ] ] ""]} {
 create_dashboard_gadget -name {utilization_2} -type utilization
 }
 set obj [get_dashboard_gadgets [ list "utilization_2" ] ]
+set_property -name "reports" -value "impl_1#impl_1_place_report_utilization_0" -objects $obj
 
 move_dashboard_gadget -name {utilization_1} -row 0 -col 0
 move_dashboard_gadget -name {power_1} -row 1 -col 0
