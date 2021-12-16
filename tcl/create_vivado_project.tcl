@@ -265,12 +265,12 @@ proc cr_bd_design_1 { parentCell } {
   set bCheckIPs 1
   if { $bCheckIPs == 1 } {
      set list_check_ips "\ 
-  xilinx.com:ip:axis_data_fifo:2.0\
   xilinx.com:ip:axi_gpio:2.0\
   xilinx.com:ip:xlconstant:1.1\
   xilinx.com:ip:axi_dma:7.1\
   NoiseIran:hls:dma_lb_axis_switch:1.0\
   xilinx.com:ip:system_ila:1.1\
+  xilinx.com:ip:axis_data_fifo:2.0\
   xilinx.com:ip:smartconnect:1.0\
   xilinx.com:ip:axi_perf_mon:5.0\
   xilinx.com:ip:proc_sys_reset:5.0\
@@ -688,6 +688,81 @@ proc create_hier_cell_sdi_ss { parentCell nameHier } {
   connect_bd_net -net v_smpte_uhdsdi_rx_ss_0_fid [get_bd_pins fid] [get_bd_pins v_smpte_uhdsdi_rx_ss_0/fid]
   connect_bd_net -net v_smpte_uhdsdi_rx_ss_0_sdi_rx_anc_ctrl_out [get_bd_pins v_smpte_uhdsdi_rx_ss_0/sdi_rx_anc_ctrl_out] [get_bd_pins v_uhdsdi_audio_extractor/sdi_extract_anc_ctrl_in]
   connect_bd_net -net v_smpte_uhdsdi_tx_ss_0_sdi_tx_anc_ctrl_out [get_bd_pins v_smpte_uhdsdi_tx_ss_0/sdi_tx_anc_ctrl_out] [get_bd_pins v_uhdsdi_audio_embedder/sdi_embed_anc_ctrl_in]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /sdi_ss] -layout_string {
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.374833",
+   "Default View_TopLeft":"-165,-83",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port AUDIO_IN -pg 1 -lvl 0 -x -30 -y 20 -defaultsOSRD
+preplace port AUDIO_OUT -pg 1 -lvl 7 -x 2730 -y 900 -defaultsOSRD
+preplace port VIDEO_IN -pg 1 -lvl 0 -x -30 -y 850 -defaultsOSRD
+preplace port VIDEO_OUT -pg 1 -lvl 7 -x 2730 -y 680 -defaultsOSRD
+preplace port gth_refclk0 -pg 1 -lvl 0 -x -30 -y 80 -defaultsOSRD
+preplace port sdi_s_axi_ctrl -pg 1 -lvl 0 -x -30 -y 730 -defaultsOSRD
+preplace port port-id_dcm_locked -pg 1 -lvl 0 -x -30 -y 390 -defaultsOSRD
+preplace port port-id_drpclk_aresetn -pg 1 -lvl 0 -x -30 -y 560 -defaultsOSRD
+preplace port port-id_drpclk_in -pg 1 -lvl 0 -x -30 -y 830 -defaultsOSRD
+preplace port port-id_fid -pg 1 -lvl 7 -x 2730 -y 720 -defaultsOSRD
+preplace port port-id_gth3_rx_n -pg 1 -lvl 0 -x -30 -y 350 -defaultsOSRD
+preplace port port-id_gth3_rx_p -pg 1 -lvl 0 -x -30 -y 330 -defaultsOSRD
+preplace port port-id_gth3_tx_n -pg 1 -lvl 7 -x 2730 -y 350 -defaultsOSRD
+preplace port port-id_gth3_tx_p -pg 1 -lvl 7 -x 2730 -y 330 -defaultsOSRD
+preplace port port-id_reset -pg 1 -lvl 0 -x -30 -y 370 -defaultsOSRD
+preplace port port-id_s_axi_aclk -pg 1 -lvl 0 -x -30 -y 750 -defaultsOSRD
+preplace port port-id_s_axi_arstn -pg 1 -lvl 0 -x -30 -y 770 -defaultsOSRD
+preplace inst rst_uhdsdi_gt_0_148M -pg 1 -lvl 3 -x 1160 -y 230 -defaultsOSRD
+preplace inst rst_uhdsdi_gt_0_148M_1 -pg 1 -lvl 1 -x 210 -y 460 -defaultsOSRD
+preplace inst smartconnect_0 -pg 1 -lvl 1 -x 210 -y 750 -defaultsOSRD
+preplace inst uhdsdi_gt_0 -pg 1 -lvl 4 -x 1630 -y 260 -defaultsOSRD
+preplace inst util_ds_buf_0 -pg 1 -lvl 3 -x 1160 -y 80 -defaultsOSRD
+preplace inst v_smpte_uhdsdi_rx_ss_0 -pg 1 -lvl 5 -x 2080 -y 700 -defaultsOSRD
+preplace inst v_smpte_uhdsdi_tx_ss_0 -pg 1 -lvl 3 -x 1160 -y 550 -defaultsOSRD
+preplace inst v_uhdsdi_audio_embedder -pg 1 -lvl 2 -x 700 -y 530 -defaultsOSRD
+preplace inst v_uhdsdi_audio_extractor -pg 1 -lvl 6 -x 2510 -y 930 -defaultsOSRD
+preplace netloc Net 1 0 5 NJ 560 430 680 960 740 NJ 740 NJ
+preplace netloc Net1 1 0 3 20 270 NJ 270 NJ
+preplace netloc drpclk_in_1 1 0 6 10J 650 470 690 950 720 1410 720 1850 990 NJ
+preplace netloc intf_0_rx_axi4s_rst_1 1 3 3 1390 560 1870 540 2310
+preplace netloc intf_0_rxn_0_1 1 0 4 -10J 360 NJ 360 NJ 360 1400J
+preplace netloc intf_0_rxp_0_1 1 0 4 NJ 330 NJ 330 950J 350 NJ
+preplace netloc net_zynq_ultra_ps_e_0_pl_clk0 1 0 6 30 660 450 700 930 760 NJ 760 1880 560 2300J
+preplace netloc reset_1 1 0 3 10 210 NJ 210 NJ
+preplace netloc rst_uhdsdi_gt_0_148M_1_peripheral_reset 1 1 3 440 340 960 330 1380
+preplace netloc s_axi_arstn_1 1 0 6 20 640 460 710 940 780 NJ 780 1860 550 2280
+preplace netloc uhdsdi_gt_0_intf_0_rxoutclk 1 2 4 970 340 1430 550 1840 930 NJ
+preplace netloc uhdsdi_gt_0_intf_0_txn 1 4 3 NJ 350 NJ 350 NJ
+preplace netloc uhdsdi_gt_0_intf_0_txoutclk 1 0 5 30 580 410 720 920 750 1420 540 1820
+preplace netloc uhdsdi_gt_0_intf_0_txp 1 4 3 NJ 330 NJ 330 NJ
+preplace netloc util_ds_buf_0_IBUF_OUT 1 3 1 1350J 70n
+preplace netloc v_smpte_uhdsdi_rx_ss_0_fid 1 5 2 NJ 720 NJ
+preplace netloc v_smpte_uhdsdi_rx_ss_0_sdi_rx_anc_ctrl_out 1 5 1 2270 760n
+preplace netloc v_smpte_uhdsdi_tx_ss_0_sdi_tx_anc_ctrl_out 1 1 3 480 770 NJ 770 1350
+preplace netloc Conn1 1 0 3 NJ 80 NJ 80 NJ
+preplace netloc Conn2 1 0 3 0J 350 NJ 350 930J
+preplace netloc Conn3 1 5 2 NJ 680 NJ
+preplace netloc sdi_s_axi_ctrl_1 1 0 1 NJ 730
+preplace netloc smartconnect_0_M00_AXI 1 1 4 390 730 NJ 730 1440J 660 NJ
+preplace netloc smartconnect_0_M01_AXI 1 1 2 400J 380 920
+preplace netloc smartconnect_0_M02_AXI 1 1 1 420 440n
+preplace netloc smartconnect_0_M03_AXI 1 1 5 440 850 NJ 850 NJ 850 NJ 850 NJ
+preplace netloc uhdsdi_gt_0_intf_0_rx_axi4s_ch0 1 4 1 1890 170n
+preplace netloc uhdsdi_gt_0_intf_0_stat_sb_rx 1 4 1 1850 190n
+preplace netloc uhdsdi_gt_0_intf_0_stat_sb_tx 1 2 3 970 710 NJ 710 1830
+preplace netloc v_smpte_uhdsdi_rx_ss_0_M_AXIS_CTRL_SB_RX 1 3 3 1440 530 NJ 530 2270
+preplace netloc v_smpte_uhdsdi_rx_ss_0_SDI_RX_ANC_DS_OUT 1 5 1 2290 700n
+preplace netloc v_smpte_uhdsdi_tx_ss_0_M_AXIS_CTRL_SB_TX 1 3 1 1370 70n
+preplace netloc v_smpte_uhdsdi_tx_ss_0_M_AXIS_TX 1 3 1 1360 50n
+preplace netloc v_smpte_uhdsdi_tx_ss_0_SDI_TX_ANC_DS_OUT 1 1 3 470 370 NJ 370 1350
+preplace netloc v_uhdsdi_audio_0_SDI_EMBED_ANC_DS_OUT 1 2 1 N 510
+preplace netloc v_uhdsdi_audio_1_M_AXIS_DATA 1 6 1 NJ 900
+levelinfo -pg 1 -30 210 700 1160 1630 2080 2510 2730
+pagesize -pg 1 -db -bbox -sgen -190 -10 2870 1070
+"
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2586,9 +2661,6 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   set gth3_tx_n [ create_bd_port -dir O gth3_tx_n ]
   set gth3_tx_p [ create_bd_port -dir O gth3_tx_p ]
 
-  # Create instance: audio_axis_data_fifo, and set properties
-  set audio_axis_data_fifo [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 audio_axis_data_fifo ]
-
   # Create instance: axi_gpio_dip_sw, and set properties
   set axi_gpio_dip_sw [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_dip_sw ]
   set_property -dict [ list \
@@ -2634,15 +2706,11 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   # Create instance: vcu_ss
   create_hier_cell_vcu_ss [current_bd_instance .] vcu_ss
 
-  # Create instance: video_axis_data_fifo, and set properties
-  set video_axis_data_fifo [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 video_axis_data_fifo ]
-
   # Create instance: zero, and set properties
   set zero [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 zero ]
 
   # Create interface connections
   connect_bd_intf_net -intf_net CLK_IN1_D_0_1 [get_bd_intf_ports sysclk_uz7ev] [get_bd_intf_pins sysclk_ss/sysclk_uz7ev]
-  connect_bd_intf_net -intf_net audio_axis_data_fifo_M_AXIS [get_bd_intf_pins audio_axis_data_fifo/M_AXIS] [get_bd_intf_pins sdi_ss/AUDIO_IN]
   connect_bd_intf_net -intf_net dma_ss_M00_AXI [get_bd_intf_pins dma_ss/M00_AXI] [get_bd_intf_pins mpsoc_ss/S_AXI_HPC1_FPD]
   connect_bd_intf_net -intf_net gth_refclk0_1 [get_bd_intf_ports gth_refclk0] [get_bd_intf_pins sdi_ss/gth_refclk0]
   connect_bd_intf_net -intf_net mpsoc_ss_M01_AXI [get_bd_intf_pins mpsoc_ss/vcu_s_axi_lite] [get_bd_intf_pins vcu_ss/S_AXI_LITE]
@@ -2654,18 +2722,19 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   connect_bd_intf_net -intf_net net_mpsoc_ss_M01_AXI [get_bd_intf_pins axi_gpio_led/S_AXI] [get_bd_intf_pins mpsoc_ss/gpio_led]
   connect_bd_intf_net -intf_net net_mpsoc_ss_M02_AXI [get_bd_intf_pins axi_gpio_push_buttons/S_AXI] [get_bd_intf_pins mpsoc_ss/gpio_push_button]
   connect_bd_intf_net -intf_net sdi_s_axi_ctrl_1 [get_bd_intf_pins mpsoc_ss/sdi_s_axi_lite] [get_bd_intf_pins sdi_ss/sdi_s_axi_ctrl]
-  connect_bd_intf_net -intf_net sdi_ss_AUDIO_OUT [get_bd_intf_pins audio_axis_data_fifo/S_AXIS] [get_bd_intf_pins sdi_ss/AUDIO_OUT]
-  connect_bd_intf_net -intf_net sdi_ss_VIDEO_OUT [get_bd_intf_pins sdi_ss/VIDEO_OUT] [get_bd_intf_pins video_axis_data_fifo/S_AXIS]
+  create_bd_intf_net sdi_ss_AUDIO_OUT
+  connect_bd_intf_net -intf_net [get_bd_intf_nets sdi_ss_AUDIO_OUT] [get_bd_intf_pins sdi_ss/AUDIO_IN] [get_bd_intf_pins sdi_ss/AUDIO_OUT]
+  create_bd_intf_net sdi_ss_VIDEO_OUT
+  connect_bd_intf_net -intf_net [get_bd_intf_nets sdi_ss_VIDEO_OUT] [get_bd_intf_pins sdi_ss/VIDEO_IN] [get_bd_intf_pins sdi_ss/VIDEO_OUT]
   connect_bd_intf_net -intf_net vcu_ss_M00_AXI [get_bd_intf_pins mpsoc_ss/S_AXI_HP1_FPD] [get_bd_intf_pins vcu_ss/ENC_M_AXI]
   connect_bd_intf_net -intf_net vcu_ss_M00_AXI1 [get_bd_intf_pins mpsoc_ss/S_AXI_HP2_FPD] [get_bd_intf_pins vcu_ss/DEC_M_AXI]
   connect_bd_intf_net -intf_net vcu_ss_M00_AXI2 [get_bd_intf_pins mpsoc_ss/S_AXI_HPC0_FPD] [get_bd_intf_pins vcu_ss/VCU_MCU]
-  connect_bd_intf_net -intf_net video_axis_data_fifo_M_AXIS [get_bd_intf_pins sdi_ss/VIDEO_IN] [get_bd_intf_pins video_axis_data_fifo/M_AXIS]
 
   # Create port connections
   connect_bd_net -net dma_ss_dma_mm2s_introut [get_bd_pins dma_ss/dma_mm2s_introut] [get_bd_pins mpsoc_ss/dma_mm2s_introut]
   connect_bd_net -net dma_ss_dma_s2mm_introut [get_bd_pins dma_ss/dma_s2mm_introut] [get_bd_pins mpsoc_ss/dma_s2mm_introut]
-  connect_bd_net -net drpclk_aresetn_1 [get_bd_pins audio_axis_data_fifo/s_axis_aresetn] [get_bd_pins sdi_ss/drpclk_aresetn] [get_bd_pins sysclk_ss/clk_200m_aresetn] [get_bd_pins video_axis_data_fifo/s_axis_aresetn]
-  connect_bd_net -net drpclk_in_1 [get_bd_pins audio_axis_data_fifo/s_axis_aclk] [get_bd_pins sdi_ss/drpclk_in] [get_bd_pins sysclk_ss/clk_200m] [get_bd_pins video_axis_data_fifo/s_axis_aclk]
+  connect_bd_net -net drpclk_aresetn_1 [get_bd_pins sdi_ss/drpclk_aresetn] [get_bd_pins sysclk_ss/clk_200m_aresetn]
+  connect_bd_net -net drpclk_in_1 [get_bd_pins sdi_ss/drpclk_in] [get_bd_pins sysclk_ss/clk_200m]
   connect_bd_net -net gth3_rx_n_1 [get_bd_ports gth3_rx_n] [get_bd_pins sdi_ss/gth3_rx_n]
   connect_bd_net -net gth3_rx_p_1 [get_bd_ports gth3_rx_p] [get_bd_pins sdi_ss/gth3_rx_p]
   connect_bd_net -net mpsoc_ss_Dout [get_bd_pins mpsoc_ss/vcu_resetn] [get_bd_pins vcu_ss/vcu_resetn]
@@ -2739,71 +2808,67 @@ proc create_hier_cell_dma_ss { parentCell nameHier } {
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.462727",
-   "Default View_TopLeft":"-398,0",
+   "Default View_ScaleFactor":"0.463441",
+   "Default View_TopLeft":"-371,2",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
-preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1610 -y 220 -defaultsOSRD
-preplace port gth_refclk0 -pg 1 -lvl 0 -x 0 -y 780 -defaultsOSRD
-preplace port led_8bits -pg 1 -lvl 5 -x 1610 -y 360 -defaultsOSRD
-preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1610 -y 500 -defaultsOSRD
-preplace port sysclk_uz7ev -pg 1 -lvl 0 -x 0 -y 290 -defaultsOSRD
-preplace port port-id_gth3_rx_n -pg 1 -lvl 0 -x 0 -y 800 -defaultsOSRD
-preplace port port-id_gth3_rx_p -pg 1 -lvl 0 -x 0 -y 820 -defaultsOSRD
-preplace port port-id_gth3_tx_n -pg 1 -lvl 5 -x 1610 -y 820 -defaultsOSRD
-preplace port port-id_gth3_tx_p -pg 1 -lvl 5 -x 1610 -y 840 -defaultsOSRD
-preplace inst audio_axis_data_fifo -pg 1 -lvl 3 -x 1010 -y 690 -defaultsOSRD -resize 200 116
-preplace inst dma_ss -pg 1 -lvl 2 -x 590 -y 120 -defaultsOSRD
-preplace inst mpsoc_ss -pg 1 -lvl 3 -x 1010 -y 390 -defaultsOSRD
-preplace inst one -pg 1 -lvl 2 -x 590 -y 500 -defaultsOSRD
-preplace inst sdi_ss -pg 1 -lvl 4 -x 1440 -y 800 -defaultsOSRD
-preplace inst sysclk_ss -pg 1 -lvl 1 -x 190 -y 300 -defaultsOSRD
-preplace inst vcu_ss -pg 1 -lvl 2 -x 590 -y 330 -defaultsOSRD
-preplace inst video_axis_data_fifo -pg 1 -lvl 3 -x 1010 -y 890 -defaultsOSRD
-preplace inst zero -pg 1 -lvl 3 -x 1010 -y 1040 -defaultsOSRD -resize 120 88
-preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1440 -y 220 -defaultsOSRD
-preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1440 -y 360 -defaultsOSRD
-preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1440 -y 500 -defaultsOSRD
-preplace netloc dma_ss_dma_mm2s_introut 1 2 1 800 130n
-preplace netloc dma_ss_dma_s2mm_introut 1 2 1 780 150n
-preplace netloc drpclk_aresetn_1 1 1 3 360 600 790 790 N
-preplace netloc drpclk_in_1 1 1 3 370 610 770 810 N
-preplace netloc gth3_rx_n_1 1 0 4 NJ 800 NJ 800 NJ 800 1210J
-preplace netloc gth3_rx_p_1 1 0 4 NJ 820 NJ 820 750J 970 1290J
-preplace netloc mpsoc_ss_Dout 1 1 3 430 560 NJ 560 1210
-preplace netloc mpsoc_ss_pl_clk0 1 1 3 400 570 NJ 570 1270
-preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 590 NJ 590 780J 550 1220
-preplace netloc one_dout 1 2 2 810 540 1230J
-preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 410 580 NJ 580 1280
-preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 380 220 790J
-preplace netloc sdi_ss_gth3_tx_n 1 4 1 NJ 820
-preplace netloc sdi_ss_gth3_tx_p 1 4 1 NJ 840
-preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 390 430 770J
-preplace netloc sysclk_ss_clk_33_33333mhz 1 1 1 N 340
-preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 760 360n
-preplace netloc zero_dout 1 3 1 1300J 870n
-preplace netloc CLK_IN1_D_0_1 1 0 1 NJ 290
-preplace netloc audio_axis_data_fifo_M_AXIS 1 3 1 N 690
-preplace netloc dma_ss_M00_AXI 1 2 1 810 90n
-preplace netloc gth_refclk0_1 1 0 4 NJ 780 NJ 780 NJ 780 1250J
-preplace netloc mpsoc_ss_M01_AXI 1 1 3 420 440 750J 530 1240
-preplace netloc mpsoc_ss_dma_s_axi_lite 1 1 3 360 10 NJ 10 1210
-preplace netloc net_axi_gpio_0_GPIO 1 4 1 NJ 220
-preplace netloc net_axi_gpio_1_GPIO 1 4 1 NJ 360
-preplace netloc net_axi_gpio_2_GPIO 1 4 1 NJ 500
-preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1220 200n
-preplace netloc net_mpsoc_ss_M01_AXI 1 3 1 N 340
-preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1230 360n
-preplace netloc sdi_s_axi_ctrl_1 1 3 1 1260 380n
-preplace netloc sdi_ss_AUDIO_OUT 1 2 3 800 600 NJ 600 1590
-preplace netloc sdi_ss_VIDEO_OUT 1 2 3 810 610 NJ 610 1580
-preplace netloc vcu_ss_M00_AXI 1 2 1 760 300n
-preplace netloc vcu_ss_M00_AXI1 1 2 1 750 300n
-preplace netloc vcu_ss_M00_AXI2 1 2 1 N 340
-preplace netloc video_axis_data_fifo_M_AXIS 1 3 1 1240 710n
-levelinfo -pg 1 0 190 590 1010 1440 1610
-pagesize -pg 1 -db -bbox -sgen -150 0 1800 1100
+preplace port dip_switches_8bits -pg 1 -lvl 5 -x 1580 -y 210 -defaultsOSRD
+preplace port gth_refclk0 -pg 1 -lvl 0 -x 0 -y 680 -defaultsOSRD
+preplace port led_8bits -pg 1 -lvl 5 -x 1580 -y 350 -defaultsOSRD
+preplace port push_buttons_3bits -pg 1 -lvl 5 -x 1580 -y 490 -defaultsOSRD
+preplace port sysclk_uz7ev -pg 1 -lvl 0 -x 0 -y 780 -defaultsOSRD
+preplace port port-id_gth3_rx_n -pg 1 -lvl 0 -x 0 -y 880 -defaultsOSRD
+preplace port port-id_gth3_rx_p -pg 1 -lvl 0 -x 0 -y 900 -defaultsOSRD
+preplace port port-id_gth3_tx_n -pg 1 -lvl 5 -x 1580 -y 770 -defaultsOSRD
+preplace port port-id_gth3_tx_p -pg 1 -lvl 5 -x 1580 -y 790 -defaultsOSRD
+preplace inst axi_gpio_dip_sw -pg 1 -lvl 4 -x 1410 -y 210 -defaultsOSRD
+preplace inst axi_gpio_led -pg 1 -lvl 4 -x 1410 -y 350 -defaultsOSRD
+preplace inst axi_gpio_push_buttons -pg 1 -lvl 4 -x 1410 -y 490 -defaultsOSRD
+preplace inst dma_ss -pg 1 -lvl 2 -x 580 -y 380 -defaultsOSRD
+preplace inst mpsoc_ss -pg 1 -lvl 3 -x 990 -y 380 -defaultsOSRD
+preplace inst one -pg 1 -lvl 2 -x 580 -y 540 -defaultsOSRD
+preplace inst sdi_ss -pg 1 -lvl 4 -x 1410 -y 750 -defaultsOSRD
+preplace inst sysclk_ss -pg 1 -lvl 1 -x 190 -y 790 -defaultsOSRD
+preplace inst vcu_ss -pg 1 -lvl 2 -x 580 -y 110 -defaultsOSRD
+preplace inst zero -pg 1 -lvl 3 -x 990 -y 870 -defaultsOSRD -resize 120 88
+preplace netloc dma_ss_dma_mm2s_introut 1 2 1 770 390n
+preplace netloc dma_ss_dma_s2mm_introut 1 2 1 740 410n
+preplace netloc drpclk_aresetn_1 1 1 3 370J 760 NJ 760 1190
+preplace netloc drpclk_in_1 1 1 3 NJ 750 NJ 750 1200
+preplace netloc gth3_rx_n_1 1 0 4 NJ 880 NJ 880 750J 780 NJ
+preplace netloc gth3_rx_p_1 1 0 4 NJ 900 NJ 900 780J 800 NJ
+preplace netloc mpsoc_ss_Dout 1 1 3 420 220 NJ 220 1200
+preplace netloc mpsoc_ss_pl_clk0 1 1 3 400 600 NJ 600 1240
+preplace netloc mpsoc_ss_pl_resetn0 1 0 4 20 690 NJ 690 NJ 690 1190
+preplace netloc one_dout 1 2 2 790 770 1220J
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 1 3 420 610 NJ 610 1250
+preplace netloc rst_sysclk_clk_wiz_300M_peripheral_aresetn 1 1 2 380 770 780
+preplace netloc sdi_ss_gth3_tx_n 1 4 1 NJ 770
+preplace netloc sdi_ss_gth3_tx_p 1 4 1 NJ 790
+preplace netloc sysclk_clk_wiz_clk_300mhz 1 1 2 360 480 750J
+preplace netloc sysclk_ss_clk_33_33333mhz 1 1 1 390 120n
+preplace netloc vcu_ss_vcu_host_interrupt 1 2 1 760 140n
+preplace netloc zero_dout 1 3 1 1270J 820n
+preplace netloc CLK_IN1_D_0_1 1 0 1 NJ 780
+preplace netloc dma_ss_M00_AXI 1 2 1 N 350
+preplace netloc gth_refclk0_1 1 0 4 NJ 680 NJ 680 NJ 680 NJ
+preplace netloc mpsoc_ss_M01_AXI 1 1 3 410 210 NJ 210 1210
+preplace netloc mpsoc_ss_dma_s_axi_lite 1 1 3 420 230 NJ 230 1190
+preplace netloc net_axi_gpio_0_GPIO 1 4 1 NJ 210
+preplace netloc net_axi_gpio_1_GPIO 1 4 1 NJ 350
+preplace netloc net_axi_gpio_2_GPIO 1 4 1 NJ 490
+preplace netloc net_mpsoc_ss_M00_AXI 1 3 1 1230 190n
+preplace netloc net_mpsoc_ss_M01_AXI 1 3 1 N 330
+preplace netloc net_mpsoc_ss_M02_AXI 1 3 1 1220 350n
+preplace netloc sdi_s_axi_ctrl_1 1 3 1 1230 370n
+preplace netloc vcu_ss_M00_AXI 1 2 1 780 100n
+preplace netloc vcu_ss_M00_AXI1 1 2 1 790 80n
+preplace netloc vcu_ss_M00_AXI2 1 2 1 770 120n
+preplace netloc sdi_ss_AUDIO_OUT 1 3 2 1260 570 1560
+preplace netloc sdi_ss_VIDEO_OUT 1 3 2 1270 580 1550
+levelinfo -pg 1 0 190 580 990 1410 1580
+pagesize -pg 1 -db -bbox -sgen -150 0 1770 930
 "
 }
 
