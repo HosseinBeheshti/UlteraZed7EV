@@ -75,7 +75,7 @@ echo "Finished at" >> $ORG_DIR/build_petalinux_project_runtime.txt
 date >> $ORG_DIR/build_petalinux_project_runtime.txt
 
 # Configuring SD boot 
-# Ref: UG1144 (v2020.2) PetaLinux Tools Documentation Reference Guide page: 76
+# Ref: UG1144 (v2021.2) PetaLinux Tools Documentation Reference Guide page: 76
 # $ cp images/linux/BOOT.BIN /media/<user>/BOOT/ 
 # $ cp images/linux/image.ub /media/<user>/BOOT/ 
 # $ cp images/linux/boot.scr /media/<user>/BOOT/ 
